@@ -19,7 +19,7 @@ What
 
 
 ## Commiting Guidelines
-
+Everyone loves guidlines 
 
 
 ## Bug Tracking 
