@@ -1,13 +1,4 @@
-# FunEzzQueue (placeholder)
-
-This is FunEzQueue
-
-
-## Frontend (Client) Framework
-React.js
-
-## Backend (Server) Framework
-Express.js (Node.js)
+# FunQ - The digital queue
 
 ## The App (Functional Specification)
 FunQ (FunQueue) is a digital queueing web application where visitors can queue for events and releases of different sorts.
@@ -71,11 +62,17 @@ My account page:
     Personal settings
     
 ## Technical details
-1. API's needed:
+### Frontend (Client) Framework
+React.js
+
+### Backend (Server) Framework
+Express.js (Node.js)
+
+### API's needed:
     1. reCAPTCHA 
     2. LiuID api?
     3. Facebook account login
     4. 
     
-2. Grunt/Gulp for compiling LESS CSS files
+### Grunt/Gulp for compiling LESS CSS files
 
