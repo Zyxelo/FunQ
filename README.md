@@ -9,57 +9,65 @@ Two main functions will be developed
 2. Event organizer
 
 The visitor can browse different events or queueing campaigns, both from "featured events", search bar, or direct link.
+
 The visitor enters the queue and a timer until the queue stops is visible. 
+
 Every x min the visitor has to enter a captcha code to keep the queueing spot.
+
 If the visitor doesn't do this, it will lose y spots until next captcha appears.
+
 When queueing timer reaches zero, the visitor redirects to final page. 
+
 Final page is where you confirm your purchase in some way. This may vary from swish, paypal or redirect to another page.
 
+
 The event organizer can create events and choose settings depending on the event/campaign.
+
 Example of settings can be: number of queue spots, date and time of queue, how often visitor has to enter captcha, etc.
+
 Event organizer chooses final page of the queue, where the visitor can for example obtain temporary coupon code, or pay for ticket.
 
 ### Pages
-Landing page:
-    Not logged in:
-        Featured events
-        About the service
-        Sign up
-    Logged in:
-        More events
+    1. Landing page:
+        Not logged in:
+            Featured events
+            About the service
+            Sign up
+        Logged in:
+            More events
 
-Sign up page:
-    Register with name etc
-    (Credit card not required, but might be needed later)
-    Choose account type
-        Visitor
-        Event organizer
+    2. Sign up page:
+        Register with name etc
+        (Credit card not required, but might be needed later)
+        Choose account type
+            Visitor
+            Event organizer
 
-Queueing page:
-    Big timer to end of queue
-    Captcha
-    Queue place
-    Extensions for games and ads
-    Support for multiple queues
+    3.Queueing page:
+        Big timer to end of queue
+        Captcha
+        Queue place
+        Extensions for games and ads
+        Support for multiple queues
 
-Create event page:
-    Choose settings for event
-        Name, date, settings etc
-    Choose final page function
-        Swish number
-        Payment solution (paypal, visa mastercard etc)
-        Coupon code
-        Redirect to other site
+    4. Create event page:
+        Choose settings for event
+            Name, date, settings etc
+        Choose final page function
+            Swish number
+            Payment solution (paypal, visa mastercard etc)
+            Coupon code
+            Redirect to other site
+            
+    5. Event page:
+        From queueing page or landing page this page is reachable
+        Displays event information
+        Ads, campaigns, competitions for better spot in queue
+        FAQ
+        Videos
         
-Event page:
-    From queueing page or landing page this page is reachable
-    Displays event information
-    Ads, campaigns, competitions for better spot in queue
-    FAQ
-    Videos
-    
-My account page:
-    Personal settings
+    6. My account page:
+        Personal settings
     
 ## Technical details
 ### Frontend (Client) Framework
@@ -72,7 +80,7 @@ Express.js (Node.js)
     1. reCAPTCHA 
     2. LiuID api?
     3. Facebook account login
-    4. 
+    4. Might need more APIs
     
 ### Grunt/Gulp for compiling LESS CSS files
 
