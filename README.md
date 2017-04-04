@@ -9,7 +9,7 @@ React.js
 ## Backend (Server) Framework
 Express.js (Node.js)
 
-# The App
+## The App (Functional Specification)
 FunQ (FunQueue) is a digital queueing web application where visitors can queue for events and releases of different sorts.
 
 Two main functions will be developed
@@ -28,40 +28,54 @@ The event organizer can create events and choose settings depending on the event
 Example of settings can be: number of queue spots, date and time of queue, how often visitor has to enter captcha, etc.
 Event organizer chooses final page of the queue, where the visitor can for example obtain temporary coupon code, or pay for ticket.
 
+### Pages
+Landing page:
+    Not logged in:
+        Featured events
+        About the service
+        Sign up
+    Logged in:
+        More events
 
+Sign up page:
+    Register with name etc
+    (Credit card not required, but might be needed later)
+    Choose account type
+        Visitor
+        Event organizer
 
-## Getting Started
+Queueing page:
+    Big timer to end of queue
+    Captcha
+    Queue place
+    Extensions for games and ads
+    Support for multiple queues
 
-Stuff about how to start server etc.. 
-Ex: 
-
-**Mac**
-```
-RUN_ENV=dev node apps.js
-```
-
-### Prerequisites
-
-What 
-
-
-## Commiting Guidelines
-Everyone loves guidlines 
-
-
-## Bug Tracking 
-If you find a bug in the product, create an Issue in GitLab and assign it to a suitable person for the task. 
-
-## Deployment
-
-How to deploy this to da server
-
-
-
-
-
-
-
-
-
+Create event page:
+    Choose settings for event
+        Name, date, settings etc
+    Choose final page function
+        Swish number
+        Payment solution (paypal, visa mastercard etc)
+        Coupon code
+        Redirect to other site
+        
+Event page:
+    From queueing page or landing page this page is reachable
+    Displays event information
+    Ads, campaigns, competitions for better spot in queue
+    FAQ
+    Videos
+    
+My account page:
+    Personal settings
+    
+## Technical details
+1. API's needed:
+    1. reCAPTCHA 
+    2. LiuID api?
+    3. Facebook account login
+    4. 
+    
+2. Grunt/Gulp for compiling LESS CSS files
 
