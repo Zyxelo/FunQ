@@ -7,8 +7,11 @@ var router = express.Router();
 router.get('/getUsername/:userID?', function(req,res) {
     var userID = parseInt(req.params.userID);
 
+
     if (userID === 1) {
         res.json({username : "odelali"});
+    } else if (userID === 2) {
+        res.json({username : "anton hoppsansa "});
     } else {
         res.json({
             username : "plankton",
