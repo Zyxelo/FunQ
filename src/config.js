@@ -39,6 +39,7 @@ module.exports = {
     jwt: { secret: process.env.JWT_SECRET || 'React Starter Kit' },
 
     // https://developers.facebook.com/
+    // Currently using FunQ App Id and App Secret
     facebook: {
       id: process.env.FACEBOOK_APP_ID || '1906641886280629',
       secret: process.env.FACEBOOK_APP_SECRET || '9c56f3117d289db790d1324f946d80b0',
