@@ -19,7 +19,7 @@ class QueElement extends React.Component {
                         </div>
                     ) : ('') }
                     <div className="time-left">
-                        <p>{this.props.timeLeft}</p>
+                        <p>{this.props.hours}h {this.props.minutes}min {this.props.seconds}s</p>
                     </div>
                     <div className="que-details">
                         <p>{this.props.queTitle}</p>
