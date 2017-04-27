@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../Que/logo.png';
+import logo from '../QuePage/logo.png';
 import './navbar.component.css';
 
 class Navbar extends React.Component {

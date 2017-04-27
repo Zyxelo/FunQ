@@ -25,7 +25,7 @@ class QueElement extends React.Component {
                         <p>{this.props.queTitle}</p>
                         <p>{this.props.queDetails}</p>
                     </div>
-                    <a href={this.props.href} className="btn btn-primary enter-que" role="button">Enter queue</a>
+                    <a href={this.props.href} className="btn btn-primary home-enter-que" role="button">Enter queue</a>
                 </div>
             </div>
         )
