@@ -1,3 +1,6 @@
+.row {
+}
+
 .top-que {
     position: relative;
     margin-top:30px;
@@ -19,7 +22,7 @@
 }
 
 .crop .image {
-    margin-left: 0%;
+    margin-left: 0;
     opacity: 0.4;
     width:140%;
 }
@@ -32,13 +35,16 @@
     width:100%;
     position: absolute;
     top:0;
-    padding:20px 30px 0px 30px;
+    padding:20px 30px 0 30px;
     height: 300px;
 }
 .top-que .que-info {
-    padding:80px 100px 0px 100px;
+    padding:80px 100px 0 100px;
     height: 400px;
     margin-bottom: 30px;
+}
+.row .que-info {
+    width:95%;
 }
 
 .clock{
