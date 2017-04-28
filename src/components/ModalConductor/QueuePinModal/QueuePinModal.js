@@ -10,14 +10,14 @@ class QueuePin extends Component {
                     <h1>HAVE A QUEUE CODE?</h1>
 
                     <form>
-                        <div class="form-group">
+                        <div className="form-group">
                             <input type="text" placeholder="QUE PIN" maxLength={20}></input>
                         </div>
-                        <div class="form-group">
+                        <div className="form-group">
                             <button>ENTER QUEUE</button>
                         </div>
                     </form>
-                    <p class="close-modal">No pin? <a href="#" onClick={this.props.close}>Enter site</a></p>
+                    <p className="close-modal">No pin? <a href="#" onClick={this.props.close}>Enter site</a></p>
                 </Modal.Body>
             </div>
         );
