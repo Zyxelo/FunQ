@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom';
 import clock from './white_clock.gif';
 
 class QueElement extends React.Component {
+
     render() {
             return (
             <div className={this.props.mainClass}>
@@ -26,7 +27,7 @@ class QueElement extends React.Component {
                         <p>{this.props.queTitle}</p>
                         <p>{this.props.queDetails}</p>
                     </div>
-                    <Link to={this.props.href} className="btn btn-primary home-enter-que" role="button">Enter queue</Link>
+                    <Link to={this.props.href} className="btn btn-primary home-enter-que" role="button" >Enter queue</Link>
                 </div>
             </div>
         )

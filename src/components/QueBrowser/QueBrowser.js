@@ -16,6 +16,7 @@ class QueBrowser extends React.Component {
             hoursSO:18,
             minutes:42,
             seconds:20,
+            showModal:false
         }
     }
 
@@ -43,15 +44,11 @@ class QueBrowser extends React.Component {
                 seconds: 59
             }));
         }
-
-        console.log('hej');
-
     }
 
     render() {
         return (
             <div className="container wrapper">
-                <ModalConductor currentModal="SIGN_IN"/>
                 <QueElement isTopQue={true} mainClass="top-que" imageSrc={hakan} hours={this.state.hoursHH}
                             minutes={this.state.minutes} seconds={this.state.seconds}
                             queTitle="Håkan Hellström" queDetails="Ullevi 27/6" href="/que"/>
@@ -63,6 +60,7 @@ class QueBrowser extends React.Component {
                                 minutes={this.state.minutes} seconds={this.state.seconds}
                                 queTitle="Studentorkesterfestivalen 2017" queDetails="12/6-14/6" href="/que"/>
                 </div>
+                <ModalConductor currentModal="QUEUE_PIN"/>
             </div>
         );
     }

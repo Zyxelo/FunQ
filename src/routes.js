@@ -10,8 +10,16 @@ import Que from './components/QuePage/QuePage';
 import Navbar from './components/Navbar/QueNavbar';
 import NotFound from './components/NotFound/notFound.component';
 import QueBrowser from './components/QueBrowser/QueBrowser';
+import ModalConductor from './components/ModalConductor/ModalConductor';
+import Global from 'react-global';
+
+<Global values={{
+    currentModal:'LOG_IN'
+}} />
+
 
 const Routes = () => (
+
     <Router>
         <div>
             <Navbar/>
@@ -21,6 +29,7 @@ const Routes = () => (
                 <Route path="/home" component={QueBrowser} />
                 <Route component={NotFound} />
             </Switch>
+            <ModalConductor/>
         </div>
     </Router>
 );

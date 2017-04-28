@@ -3,23 +3,27 @@ import {Button, Modal} from 'react-bootstrap';
 import QueuePinModal from './QueuePinModal/QueuePinModal';
 import SignInModal from './SignInModal/SignInModal';
 import Switch, {Case, Default} from 'react-switch-case';
+import Global from 'react-global';
 
 class ModalConductor extends Component {
     constructor(props){
         super(props);
+        var modalType = Global.get('currentModal');
         this.state = {
-            showModal : false
+            showModal : true,
+            currentModal : modalType
         }
-
+        console.log(modalType);
         this.close = this.close.bind(this);
         this.open = this.open.bind(this);
     }
     getInitialState() {
-        return { showModal: false };
+        return { showModal: true };
     }
 
     close() {
         this.setState({ showModal: false });
+
     }
 
     open() {
@@ -29,17 +33,7 @@ class ModalConductor extends Component {
     render() {
         return (
             <div>
-                <p>Click to get the full Modal experience!</p>
-
-                <Button
-                    bsStyle="primary"
-                    bsSize="large"
-                    onClick={this.open}
-                >
-                    Launch demo modal
-                </Button>
-
-                <Modal show={this.state.showModal} onHide={this.close}>
+                <Modal show={this.state.showModal} bsSize="md" onHide={this.close}>
                     <Switch condition={this.props.currentModal} >
                         <Case value="QUEUE_PIN">
                             <QueuePinModal close={this.close}/>
