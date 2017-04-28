@@ -9,6 +9,7 @@ class QueBrowser extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             hoursHH:7,
             hoursCK:4,
@@ -50,7 +51,7 @@ class QueBrowser extends React.Component {
     render() {
         return (
             <div className="container wrapper">
-                <QueElement isTopQue={true} mainClass="top-que" imageSrc={hakan} hours={this.state.hoursHH} minutes={this.state.minutes} seconds={this.state.seconds} queTitle="Håkan Hellström" queDetails="Ullevi 27/6" href=""/>
+                <QueElement isTopQue={true} mainClass="top-que" imageSrc={hakan} hours={this.state.hoursHH} minutes={this.state.minutes} seconds={this.state.seconds} queTitle="Håkan Hellström" queDetails="Ullevi 27/6" href="/que"/>
                 <div className="row">
                     <QueElement mainClass="col-sm-12 col-md-6" imageSrc={middag} hours={this.state.hoursCK} minutes={this.state.minutes} seconds={this.state.seconds} queTitle="C-klassittning" queDetails="KK 5/6 18.00" href=""/>
                     <QueElement mainClass="col-sm-12 col-md-6" imageSrc={sof} hours={this.state.hoursSO} minutes={this.state.minutes} seconds={this.state.seconds} queTitle="Studentorkesterfestivalen 2017" queDetails="12/6-14/6" href=""/>
