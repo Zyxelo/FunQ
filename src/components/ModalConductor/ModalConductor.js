@@ -3,12 +3,10 @@ import {Button, Modal} from 'react-bootstrap';
 import QueuePinModal from './QueuePinModal/QueuePinModal';
 import SignInModal from './SignInModal/SignInModal';
 import Switch, {Case, Default} from 'react-switch-case';
-import Global from 'react-global';
 
 class ModalConductor extends Component {
     constructor(props){
         super(props);
-        var modalType = Global.get('currentModal');
         this.state = {
             showModal : true,
             currentModal : modalType
