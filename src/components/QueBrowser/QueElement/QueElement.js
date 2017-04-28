@@ -8,7 +8,7 @@ import clock from './white_clock.gif';
 
 class QueElement extends React.Component {
     render() {
-        return (
+            return (
             <div className={this.props.mainClass}>
                 <div className="crop">
                     <img className="image" src={this.props.imageSrc} alt="image" />
