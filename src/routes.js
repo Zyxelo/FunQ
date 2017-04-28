@@ -7,15 +7,20 @@ import {
 
 import Home from './components/Home/Home';
 import Que from './components/QuePage/QuePage';
-import Navbar from './components/Navbar/navbar.component';
+import Navbar from './components/Navbar/QueNavbar';
 import NotFound from './components/NotFound/notFound.component';
 import QueBrowser from './components/QueBrowser/QueBrowser';
+
 import ReCaptcha from './components/ReCaptcha/ReCaptcha';
 
+import ModalConductor from './components/ModalConductor/ModalConductor';
+
+
 const Routes = () => (
+
     <Router>
         <div>
-            <Route component={Navbar} />
+            <Navbar/>
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/que" component={Que} />
@@ -23,6 +28,7 @@ const Routes = () => (
                 <Route path="/captcha" component={ReCaptcha} />
                 <Route component={NotFound} />
             </Switch>
+            <ModalConductor/>
         </div>
     </Router>
 );

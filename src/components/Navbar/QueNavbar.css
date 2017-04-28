@@ -1,0 +1,66 @@
+.navbar-logo {
+    height: 40px;
+}
+
+.navbar {
+    background-color: #2A2C2B;
+    height:70px;
+    border-radius: 0;
+    border: none;
+}
+
+.navbar a {
+    height: 100%;
+}
+
+.navbar-collapse {
+    padding:10px 0;
+}
+
+.navbar-btn {
+    margin-right: 0;
+}
+
+.navbar-form {
+    position: relative;
+}
+
+.navbar .glyphicon {
+    position: absolute;
+    padding:8px;
+    left:15px;
+    font-size: 18px;
+    color: #999;
+}
+
+.navbar .form-control {
+    padding-left:36px;
+    width: 400px;
+}
+
+.navbar-btn {
+    font-family: "Arial Rounded MT Bold";
+}
+
+.navbar-toggle {
+    float:right;
+    margin-top:18px;
+}
+
+.navbar-collapse.in {
+    background-color: whitesmoke;
+    text-align: center;
+    padding: 10px 20px;
+}
+
+.navbar-collapse.in .navbar-btn {
+    width: 100%;
+}
+
+.navbar-collapse.in .form-control {
+    width: 100%;
+}
+
+.navbar-collapse.in .glyphicon {
+    top:10px;
+}
