@@ -1,5 +1,6 @@
-body{
-    border:2px solid #fff;
+.modal-content {
+    border:2px solid #000;
+    height:80%;
 }
 
 .pin-modal {
@@ -22,7 +23,16 @@ input[type='text']{
     padding:20px;
     font-size:30px;
     font-style: italic;
+    text-align:center;
+    color:#000;
 }
 
 .close-modal {
+    font-weight: bold;
+}
+
+h1 {
+    margin:15% 0px 55px 0px;
+    color:#fff;
+    font-weight:bold;
 }
