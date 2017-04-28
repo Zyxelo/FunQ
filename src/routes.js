@@ -7,7 +7,7 @@ import {
 
 import Home from './components/Home/Home';
 import Que from './components/QuePage/QuePage';
-import Navbar from './components/Navbar/navbar.component';
+import Navbar from './components/Navbar/QueNavbar';
 import NotFound from './components/NotFound/notFound.component';
 import QueBrowser from './components/QueBrowser/QueBrowser';
 import ModalConductor from './components/ModalConductor/ModalConductor';
@@ -22,7 +22,7 @@ const Routes = () => (
 
     <Router>
         <div>
-            <Route component={Navbar} />
+            <Navbar/>
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/que" component={Que} />
