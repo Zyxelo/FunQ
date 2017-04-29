@@ -1,5 +1,5 @@
 import React from 'react';
-import hakan from '../QueBrowser/hakan_ullevi.jpg';
+import hakan from '../../../public/images/hakan_ullevi.jpg';
 import './QuePage.css';
 
 class Que extends React.Component {

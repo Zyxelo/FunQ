@@ -1,11 +1,10 @@
 import React from 'react';
-import hakan from './hakan_ullevi.jpg';
-import middag from './middag.jpg';
-import sof from './sof.jpg';
+import hakan from '../../../public/images/hakan_ullevi.jpg';
+import middag from '../../../public/images/middag.jpg';
+import sof from '../../../public/images/sof.jpg';
 import QueElement from './QueElement/QueElement';
 import QueTopElement from './QueTopElement/QueTopElement';
 import ModalConductor from '../ModalConductor/ModalConductor';
-import './QueBrowser.css';
 
 class QueBrowser extends React.Component {
 
@@ -50,16 +49,18 @@ class QueBrowser extends React.Component {
     render() {
         return (
             <div className="container wrapper">
-                <QueTopElement isTopQue={true} mainClass="top-que" imageSrc={hakan} hours={this.state.hoursHH}
+                <QueTopElement imageSrc={hakan} hours={this.state.hoursHH}
                             minutes={this.state.minutes} seconds={this.state.seconds}
                             queTitle="Håkan Hellström" queDetails="Ullevi 27/6" href="/que"/>
-                <div className="row">
-                    <QueElement mainClass="col-sm-12 col-md-6" imageSrc={middag} hours={this.state.hoursCK}
-                                minutes={this.state.minutes} seconds={this.state.seconds}
-                                queTitle="C-klassittning" queDetails="KK 5/6 18.00" href="/que"/>
-                    <QueElement mainClass="col-sm-12 col-md-6" imageSrc={sof} hours={this.state.hoursSO}
-                                minutes={this.state.minutes} seconds={this.state.seconds}
-                                queTitle="Studentorkesterfestivalen 2017" queDetails="12/6-14/6" href="/que"/>
+                <div className="que-element-wrapper">
+                    <div className="row">
+                        <QueElement imageSrc={middag} hours={this.state.hoursCK}
+                                    minutes={this.state.minutes} seconds={this.state.seconds}
+                                    queTitle="C-klassittning" queDetails="KK 5/6 18.00" href="/que"/>
+                        <QueElement imageSrc={sof} hours={this.state.hoursSO}
+                                    minutes={this.state.minutes} seconds={this.state.seconds}
+                                    queTitle="SOF 2017" queDetails="12/6-14/6" href="/que"/>
+                    </div>
                 </div>
                 <ModalConductor currentModal="QUEUE_PIN"/>
             </div>
