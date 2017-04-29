@@ -4,7 +4,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import clock from './white_clock.gif';
+import clock from '../QueTopElement/white_clock.gif';
 
 class QueElement extends React.Component {
 
@@ -15,11 +15,6 @@ class QueElement extends React.Component {
                     <img className="image" src={this.props.imageSrc} alt="image" />
                 </div>
                 <div className="que-info">
-                    {this.props.isTopQue ?(
-                        <div className="clock">
-                            <img src={clock} alt="clock" />
-                        </div>
-                    ) : ('') }
                     <div className="time-left">
                         <p>{this.props.hours}h {this.props.minutes}min {this.props.seconds}s</p>
                     </div>

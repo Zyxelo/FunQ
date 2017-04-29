@@ -3,6 +3,7 @@ import hakan from './hakan_ullevi.jpg';
 import middag from './middag.jpg';
 import sof from './sof.jpg';
 import QueElement from './QueElement/QueElement';
+import QueTopElement from './QueTopElement/QueTopElement';
 import ModalConductor from '../ModalConductor/ModalConductor';
 import './QueBrowser.css';
 
@@ -49,7 +50,7 @@ class QueBrowser extends React.Component {
     render() {
         return (
             <div className="container wrapper">
-                <QueElement isTopQue={true} mainClass="top-que" imageSrc={hakan} hours={this.state.hoursHH}
+                <QueTopElement isTopQue={true} mainClass="top-que" imageSrc={hakan} hours={this.state.hoursHH}
                             minutes={this.state.minutes} seconds={this.state.seconds}
                             queTitle="Håkan Hellström" queDetails="Ullevi 27/6" href="/que"/>
                 <div className="row">

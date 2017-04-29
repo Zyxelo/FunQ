@@ -8,10 +8,8 @@ class ModalConductor extends Component {
     constructor(props){
         super(props);
         this.state = {
-            showModal : true,
-            //currentModal : modalType -- kompilerar inte med detta
+            showModal : true
         }
-        //console.log(modalType); -- kompilerar inte med detta
         this.close = this.close.bind(this);
         this.open = this.open.bind(this);
     }
@@ -28,12 +26,10 @@ class ModalConductor extends Component {
         this.setState({ showModal: true });
     }
 
-    // TODO: jag fick byta bsSize till lg from mg eftersom mg inte fanns(även om de funkade)
-    // för de gav en jäkla massa errors
     render() {
         return (
             <div>
-                <Modal show={this.state.showModal} bsSize="lg" onHide={this.close}>
+                <Modal show={this.state.showModal} bsSize="md" onHide={this.close}>
                     <Switch condition={this.props.currentModal} >
                         <Case value="QUEUE_PIN">
                             <QueuePinModal close={this.close}/>
@@ -42,7 +38,7 @@ class ModalConductor extends Component {
                             <SignInModal close={this.close}/>
                         </Case>
                         <Default>
-
+                            //Default?
                         </Default>
                     </Switch>
                 </Modal>
