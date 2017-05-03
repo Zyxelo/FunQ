@@ -13,7 +13,7 @@ class Que extends React.Component {
             <div className="container wrapper">
                 <div className="row">
                     <div className="col-md-8">
-                        <div className="que-header" style={imageStyle}>
+                        <div className="row que-header" style={imageStyle}>
                             <div className="que-info">
                                 <div className="que-details">
                                     <h1>Håkan Hellström</h1>
@@ -21,17 +21,18 @@ class Que extends React.Component {
                                 </div>
                             </div>
                         </div>
-
-                        <div className="panel panel-primary">
-                            <div className="panel-heading">
-                                <h1 className="panel-title">Detaljerad information</h1>
-                            </div>
-                            <div className="panel-body">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt eros ut lacus porttitor dapibus. Proin ultrices consectetur tortor a euismod. Morbi nulla risus, feugiat non risus nec, tempus vestibulum tortor. Phasellus felis metus, venenatis ut rhoncus eget, tincidunt non mauris.
-                                <br/><br/>
-                                Pellentesque mauris felis, pellentesque eu ex vel, cursus auctor lacus. Duis consectetur sollicitudin rhoncus. Vestibulum feugiat suscipit ex quis finibus. Suspendisse pretium non felis eu pellentesque. Nunc sem ex, volutpat ac dui eu, pretium mollis ex.
-                                <br/><br/>
-                                Maecenas tempor bibendum sapien, vel hendrerit lacus laoreet vel. Donec justo lacus, pharetra ut auctor at, ullamcorper vel leo. Maecenas et suscipit eros. Morbi consectetur tincidunt lorem sed elementum. Nulla maximus et nisl non maximus.
+                        <div className="row que-detailed-info" >
+                            <div className="panel panel-primary">
+                                <div className="panel-heading">
+                                    <h1 className="panel-title">Detaljerad information</h1>
+                                </div>
+                                <div className="panel-body">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt eros ut lacus porttitor dapibus. Proin ultrices consectetur tortor a euismod. Morbi nulla risus, feugiat non risus nec, tempus vestibulum tortor. Phasellus felis metus, venenatis ut rhoncus eget, tincidunt non mauris.
+                                    <br/><br/>
+                                    Pellentesque mauris felis, pellentesque eu ex vel, cursus auctor lacus. Duis consectetur sollicitudin rhoncus. Vestibulum feugiat suscipit ex quis finibus. Suspendisse pretium non felis eu pellentesque. Nunc sem ex, volutpat ac dui eu, pretium mollis ex.
+                                    <br/><br/>
+                                    Maecenas tempor bibendum sapien, vel hendrerit lacus laoreet vel. Donec justo lacus, pharetra ut auctor at, ullamcorper vel leo. Maecenas et suscipit eros. Morbi consectetur tincidunt lorem sed elementum. Nulla maximus et nisl non maximus.
+                                </div>
                             </div>
                         </div>
                     </div>
