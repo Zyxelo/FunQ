@@ -3,6 +3,10 @@ import logo from './logo.png';
 import './Home.css'
 
 class Home extends React.Component {
+    componentWillMount() {
+        document.title = 'FunQ App | Let Your Participants Queue In A Fun Way';
+    }
+
     render() {
         return (
             <div className="container">

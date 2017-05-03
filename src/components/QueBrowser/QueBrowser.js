@@ -46,6 +46,10 @@ class QueBrowser extends React.Component {
         }
     }
 
+    componentWillMount() {
+        document.title = 'FunQ App | Let Your Participants Queue In A Fun Way';
+    }
+
     render() {
         return (
             <div className="container wrapper">

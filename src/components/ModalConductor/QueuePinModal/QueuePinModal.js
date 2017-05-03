@@ -11,7 +11,7 @@ class QueuePin extends Component {
 
                     <form>
                         <div className="form-group">
-                            <input type="text" placeholder="QUE PIN" maxLength={20}></input>
+                            <input type="text" placeholder="QUE PIN" maxLength={20} className="pin-input"></input>
                         </div>
                         <div className="form-group">
                             <button>ENTER QUEUE</button>

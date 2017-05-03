@@ -15,8 +15,6 @@ export default {
     getDb: () => {
         return mdb;
     }
-
-
 }
 
 
