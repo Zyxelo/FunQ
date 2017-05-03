@@ -1,7 +1,10 @@
 import config from './config';
 import express from 'express';
-import queuesRoutes from './routes/queues.routes'
+import queuesRoutes from './routes/queues.routes';
 import bodyParser from 'body-parser';
+import mongoUtils from './mongoUtils';
+
+
 
 
 const server = express();
@@ -10,6 +13,10 @@ const server = express();
 server.use(bodyParser.json());
 
 
+// connect to database
+mongoUtils.conncectToServer(() => {
+    console.log('connected to database');
+});
 
 //import the different routes example all routes concering the queue will be in the
 // /queue/... route
