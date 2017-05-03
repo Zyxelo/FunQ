@@ -1,6 +1,7 @@
 {
   "name": "funque",
   "version": "0.1.0",
+  "description": "FunQ App | The Best Way To Queue",
   "private": true,
   "dependencies": {
     "react": "^15.5.4",
