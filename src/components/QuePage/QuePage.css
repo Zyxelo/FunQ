@@ -1,22 +1,15 @@
 .que-header {
-    position:relative;
-    margin-bottom: 40px;
-}
-
-.que-header .que-info {
-    top:60px;
-    left:60px;
+    height:400px;
+    background-size: 100% auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 50px 15% 0 15%;
+    margin-bottom: 30px;
 }
 
 .que-header .que-info h1 {
     font-size: 63px;
 }
-
-.que-header .crop .image {
-    margin-top: -60px;
-    width: 100%;
-}
-
 
 .enter-que {
     font-family: "Arial Rounded MT Bold";

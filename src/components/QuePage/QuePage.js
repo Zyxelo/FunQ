@@ -4,14 +4,16 @@ import './QuePage.css';
 
 class Que extends React.Component {
     render() {
+
+        var imageStyle = {
+            backgroundImage: "url(" + hakan + ")",
+        };
+
         return (
             <div className="container wrapper">
                 <div className="row">
                     <div className="col-md-8">
-                        <div className="que-header">
-                            <div className="crop">
-                                <img className="image" src={hakan} alt="image" />
-                            </div>
+                        <div className="que-header" style={imageStyle}>
                             <div className="que-info">
                                 <div className="que-details">
                                     <h1>Håkan Hellström</h1>
