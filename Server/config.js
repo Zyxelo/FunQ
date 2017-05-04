@@ -10,6 +10,7 @@ export const logStars = function(message) {
 
 export default {
     mongodbUri: 'mongodb://localhost:27017/funq',
+    jwtSecret: 'funqisthebestappintheworld',
     port: env.PORT || 8080,
     host: env.HOST || '0.0.0.0',
     get serverUrl() {
