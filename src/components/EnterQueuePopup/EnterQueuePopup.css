@@ -1,0 +1,18 @@
+.queue-popup {
+    background:#00B7FF;
+    bottom:0;
+    position:fixed;
+    z-index:100;
+    right:100px;
+    padding:8px 40px;
+    border-top:2px solid #fff;
+    border-right:2px solid #fff;
+    border-left:2px solid #fff;
+    cursor:pointer;
+}
+
+.queue-popup h2 {
+    font-size:20px;
+    color:#fff;
+    cursor:pointer;
+}

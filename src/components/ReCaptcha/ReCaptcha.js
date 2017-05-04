@@ -7,7 +7,7 @@ class ReCaptcha extends React.Component {
 
     render() {
         return (
-            <div id = "captcha">
+            <div id="captcha">
 
                 <Recaptcha render="explicit"
                            sitekey="6LdOKx8UAAAAAH93hUwxSlTqGF8Ef6a69KMbAdRs"
