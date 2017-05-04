@@ -4,7 +4,7 @@ import middag from '../../../public/images/middag.jpg';
 import sof from '../../../public/images/sof.jpg';
 import QueElement from './QueElement/QueElement';
 import QueTopElement from './QueTopElement/QueTopElement';
-import ModalConductor from '../ModalConductor/ModalConductor';
+
 
 class QueBrowser extends React.Component {
 
@@ -37,7 +37,7 @@ class QueBrowser extends React.Component {
             seconds: prevState.seconds -1
         }));
 
-        if (this.state.seconds == -1) {
+        if (this.state.seconds === -1) {
 
             this.setState((prevState, props) => ({
                 minutes: prevState.minutes -1,
