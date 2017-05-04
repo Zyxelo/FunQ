@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Modal} from 'react-bootstrap';
-import FacebookLogin from 'react-facebook-login';
+import {Modal} from 'react-bootstrap';
 import './SignInModal.css';
 
 class SignIn extends Component {

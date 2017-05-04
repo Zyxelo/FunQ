@@ -13,6 +13,7 @@ import QueBrowser from '../QueBrowser/QueBrowser';
 import ReCaptcha from '../ReCaptcha/ReCaptcha';
 import CreateQueue from '../CreateQueue/CreateQueue';
 import EnterQueuePopup from '../EnterQueuePopup/EnterQueuePopup';
+import Signup from '../Signup/Signup';
 
 const Routes = (props) => (
 
@@ -25,6 +26,7 @@ const Routes = (props) => (
         <Route path="/home" component={QueBrowser} />
         <Route path="/captcha" component={ReCaptcha}/>
         <Route path="/create" component={CreateQueue}/>
+        <Route path="/signup" component={Signup} />
         <Route component={NotFound} />
       </Switch>
       <EnterQueuePopup displayModal={props.displayModal}/>

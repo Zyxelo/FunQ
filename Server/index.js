@@ -16,6 +16,12 @@ const server = express();
 server.use(bodyParser.json());
 server.use(passport.initialize());
 
+server.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 // Set up mongoDB
 mongoose.Promise = global.Promise;
 mongoose.connect(config.mongodbUri, (error) => {
@@ -30,7 +36,7 @@ passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
 
 //middleware
-server.use('/api', authCheckMiddleware);
+server.use('/hidden', authCheckMiddleware);
 
 //Middleware specified for specific routes
 server.use('/queues', queuesRoutes);
