@@ -4,11 +4,15 @@
     background-position: center;
     background-repeat: no-repeat;
     padding: 50px 15% 0 15%;
-    margin-bottom: 30px;
+    margin:15px 0 0 15px;
 }
 
 .que-header .que-info h1 {
     font-size: 63px;
+}
+
+.que-detailed-info {
+    margin:15px 0 0 15px;
 }
 
 .enter-que {

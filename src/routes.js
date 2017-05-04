@@ -12,6 +12,7 @@ import NotFound from './components/NotFound/notFound.component';
 import QueBrowser from './components/QueBrowser/QueBrowser';
 import ReCaptcha from './components/ReCaptcha/ReCaptcha';
 import ModalConductor from './components/ModalConductor/ModalConductor';
+import CreateQueue from './components/CreateQueue/CreateQueue';
 
 const Routes = () => (
 
@@ -23,6 +24,7 @@ const Routes = () => (
                 <Route path="/que" component={Que} />
                 <Route path="/home" component={QueBrowser} />
                 <Route path="/captcha" component={ReCaptcha}/>
+                <Route path="/create" component={CreateQueue}/>
                 <Route path="/signin" currentModal="SIGN_IN" component={ModalConductor}/>
                 <Route component={NotFound} />
             </Switch>
