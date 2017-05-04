@@ -13,7 +13,7 @@
 }
 
 .navbar-collapse {
-    padding:10px 0;
+    padding:5px 0;
 }
 
 .navbar-btn {
@@ -44,7 +44,7 @@
 
 .navbar-toggle {
     float:right;
-    margin-top:18px;
+    margin-top:14px;
 }
 
 .navbar-collapse.in {

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+
 import './App.css';
 import Routes from '../Routes/routes';
 import ModalConductor from '../ModalConductor/ModalConductor';
+
 
 class App extends Component {
   constructor(props) {
@@ -28,6 +30,7 @@ class App extends Component {
             currentModal={this.state.modalType}
             close={this.close}
           /> : null}
+
       </div>
     );
   }

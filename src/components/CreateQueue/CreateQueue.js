@@ -1,5 +1,5 @@
 import React from 'react';
-import {Checkbox, Button, Col, FormGroup, FormControl, ControlLabel, Form} from 'react-bootstrap';
+import {Radio, Button, Col, FormGroup, FormControl, ControlLabel, Form} from 'react-bootstrap';
 
 import './CreateQueue.css';
 
@@ -24,6 +24,7 @@ class CreateQueue extends React.Component {
             openTime:"12:00",
             endDate: endD,
             endTime:"12:00",
+            privacy: "public",
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -68,13 +69,13 @@ class CreateQueue extends React.Component {
                             <FormGroup>
                                 <Col componentClass={ControlLabel} sm={3}>Queue privacy</Col>
                                 <Col sm={9}>
-                                    <Checkbox inline>
+                                    <Radio name="privacy" value="private" onChange={this.handleChange} checked={this.state.privacy === 'private'} inline>
                                         Private queue
-                                    </Checkbox>
+                                    </Radio>
                                     {' '}
-                                    <Checkbox inline>
+                                    <Radio name="privacy" value="public" onChange={this.handleChange} checked={this.state.privacy === 'public'} inline>
                                         Public queue
-                                    </Checkbox>
+                                    </Radio>
                                 </Col>
                             </FormGroup>
 
