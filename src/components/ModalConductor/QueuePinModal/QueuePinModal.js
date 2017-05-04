@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Modal, } from 'react-bootstrap';
+import {Button, Modal} from 'react-bootstrap';
 import './QueuePinModal.css';
 
 class QueuePin extends Component {
@@ -14,7 +14,7 @@ class QueuePin extends Component {
                             <input type="text" placeholder="QUE PIN" maxLength={20} className="pin-input"></input>
                         </div>
                         <div className="form-group">
-                            <button>ENTER QUEUE</button>
+                            <button className="pin-button">ENTER QUEUE</button>
                         </div>
                     </form>
                     <p className="close-modal">No pin? <a href="#" onClick={this.props.close}>Enter site</a></p>

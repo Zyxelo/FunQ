@@ -66,7 +66,7 @@ class QueBrowser extends React.Component {
                                     queTitle="SOF 2017" queDetails="12/6-14/6" href="/que"/>
                     </div>
                 </div>
-                <ModalConductor currentModal="QUEUE_PIN"/>
+                <ModalConductor currentModal="SIGN_IN"/>
             </div>
         );
     }

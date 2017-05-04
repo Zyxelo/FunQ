@@ -16,6 +16,7 @@ class QueNavbar extends React.Component {
                 <Navbar.Toggle />
             </Navbar.Header>
             <Navbar.Collapse>
+                <Link to="/signin" className="btn btn-primary">Sign In</Link>
                 <button type="button" className="btn btn-default navbar-btn navbar-right">Sign in</button>
                 <Navbar.Form pullRight>
                     <span className="glyphicon glyphicon-search" aria-hidden="true"></span>

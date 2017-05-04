@@ -29,7 +29,7 @@ class ModalConductor extends Component {
     render() {
         return (
             <div>
-                <Modal show={this.state.showModal} bsSize="md" onHide={this.close}>
+                <Modal show={this.state.showModal} onHide={this.close}>
                     <Switch condition={this.props.currentModal} >
                         <Case value="QUEUE_PIN">
                             <QueuePinModal close={this.close}/>
