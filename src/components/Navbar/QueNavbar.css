@@ -47,19 +47,25 @@
     margin-top:14px;
 }
 
-.navbar-collapse.in {
-    text-align: center;
-    padding: 10px 20px;
-}
+@media (max-width: 768px) {
+    .navbar-collapse {
+        text-align: center;
+        padding: 10px 20px;
+    }
 
-.navbar-collapse.in .navbar-btn {
-    width: 100%;
-}
+    .navbar-btn {
+        width: 100%;
+    }
 
-.navbar-collapse.in .form-control {
-    width: 100%;
-}
+    .navbar-form {
+        border: none;
+    }
 
-.navbar-collapse.in .glyphicon {
-    top:10px;
+    .navbar .form-control {
+        width: 100%;
+    }
+
+    .glyphicon {
+        top:10px;
+    }
 }
