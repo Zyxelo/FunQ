@@ -7,7 +7,7 @@ export default class EnterQueuePopup extends React.Component {
     return (
       <div className="queue-popup" onClick={() => {this.props.displayModal('QUEUE_PIN')}}>
         <h2>
-          Quick Entry
+          QUICK ENTRY
         </h2>
       </div>
     );

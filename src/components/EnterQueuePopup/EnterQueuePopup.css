@@ -1,7 +1,7 @@
 .queue-popup {
     background:#00B7FF;
     bottom:0;
-    position:absolute;
+    position:fixed;
     z-index:100;
     right:100px;
     padding:8px 40px;

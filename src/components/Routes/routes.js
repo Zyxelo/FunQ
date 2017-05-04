@@ -8,10 +8,11 @@ import {
 import Home from '../Home/Home';
 import Que from '../QuePage/QuePage';
 import Navbar from '../Navbar/QueNavbar';
-import NotFound from '../NotFound/notFound.component';
+import NotFound from '../NotFound/NotFound';
 import QueBrowser from '../QueBrowser/QueBrowser';
 import ReCaptcha from '../ReCaptcha/ReCaptcha';
 import CreateQueue from '../CreateQueue/CreateQueue';
+import EnterQueuePopup from '../EnterQueuePopup/EnterQueuePopup';
 
 const Routes = (props) => (
 
@@ -26,6 +27,7 @@ const Routes = (props) => (
         <Route path="/create" component={CreateQueue}/>
         <Route component={NotFound} />
       </Switch>
+      <EnterQueuePopup displayModal={props.displayModal}/>
     </div>
   </Router>
 );

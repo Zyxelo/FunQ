@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Routes from '../Routes/routes';
 import ModalConductor from '../ModalConductor/ModalConductor';
-import EnterQueuePopup from '../EnterQueuePopup/EnterQueuePopup';
+
 
 
 class App extends Component {
@@ -38,7 +38,7 @@ class App extends Component {
             close={this.closeModal}
           /> : null}
 
-          <EnterQueuePopup displayModal={this.showModal}/>
+
 
       </div>
     );

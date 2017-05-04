@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Modal} from 'react-bootstrap';
+import FacebookLogin from 'react-facebook-login';
 import './SignInModal.css';
 
 class SignIn extends Component {
@@ -7,7 +8,7 @@ class SignIn extends Component {
         return (
             <div>
                 <Modal.Body className="signin-modal">
-                    <h1>LOG IN</h1>
+                    <h1>SIGN IN</h1>
 
                     <form>
                         <div className="form-group">
