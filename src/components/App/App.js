@@ -13,7 +13,6 @@ class App extends Component {
     this.state = {
       showModal: (!window.sessionStorage.getItem('visitedBefore')),
       modalType: 'QUEUE_PIN',
-      checkLoginState
     };
   }
 
