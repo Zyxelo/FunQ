@@ -1,20 +1,25 @@
 import React, {Component} from 'react';
-import {Button, Modal, } from 'react-bootstrap';
+import {Button, Modal} from 'react-bootstrap';
+import './SignInModal.css';
 
 class SignIn extends Component {
     render () {
         return (
             <div>
-                <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <h4>Sign In Modal</h4>
+                <Modal.Body className="signin-modal">
+                    <h1>LOG IN</h1>
 
+                    <form>
+                        <div className="form-group">
+                            <input type="text" placeholder="E-mail" maxLength={20} className="signin-input"></input>
+                            <input type="password" placeholder="Password" maxLength={20} className="signin-input"></input>
+                        </div>
+                        <div className="form-group">
+                            <button className="signin-button">SIGN IN</button>
+                        </div>
+                    </form>
+                    <p className="close-modal">No account? <a href="#" onClick={this.props.close}>Register here</a></p>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={this.props.close}>Close</Button>
-                </Modal.Footer>
             </div>
         );
     }

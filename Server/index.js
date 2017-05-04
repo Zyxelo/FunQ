@@ -9,6 +9,7 @@ import mongoUtils from './mongoUtils';
 
 const server = express();
 
+
 // Use bodyparser to handle the parsing of JSON
 server.use(bodyParser.json());
 

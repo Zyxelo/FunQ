@@ -13,11 +13,11 @@ import QueBrowser from '../QueBrowser/QueBrowser';
 import ReCaptcha from '../ReCaptcha/ReCaptcha';
 import CreateQueue from '../CreateQueue/CreateQueue';
 
-const Routes = () => (
+const Routes = (props) => (
 
   <Router>
     <div>
-      <Navbar/>
+      <Navbar displayModal={props.displayModal}/>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/que" component={Que} />

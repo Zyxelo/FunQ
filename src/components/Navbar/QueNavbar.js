@@ -16,7 +16,7 @@ class QueNavbar extends React.Component {
                 <Navbar.Toggle />
             </Navbar.Header>
             <Navbar.Collapse>
-                <button type="button" className="btn btn-default navbar-btn navbar-right">Sign in</button>
+                <button type="button" className="btn btn-default navbar-btn navbar-right" onClick={() => {this.props.displayModal('SIGN_IN') }}>Sign in</button>
                 <Navbar.Form pullRight>
                     <span className="glyphicon glyphicon-search" aria-hidden="true"></span>
                     <FormGroup>
