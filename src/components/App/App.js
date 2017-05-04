@@ -1,18 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Routes from '../Routes/routes';
+import ModalConductor from '../ModalConductor/ModalConductor';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showModal: true,
+      modalType: 'QUEUE_PIN'
+    };
+  }
+
+  close = () => {
+    this.setState({showModal: false});
+  };
+
+  show = (type) => {
+    this.setState({showModal: true, modalType: type});
+  };
+
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+          <Routes/>
+        {(this.state.showModal) ? <ModalConductor
+            currentModal={this.state.modalType}
+            close={this.close}
+          /> : null}
       </div>
     );
   }
