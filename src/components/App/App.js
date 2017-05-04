@@ -12,13 +12,13 @@ class App extends Component {
     console.log(window.sessionStorage);
     this.state = {
       showModal: (!window.sessionStorage.getItem('visitedBefore')),
-      modalType: 'QUEUE_PIN'
+      modalType: 'QUEUE_PIN',
+      checkLoginState
     };
   }
 
   closeModal = () => {
     this.setState({showModal: false});
-
   };
 
   showModal = (type) => {
