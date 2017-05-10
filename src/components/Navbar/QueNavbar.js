@@ -11,7 +11,7 @@ class QueNavbar extends React.Component {
     super(props);
     this.state = {
       buttonText: auth.isUserAuthenticated() ? 'Sign Out' : 'Sign In'
-    }
+    };
   }
 
   signInSignOut = () => {
@@ -26,7 +26,7 @@ class QueNavbar extends React.Component {
   }
 
   componentWillUpdate() {
-    this.state.buttonText = auth.isUserAuthenticated() ? 'Sign out' : 'Sign in';
+    this.setState({buttonText: auth.isUserAuthenticated() ? 'Sign out' : 'Sign in'});
   }
 
   render() {

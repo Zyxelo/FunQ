@@ -1,7 +1,12 @@
 import React from 'react';
-import hakan from '../../../public/images/hakan_ullevi.jpg';
 import QueTopElement from './QueTopElement/QueTopElement';
 import QueueElement from './QueElement/QueueElement';
+
+// Have to import all images sso they end up getting served by the server to the client.. stupid workaround
+// should be fixed
+import hakan from '../../../public/images/hakan_ullevi.jpg';
+import '../../../public/images/middag.jpg';
+import '../../../public/images/sof.jpg';
 
 
 
@@ -126,8 +131,9 @@ class QueBrowser extends React.Component {
                        queTitle="Håkan Hellström" queDetails="Ullevi 27/6" href="/que"/>
         <div className="que-element-wrapper">
           {chunkedArray.map((queueChunk , i) =>
-            <div key = {i} className="row">
+            <div key={i} className="row">
               {queueChunk.map((queue, i) => <QueueElement currentTime={this.state.time} key={i} {...queue}/>)}
+
             </div>)}
         </div>
       </div>

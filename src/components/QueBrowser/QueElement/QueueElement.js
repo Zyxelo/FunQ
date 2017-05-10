@@ -31,11 +31,13 @@ class QueElement extends React.Component {
 
 
   render() {
+
+
     return (
       <div className="col-md-4">
         <div className="queue-thumbnail">
           <Link to={'/queue/'+this.props.queueID}>
-            <img className="queue-thumbnail-img" width="100%" src={this.props.thumbnail}/>
+            <img className="queue-thumbnail-img" width="100%" src={this.props.thumbnail} alt="thumbnail"/>
           </Link>
         </div>
         <div className="queue-card-content">
