@@ -3,6 +3,7 @@ import {Modal} from 'react-bootstrap';
 import './SignInModal.css';
 import api from 'axios';
 import auth from '../../../auth';
+import Link from 'react-router-dom';
 
 class SignIn extends Component {
   constructor(props){
@@ -67,7 +68,7 @@ class SignIn extends Component {
               <button type="submit" className="signin-button">SIGN IN</button>
             </div>
           </form>
-          <p className="close-modal">No account? <a href="#" onClick={this.props.close}>Register here</a></p>
+          <p className="close-modal">No account? <a href="/signup" onClick={this.props.close}>Register here</a></p>
         </Modal.Body>
       </div>
     );

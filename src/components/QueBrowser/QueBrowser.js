@@ -63,7 +63,7 @@ class QueBrowser extends React.Component {
                                     queTitle="C-klassittning" queDetails="KK 5/6 18.00" href="/que"/>
                         <QueElement imageSrc={sof} hours={this.state.hoursSO}
                                     minutes={this.state.minutes} seconds={this.state.seconds}
-                                    queTitle="SOF 2017" queDetails="12/6-14/6" href="/que"/>
+                                    queTitle="SOF 2017" queDetails="12/5-14/5" href="/que"/>
                     </div>
                 </div>
             </div>

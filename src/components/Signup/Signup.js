@@ -32,6 +32,9 @@ class Signup extends React.Component {
         })
             .then((response) => {
                 console.log(response);
+                if (response.status == 200) {
+                    alert("Welcome, you have succesfully created an account in!");
+                }
             })
             .catch((error) => {
                 console.log(error);
