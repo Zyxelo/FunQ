@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {TimeLeft} from './TimeLeft/TimeLeft';
 
-import './QueElement.css';
+import './QueueElement.css';
 
 
 
@@ -35,20 +35,22 @@ class QueElement extends React.Component {
 
     return (
       <div className="col-md-4">
-        <div className="queue-thumbnail">
-          <Link to={'/queue/'+this.props.queueID}>
-            <img className="queue-thumbnail-img" width="100%" src={this.props.thumbnail} alt="thumbnail"/>
-          </Link>
-        </div>
-        <div className="queue-card-content">
-          <Link to={'/queue/'+this.props.queueID}>
-            <h4 className="queue-title">{this.props.queueTitle}</h4>
-          </Link>
-          <p>{this.props.queueShortDescription}</p>
-          <p>{'by ' + this.props.queueCompany}</p>
-        </div>
-        <div className="queue-card-footer">
-          <TimeLeft timeLeft={this.getTimeRemaining((new Date(this.props.queEndDate).getTime() - this.props.currentTime))} />
+        <div className="thumbnail">
+          <div className="queue-thumbnail">
+            <Link to={'/queue/'+this.props.queueID}>
+              <img className="queue-thumbnail-img" width="100%" src={this.props.thumbnail} alt="thumbnail"/>
+            </Link>
+          </div>
+          <div className="queue-card-content">
+            <Link to={'/queue/'+this.props.queueID}>
+              <h4 className="queue-title">{this.props.queueTitle}</h4>
+            </Link>
+            <p>{'by ' + this.props.queueCompany}</p>
+            <p>{this.props.queueShortDescription}</p>
+          </div>
+          <div className="queue-card-footer">
+            <TimeLeft timeLeft={this.getTimeRemaining((new Date(this.props.queEndDate).getTime() - this.props.currentTime))} />
+          </div>
         </div>
       </div>
     );

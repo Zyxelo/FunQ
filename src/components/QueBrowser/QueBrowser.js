@@ -1,6 +1,6 @@
 import React from 'react';
 import QueTopElement from './QueTopElement/QueTopElement';
-import QueueElement from './QueElement/QueueElement';
+import QueueElement from './QueueElement/QueueElement';
 
 // Have to import all images sso they end up getting served by the server to the client.. stupid workaround
 // should be fixed
@@ -16,6 +16,7 @@ class QueBrowser extends React.Component {
     super(props);
     this.state = {
       time: new Date().getTime(),
+      chunkedArray : [[]],
       queueList: [
         {
           thumbnail: '/static/media/hakan_ullevi.680eabff.jpg',
@@ -94,6 +95,7 @@ class QueBrowser extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({chunkedArray: this.createGroupedArray(this.state.queueList,3)})
     this.timer = setInterval(
       () => this.tick(),
       1000
@@ -123,14 +125,14 @@ class QueBrowser extends React.Component {
   }
 
   render() {
-    var chunkedArray = this.createGroupedArray(this.state.queueList,3);
+
     return (
       <div className="container wrapper">
         <QueTopElement imageSrc={hakan} hours={this.state.hoursHH}
                        minutes={this.state.minutes} seconds={this.state.seconds}
                        queTitle="Håkan Hellström" queDetails="Ullevi 27/6" href="/que"/>
         <div className="que-element-wrapper">
-          {chunkedArray.map((queueChunk , i) =>
+          {this.state.chunkedArray.map((queueChunk , i) =>
             <div key={i} className="row">
               {queueChunk.map((queue, i) => <QueueElement currentTime={this.state.time} key={i} {...queue}/>)}
 
