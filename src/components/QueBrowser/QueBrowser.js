@@ -83,7 +83,7 @@ class QueBrowser extends React.Component {
           queueTitle: 'Studentorkesterfestivalen',
           queueCompany: 'Lintek',
           queueEventDate:  '2017-05-292T11:22:22.824Z',
-          queEndDate: '2017-05-11T11:22:22.824Z',
+          queEndDate: '2017-05-18T11:22:22.824Z',
           location: 'Platå',
           queueShortDescription: 'SOF kommer till stan de vill du inte missa typ',
           queueCategory: 'Music',
@@ -118,11 +118,8 @@ class QueBrowser extends React.Component {
       groups.push(arr.slice(i, i + chunkSize));
     }
     return groups;
-  }
+  };
 
-  componentWillMount() {
-    // make ajax request in here
-  }
 
   render() {
 

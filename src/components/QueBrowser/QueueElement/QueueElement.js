@@ -38,7 +38,7 @@ class QueElement extends React.Component {
         <div className="thumbnail">
           <div className="queue-thumbnail">
             <Link to={'/queue/'+this.props.queueID}>
-              <img className="queue-thumbnail-img" width="100%" src={this.props.thumbnail} alt="thumbnail"/>
+              <img className="queue-thumbnail-img img-responsive" width="100%" src={this.props.thumbnail} alt="thumbnail"/>
             </Link>
           </div>
           <div className="queue-card-content">
