@@ -54,14 +54,14 @@ class SignIn extends Component {
                      maxLength={20}
                      className="signin-input"
                      value={this.state.userEmail}
-                     onChange={this.handleChange}></input>
+                     onChange={this.handleChange}/>
               <input type="password"
                      name="userPassword"
                      placeholder="Password"
                      maxLength={20}
                      className="signin-input"
                      value={this.state.userPassword}
-                     onChange={this.handleChange}></input>
+                     onChange={this.handleChange}/>
             </div>
             <div className="form-group">
               <button type="submit" className="signin-button">SIGN IN</button>
