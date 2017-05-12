@@ -22,7 +22,9 @@ const Routes = (props) => (
       <Navbar displayModal={props.displayModal}/>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/que" component={Que} />
+        <Route path="/que" component={Que}>
+          <Route path=":userId" component={ReCaptcha}/>
+        </Route>
         <Route path="/home" component={QueBrowser} />
         <Route path="/captcha" component={ReCaptcha}/>
         <Route path="/create" component={CreateQueue}/>
