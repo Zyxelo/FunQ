@@ -11,7 +11,8 @@
     "react-facebook-login": "^3.5.1",
     "react-recaptcha": "^2.2.6",
     "react-router-dom": "^4.1.1",
-    "react-switch-case": "^1.0.2"
+    "react-switch-case": "^1.0.2",
+    "react-youtube": "^7.4.0"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"

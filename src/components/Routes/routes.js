@@ -5,8 +5,7 @@ import {
   Switch
 } from 'react-router-dom';
 
-import Home from '../Home/Home';
-import Que from '../QuePage/QuePage';
+import QueuePage from '../QuePage/QueuePage';
 import Navbar from '../Navbar/QueNavbar';
 import NotFound from '../NotFound/NotFound';
 import QueBrowser from '../QueBrowser/QueBrowser';
@@ -21,10 +20,8 @@ const Routes = (props) => (
     <div>
       <Navbar displayModal={props.displayModal}/>
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/que" component={Que}>
-          <Route path=":userId" component={ReCaptcha}/>
-        </Route>
+        <Route exact path="/" component={QueBrowser} />
+        <Route path="/queue/:queueId" component={QueuePage}/>
         <Route path="/home" component={QueBrowser} />
         <Route path="/captcha" component={ReCaptcha}/>
         <Route path="/create" component={CreateQueue}/>

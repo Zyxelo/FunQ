@@ -1,0 +1,11 @@
+.que-element-wrapper {
+    margin-top:25px;
+}
+
+.thumbnail {
+    min-height: 400px;
+}
+
+.thumbnail a>img {
+    max-height: 30%;
+}
