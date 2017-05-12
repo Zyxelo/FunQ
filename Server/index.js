@@ -2,6 +2,7 @@ import config from './config';
 import express from 'express';
 import queuesRoutes from './routes/queues.routes';
 import authRoutes from './routes/auth';
+import userRoutes from './routes/user.routes';
 import hiddenRoutes from './routes/secretPage.routes';
 import bodyParser from 'body-parser';
 import authCheckMiddleware from './middleware/authenticate';
@@ -37,10 +38,12 @@ passport.use('local-login', localLoginStrategy);
 
 //middleware
 server.use('/hidden', authCheckMiddleware);
+server.use('/user', authCheckMiddleware);
 
 //Middleware specified for specific routes
 server.use('/queues', queuesRoutes);
 server.use('/auth', authRoutes);
+server.use('/user', userRoutes);
 server.use('/hidden', hiddenRoutes);
 
 server.listen(config.port, () => {

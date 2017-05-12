@@ -36,9 +36,8 @@ export default new passportLocal.Strategy({
 
                 return done(error);
             }
-
             const payload = {
-                sub: user._id
+                sub: userData.email
             };
 
             // create a token string

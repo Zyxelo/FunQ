@@ -15,14 +15,14 @@ export default (req, res, next) => {
         // the 401 code is for unauthorized status
         if (err) { return res.status(401).end(); }
 
-        const userId = decoded.sub;
+        const userEmail = decoded.sub;
 
         // check if a user exists
-        return User.findById(userId, (userErr, user) => {
+        return User.findOne({ email: userEmail }, (userErr, user) => {
             if (userErr || !user) {
                 return res.status(401).end();
             }
-
+            req.user = user;
             return next();
         });
     });
