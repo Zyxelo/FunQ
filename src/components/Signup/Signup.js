@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 import {Form, FormGroup, FormControl, Button} from 'react-bootstrap';
 import axios from 'axios';
 
@@ -18,12 +20,18 @@ class Signup extends React.Component {
         this.formSubmit = this.formSubmit.bind(this);
     }
 
+    static propTypes = {
+        history: PropTypes.object.isRequired
+    }
+
     handleChange(event) {
         this.setState({[event.target.name]: event.target.value});
     }
 
     formSubmit(event) {
         event.preventDefault();
+
+        const { history } = this.props;
 
         axios.post('http://localhost:8080/auth/signup', {
             email: this.state.email,
@@ -33,7 +41,8 @@ class Signup extends React.Component {
             .then((response) => {
                 console.log(response);
                 if (response.status == 200) {
-                    alert("Welcome, you have succesfully created an account in!");
+                    //Redirect to some page after succesfull signup :)
+                    history.push('/home');
                 }
             })
             .catch((error) => {
@@ -65,4 +74,6 @@ class Signup extends React.Component {
     }
 }
 
-export default Signup;
+const signupWithRouter = withRouter(Signup);
+
+export default signupWithRouter;

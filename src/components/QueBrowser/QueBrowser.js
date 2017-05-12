@@ -8,8 +8,6 @@ import hakan from '../../../public/images/hakan_ullevi.jpg';
 import '../../../public/images/middag.jpg';
 import '../../../public/images/sof.jpg';
 
-
-
 class QueBrowser extends React.Component {
 
   constructor(props) {
