@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+import Mongoose from 'mongoose';
+import Bcrypt from 'bcrypt';
 
 // Define user model
-const UserSchema = new mongoose.Schema({
+const UserSchema = new Mongoose.Schema({
     email: {
         type: String,
         index: { unique: true }
@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
 
 // Compare user password
 UserSchema.methods.comparePassword = function comparePassword(password, callback) {
-    bcrypt.compare(password, this.password, callback);
+    Bcrypt.compare(password, this.password, callback);
 };
 
 // Performed before the user is saved
@@ -23,10 +23,10 @@ UserSchema.pre('save', function saveHook(next) {
     // proceed further only if the password is modified or the user is new
     if (!user.isModified('password')) return next();
 
-    return bcrypt.genSalt((saltError, salt) => {
+    return Bcrypt.genSalt((saltError, salt) => {
         if (saltError) { return next(saltError); }
 
-        return bcrypt.hash(user.password, salt, (hashError, hash) => {
+        return Bcrypt.hash(user.password, salt, (hashError, hash) => {
             if (hashError) { return next(hashError); }
 
             // replace a password string with hash value
@@ -37,4 +37,4 @@ UserSchema.pre('save', function saveHook(next) {
     });
 });
 
-export default mongoose.model('User', UserSchema);
+export default Mongoose.model('User', UserSchema);

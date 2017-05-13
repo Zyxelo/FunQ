@@ -1,5 +1,6 @@
 import React from 'react';
 import {Radio, Button, Col, FormGroup, FormControl, ControlLabel, Form} from 'react-bootstrap';
+import axios from 'axios';
 
 import './CreateQueue.css';
 
@@ -8,23 +9,32 @@ class CreateQueue extends React.Component {
     constructor(props) {
         super(props);
 
+        function pad(number) {
+            if (number < 10) number = '0'+number;
+            return number;
+        }
+
         var today = new Date();
         var year = today.getFullYear();
-        var month = today.getMonth()+1;
-        if (month < 10) month = '0'+month;
-        var day = today.getDate();
-        var day2 = today.getDate()+2;
-        if (day < 10) day = '0'+day;
-        if (day2 < 10) day2 = '0'+day2;
-        var startD = year+'-'+month+'-'+day;
-        var endD = year+'-'+month+'-'+day2;
+        var month = pad(today.getMonth()+1);
+        var day = pad(today.getDate());
+        var day2 = pad(today.getDate()+2);
+        var startD = year+'-'+month+'-'+day+'T12:00';
+        var endD = year+'-'+month+'-'+day2+'T12:00';
 
         this.state = {
             openDate: startD,
-            openTime:"12:00",
             endDate: endD,
-            endTime:"12:00",
             privacy: "public",
+            thumbnail:'',
+            title: '',
+            description: '',
+            eventDate: endD,
+            company: '',
+            location: '',
+            category: '',
+            nrOfQueuers: 0,
+            queueID: '',
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -36,8 +46,31 @@ class CreateQueue extends React.Component {
     }
 
     handleSubmit(event) {
-        alert('An essay was submitted: ' + this.state.value);
         event.preventDefault();
+        const submit = {
+            "thumbnail": this.state.thumbnail,
+            "queueTitle": this.state.title,
+            "queueCompany": this.state.company,
+            "queueEventDate": this.state.eventDate,
+            "queEndDate": this.state.endDate,
+            "location": this.state.location,
+            "queueShortDescription": this.state.description,
+            "queueCategory": this.state.category,
+            "numberOfQueuers": parseInt(this.state.nrOfQueuers),
+            "queueID": this.state.queueID,
+        };
+
+        console.log(submit);
+
+        axios.post('http://localhost:8080/queues', submit)
+            .then((response) => {
+                console.log(response);
+                alert('You have created a new queue!')
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
     }
 
     render() {
@@ -53,16 +86,43 @@ class CreateQueue extends React.Component {
                                     Queue title
                                 </Col>
                                 <Col sm={9}>
-                                    <FormControl type="text" placeholder="Enter title" />
+                                    <FormControl name="title" type="text" value={this.state.title} onChange={this.handleChange} />
                                 </Col>
                             </FormGroup>
 
-                            <FormGroup controlId="createQueueTitle">
+                            <FormGroup controlId="createQueueDescription">
                                 <Col componentClass={ControlLabel} sm={3}>
                                     Queue description
                                 </Col>
                                 <Col sm={9}>
-                                    <FormControl componentClass="textarea" placeholder="Enter title" />
+                                    <FormControl name="description" value={this.state.description} onChange={this.handleChange} componentClass="textarea" />
+                                </Col>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Col componentClass={ControlLabel} sm={3}>
+                                    Queue Company
+                                </Col>
+                                <Col sm={9}>
+                                    <FormControl name="company" type="text" value={this.state.company} onChange={this.handleChange} />
+                                </Col>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Col componentClass={ControlLabel} sm={3}>
+                                    Event location
+                                </Col>
+                                <Col sm={9}>
+                                    <FormControl name="location" type="text" value={this.state.location} onChange={this.handleChange} />
+                                </Col>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Col componentClass={ControlLabel} sm={3}>
+                                    Event date
+                                </Col>
+                                <Col sm={9}>
+                                    <FormControl name="eventDate" type="datetime-local" value={this.state.eventDate} onChange={this.handleChange} />
                                 </Col>
                             </FormGroup>
 
@@ -82,35 +142,48 @@ class CreateQueue extends React.Component {
                             <FormGroup>
                                 <Col componentClass={ControlLabel} sm={3}>Image link</Col>
                                 <Col sm={9}>
-                                    <FormControl type="url" placeholder="Enter image link" />
+                                    <FormControl name="thumbnail" type="url" value={this.state.thumbnail} onChange={this.handleChange}/>
                                 </Col>
                             </FormGroup>
 
                             <FormGroup>
                                 <Col componentClass={ControlLabel} sm={3}>Open date</Col>
                                 <Col sm={9}>
-                                    <FormControl name="openDate" type="date" value={this.state.openDate} onChange={this.handleChange} />
-                                </Col>
-                            </FormGroup>
-
-                            <FormGroup>
-                                <Col componentClass={ControlLabel} sm={3}>Open time</Col>
-                                <Col sm={9}>
-                                    <FormControl name="openTime" type="time" value={this.state.openTime} onChange={this.handleChange} />
+                                    <FormControl name="openDate" type="datetime-local" value={this.state.openDate} onChange={this.handleChange} />
                                 </Col>
                             </FormGroup>
 
                             <FormGroup>
                                 <Col componentClass={ControlLabel} sm={3}>End date</Col>
                                 <Col sm={9}>
-                                    <FormControl name="endDate" type="date" value={this.state.endDate} onChange={this.handleChange} />
+                                    <FormControl name="endDate" type="datetime-local" value={this.state.endDate} onChange={this.handleChange} />
                                 </Col>
                             </FormGroup>
 
                             <FormGroup>
-                                <Col componentClass={ControlLabel} sm={3}>End time</Col>
+                                <Col componentClass={ControlLabel} sm={3}>
+                                    Queue Category
+                                </Col>
                                 <Col sm={9}>
-                                    <FormControl name="endTime" type="time" value={this.state.endTime} onChange={this.handleChange} />
+                                    <FormControl name="category" type="text" value={this.state.category} onChange={this.handleChange} />
+                                </Col>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Col componentClass={ControlLabel} sm={3}>
+                                    Max queuers
+                                </Col>
+                                <Col sm={9}>
+                                    <FormControl name="nrOfQueuers" type="number" value={this.state.nrOfQueuers} onChange={this.handleChange} />
+                                </Col>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Col componentClass={ControlLabel} sm={3}>
+                                    Queue ID (Must be unique)
+                                </Col>
+                                <Col sm={9}>
+                                    <FormControl name="queueID" type="text" value={this.state.queueID} onChange={this.handleChange} />
                                 </Col>
                             </FormGroup>
 

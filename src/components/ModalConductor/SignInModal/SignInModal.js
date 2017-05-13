@@ -3,20 +3,18 @@ import {Modal} from 'react-bootstrap';
 import './SignInModal.css';
 import api from 'axios';
 import auth from '../../../auth';
-import Link from 'react-router-dom';
 
 class SignIn extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      userEmail: '',
-      userPassword: '',
+    constructor(props){
+        super(props);
+        this.state = {
+          userEmail: '',
+          userPassword: '',
+        }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
 
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value});
