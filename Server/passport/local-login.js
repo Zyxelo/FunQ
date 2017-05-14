@@ -43,7 +43,7 @@ export default new passportLocal.Strategy({
             // create a token string
             const token = jwt.sign(payload, config.jwtSecret);
             const data = {
-                name: user.name
+                id:user._id
             };
 
             return done(null, token, data);

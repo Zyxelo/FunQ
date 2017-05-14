@@ -30,9 +30,8 @@ class SignIn extends Component {
       .then((response) => {
         console.log(response);
         this.props.close();
-        auth.authenticateUser(response.data.token);
+        auth.authenticateUser(response.data.token, response.data.user.id);
         console.log(auth.getToken());
-        alert("Welcome " + response.data.user.name);
       })
       .catch((error) => {
         console.log(error);

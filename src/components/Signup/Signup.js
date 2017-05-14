@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import {Form, FormGroup, FormControl, Button} from 'react-bootstrap';
 import axios from 'axios';
@@ -18,10 +17,6 @@ class Signup extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.formSubmit = this.formSubmit.bind(this);
-    }
-
-    static propTypes = {
-        history: PropTypes.object.isRequired
     }
 
     handleChange(event) {

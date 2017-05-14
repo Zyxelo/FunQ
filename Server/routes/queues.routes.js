@@ -1,5 +1,6 @@
 import express from 'express';
 import Queues from '../models/queues.models';
+import authCheckMiddleware from '../middleware/authenticate';
 
 const router = new express.Router();
 
@@ -17,10 +18,7 @@ function validateQueueForm(payload) {
         isFormValid = false;
         errors.queueTitle = 'Please provide a title.';
     }
-    if (!payload || typeof payload.queueCompany !== 'string' || payload.queueCompany.trim().length === 0) {
-        isFormValid = false;
-        errors.queueCompany = 'Please provide a user.';
-    }
+
     if (!payload || typeof payload.location !== 'string' || payload.location.trim().length === 0) {
         isFormValid = false;
         errors.location = 'Please provide a location.';
@@ -53,16 +51,31 @@ function validateQueueForm(payload) {
     };
 }
 
-// The route for getting all queues
+// The route for getting all queues, no auth required
 router.get('/', (req,res) => {
-    Queues.find((err, queues) => {
-        if (err) {
-            return res.send(err);
-        }
-        return res.json(queues);
-    })
+
+    // If user filtering is needed
+    if(req.query.user) {
+        Queues.find({'queueCompanyID': req.query.user }, (err,queues) => {
+            if (err) {
+                return res.send(err);
+            }
+            return res.json(queues);
+        });
+    }
+    else {
+        Queues.find((err, queues) => {
+            if (err) {
+                return res.send(err);
+            }
+            return res.json(queues);
+        });
+    }
 });
 
+router.post("/", authCheckMiddleware);
+
+// Auth required
 router.post('/',(req,res) => {
     const validationResult = validateQueueForm(req.body);
     if (!validationResult.success) {
@@ -76,12 +89,13 @@ router.post('/',(req,res) => {
     const queueData = {
         thumbnail: req.body.thumbnail.trim(),
         queueTitle: req.body.queueTitle.trim(),
-        queueCompany: req.body.queueCompany.trim(), //We should change this to userObject i guess
+        queueCompany: req.user.name, //Set the company to the user name
+        queueCompanyID: req.user._id, //Set the ID of the user
         queueEventDate:  req.body.queueEventDate.trim(),
         queEndDate: req.body.queEndDate.trim(),
         location: req.body.location.trim(),
         queueShortDescription: req.body.queueShortDescription.trim(),
-        queueCategory: req.body.queueCategory.trim(), //Maybe an object of a certain category instead of String
+        queueCategory: req.body.queueCategory.trim(),
         numberOfQueuers: req.body.numberOfQueuers,
         queueID: req.body.queueID.trim()
     };
@@ -99,9 +113,9 @@ router.post('/',(req,res) => {
 });
 
 
-// route for getting queues with a certain queue id
-router.get("/:queue_id", (req,res) => {
-    Queues.findOne({queueID:req.params.queue_id}, (err, queue) => {
+// route for getting queues with a certain queue id, no Auth required
+router.get("/:id", (req,res) => {
+    Queues.findOne({'queueID':req.params.id}, (err, queue) => {
         if (err) {
             return res.send(err);
         }
@@ -110,11 +124,21 @@ router.get("/:queue_id", (req,res) => {
     });
 });
 
-// route for updating a queue with a certain queue id
-router.put("/:queue_id", (req,res) => {
-    Queues.findOne({queueID:req.params.queue_id}, (err, queue) => {
+
+// Only allow if user is signed in (a valid token is sent)
+router.put("/:id", authCheckMiddleware);
+
+// route for updating a queue with a certain queue id, auth required (only the user that created it should be able to delete it)
+router.put("/:id", (req,res) => {
+
+    Queues.findOne({'queueID':req.params.id}, (err, queue) => {
         if (err) {
             return res.send(err);
+        }
+
+        // Check if the user is the same as the user who created the queue
+        if (req.user._id != queue.queueCompanyID) {
+            return res.status(401).end();
         }
 
         const validationResult = validateQueueForm(req.body);
@@ -148,9 +172,18 @@ router.put("/:queue_id", (req,res) => {
 
 });
 
-router.delete("/:queue_id", (req,res) => {
-    console.info('deleting user');
-    Queues.remove({queueID:req.params.queue_id}, (err, queue) => {
+// Only allow if user is signed in (a valid token is sent)
+router.delete("/:id", authCheckMiddleware);
+
+// Route for deleting a queue,
+router.delete("/:id", (req,res) => {
+
+    // Check if the user is the same as the user who created the queue
+    if (req.user._id != queue.queueCompanyID) {
+        return res.status(401).end();
+    }
+
+    Queues.remove({'queueID':req.params.id}, (err, queue) => {
         if (err) {
             return res.send(err);
         }

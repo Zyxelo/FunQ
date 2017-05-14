@@ -5,15 +5,16 @@ import Mongoose from 'mongoose';
 const queueSchema = new Mongoose.Schema({
     thumbnail: String,
     queueTitle: String,
-    queueCompany: String, //We should change this to userObject i guess
+    queueCompany: String,
+    queueCompanyID: String,
     queueEventDate:  Date,
     queEndDate: Date,
     location: String,
     queueShortDescription: String,
-    queueCategory: String, //Maybe an object of a certain category instead of String
+    queueCategory: String,
     numberOfQueuers: Number,
     queueID: {
-        type: String, //Should be counted up automatically preferably
+        type: String,
         index: { unique: true }
     }
 });

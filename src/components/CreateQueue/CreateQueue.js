@@ -1,6 +1,7 @@
 import React from 'react';
 import {Radio, Button, Col, FormGroup, FormControl, ControlLabel, Form} from 'react-bootstrap';
 import axios from 'axios';
+import Auth from '../../auth';
 
 import './CreateQueue.css';
 
@@ -30,7 +31,6 @@ class CreateQueue extends React.Component {
             title: '',
             description: '',
             eventDate: endD,
-            company: '',
             location: '',
             category: '',
             nrOfQueuers: 0,
@@ -50,7 +50,7 @@ class CreateQueue extends React.Component {
         const submit = {
             "thumbnail": this.state.thumbnail,
             "queueTitle": this.state.title,
-            "queueCompany": this.state.company,
+            "queueCompany": Auth.getUser(),
             "queueEventDate": this.state.eventDate,
             "queEndDate": this.state.endDate,
             "location": this.state.location,
@@ -62,10 +62,13 @@ class CreateQueue extends React.Component {
 
         console.log(submit);
 
+        const { history } = this.props;
+
         axios.post('http://localhost:8080/queues', submit)
             .then((response) => {
                 console.log(response);
-                alert('You have created a new queue!')
+                alert('You have created a new queue!');
+                history.push('/mypage/'+submit.queueID);
             })
             .catch((err) => {
                 console.log(err);
@@ -96,15 +99,6 @@ class CreateQueue extends React.Component {
                                 </Col>
                                 <Col sm={9}>
                                     <FormControl name="description" value={this.state.description} onChange={this.handleChange} componentClass="textarea" />
-                                </Col>
-                            </FormGroup>
-
-                            <FormGroup>
-                                <Col componentClass={ControlLabel} sm={3}>
-                                    Queue Company
-                                </Col>
-                                <Col sm={9}>
-                                    <FormControl name="company" type="text" value={this.state.company} onChange={this.handleChange} />
                                 </Col>
                             </FormGroup>
 
