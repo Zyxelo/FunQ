@@ -57,14 +57,14 @@ class CreateQueue extends React.Component {
             "queueShortDescription": this.state.description,
             "queueCategory": this.state.category,
             "numberOfQueuers": parseInt(this.state.nrOfQueuers),
-            "queueID": this.state.queueID,
+            "queueID": this.state.queueID
         };
 
         console.log(submit);
 
         const { history } = this.props;
 
-        axios.post('http://localhost:8080/queues', submit)
+        axios.post('http://localhost:8080/queues', submit, {headers: {'authorization' :'tooken ' + window.localStorage.token}})
             .then((response) => {
                 console.log(response);
                 alert('You have created a new queue!');

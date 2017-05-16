@@ -66,7 +66,7 @@ class CarouselConductor extends React.Component {
   }
 
   pauseAllPlayers = () => {
-    if (this.state.players.length != 0) {
+    if (this.state.players.length !== 0) {
       console.log('pasue');
       this.state.players.forEach((player) => {
         player.pauseVideo();
