@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {TimeLeft} from './TimeLeft/TimeLeft';
+import {TimeLeft} from '../../TimeLeft/TimeLeft';
 
 import './QueueElement.css';
 

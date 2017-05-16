@@ -52,7 +52,12 @@ class CarouselConductor extends React.Component {
     };
   }
 
+  componentWillUnmount(){
+    console.log(this.state.players);
+  }
+
   setYoutubePlayers = (event) => {
+    console.log('set');
     let players = this.state.players;
     players.push(event.target);
     this.setState({
@@ -61,19 +66,23 @@ class CarouselConductor extends React.Component {
   }
 
   pauseAllPlayers = () => {
-    this.state.players.forEach((player) => {
-      player.pauseVideo();
-    });
+    if (this.state.players.length != 0) {
+      console.log('pasue');
+      this.state.players.forEach((player) => {
+        player.pauseVideo();
+      });
+    }
+
   }
 
 
   handleSelect = (selectedIndex, e) =>{
+    console.log('handle');
     this.pauseAllPlayers();
     //console.log(this.state.players);
     this.setState({
       index: selectedIndex,
       direction: e.direction,
-      pauseVideo: true
     });
   };
 
