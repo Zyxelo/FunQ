@@ -10,21 +10,28 @@ import localSignupStrategy from './passport/local-signup';
 import localLoginStrategy from './passport/local-login';
 import mongoose from 'mongoose';
 import passport from 'passport';
+import socket from 'socket.io';
 
 //const passport = require('passport');
-const server = express();
+const app = express();
+
+// Run server to listen on port adn save server object as server
+
+
+
 
 // Use bodyparser to handle the parsing of JSON (for all routes)
-server.use(bodyParser.json());
-server.use(passport.initialize());
+app.use(bodyParser.json());
+app.use(passport.initialize());
 
-server.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Headers", "Authorization, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
   res.header("Access-Control-Allow-Methods", "GET, PUT, OPTIONS, POST, DELETE");
   next();
 });
+
 
 // Set up mongoDB
 mongoose.Promise = global.Promise;
@@ -35,20 +42,29 @@ mongoose.connect(config.mongodbUri, (error) => {
   }
 });
 
+
+
 //Declare strategies to be used in passport.authenticate()
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
 
 //middleware
-server.use('/hidden', authCheckMiddleware);
-server.use('/user', authCheckMiddleware);
+app.use('/hidden', authCheckMiddleware);
+app.use('/user', authCheckMiddleware);
 
 //Middleware specified for specific routes
-server.use('/queues', queuesRoutes);
-server.use('/auth', authRoutes);
-server.use('/user', userRoutes);
-server.use('/hidden', hiddenRoutes);
+app.use('/queues', queuesRoutes);
+app.use('/auth', authRoutes);
+app.use('/user', userRoutes);
+app.use('/hidden', hiddenRoutes);
 
-server.listen(config.port, () => {
+const server = app.listen(config.port, () => {
   console.info('Express listening on port', config.port);
+});
+
+const io = socket(server);
+
+// set up socket.io
+io.on('connection', (socket) => {
+  console.log('a user connected');
 });

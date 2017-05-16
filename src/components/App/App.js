@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Routes from '../Routes/routes';
 import ModalConductor from '../ModalConductor/ModalConductor';
-
+import io from 'socket.io-client';
 
 
 class App extends Component {
@@ -13,6 +13,7 @@ class App extends Component {
     this.state = {
       showModal: (!window.sessionStorage.getItem('visitedBefore')),
       modalType: 'QUEUE_PIN',
+      loggedIn : true
     };
   }
 
@@ -27,6 +28,13 @@ class App extends Component {
   componentWillMount() {
     window.sessionStorage.setItem('visitedBefore', true);
   }
+
+  componentDidUpdate() {
+    if (this.state.loggedIn === true) {
+      const socket = io.connect('http://localhost:8080');
+    }
+  }
+
 
   render() {
     return (

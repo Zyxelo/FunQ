@@ -1,0 +1,47 @@
+import React from 'react';
+import strftime from 'strftime';
+
+class Messages extends React.Component {
+
+
+
+  render() {
+
+    return(
+    <div className="message-bubble">
+      <p className="text-muted">{this.props.message.name}</p>
+      <span className="timestamp">{strftime('%H:%M:%S %P', new Date(this.props.message.time))}</span>
+      <span>{this.props.message.text}</span>
+    </div>
+
+
+
+    );
+
+  }
+
+}
+
+
+export default Messages;
+
+
+
+/*
+ <div className="message-bubble">
+ <p className="text-muted">Matt Townsen</p>
+ <span>Why is yo shit so broke?</span>
+ </div>
+ <div className="message-bubble">
+ <p className="text-muted">Matt Townsen</p>
+ <p>It IsNamen't'</p>
+ </div>
+ <div className="message-bubble">
+ <p className="text-muted">Matt Townsen</p>
+ <p>Umm yes it is</p>
+ </div>
+ <div className="message-bubble">
+ <p className="text-muted">Matt Townsen</p>
+ <p>Test message</p>
+ </div>
+ */

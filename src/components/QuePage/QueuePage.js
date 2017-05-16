@@ -4,6 +4,7 @@
 import React from 'react';
 import CarouselConductor from '../CarouselConductor/CarouselConductor';
 import {TimeLeft} from '../TimeLeft/TimeLeft';
+import Chat from '../Chat/Chat';
 
 class QueuePage extends React.Component {
   constructor(props) {
@@ -54,7 +55,7 @@ class QueuePage extends React.Component {
               </div>
             </div>
             <div className="col-sm-4">
-              <h3> chat </h3>
+              <Chat/>
             </div>
           </div>
 
