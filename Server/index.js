@@ -17,9 +17,6 @@ const app = express();
 
 // Run server to listen on port adn save server object as server
 
-
-
-
 // Use bodyparser to handle the parsing of JSON (for all routes)
 app.use(bodyParser.json());
 app.use(passport.initialize());
@@ -67,4 +64,15 @@ const io = socket(server);
 // set up socket.io
 io.on('connection', (socket) => {
   console.log('a user connected');
+  socket.on('room-connect', (roomId) =>{
+    console.log('joined room: ', roomId);
+    socket.join(roomId);
+  });
+  socket.on('chat message', (message, fn) => {
+    socket.broadcast.to(message.queueID).emit('chat message', message.message);
+    console.log(message);
+  });
 });
+
+// fn is a callback function sent by the client
+

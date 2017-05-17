@@ -64,7 +64,7 @@ class CreateQueue extends React.Component {
 
         const { history } = this.props;
 
-        axios.post('http://localhost:8080/queues', submit, {headers: {'authorization' :'tooken ' + window.localStorage.token}})
+        axios.post('http://localhost:8080/queues', submit, {headers: {'authorization' :'jwt ' + window.localStorage.token}})
             .then((response) => {
                 console.log(response);
                 alert('You have created a new queue!');

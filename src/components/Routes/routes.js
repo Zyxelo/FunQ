@@ -14,7 +14,7 @@ import NotFound from '../NotFound/NotFound';
 import QueBrowser from '../QueBrowser/QueBrowser';
 import ReCaptcha from '../ReCaptcha/ReCaptcha';
 import CreateQueue from '../CreateQueue/CreateQueue';
-import MyQueuesPage from '../MyQueuesPage/MyQueuesPage'
+import MyQueuesPage from '../MyQueuesPage/MyQueuesPage';
 import EnterQueuePopup from '../EnterQueuePopup/EnterQueuePopup';
 import Signup from '../Signup/Signup';
 
@@ -37,7 +37,7 @@ const Routes = (props) => (
       <Navbar {...props} displayModal={props.displayModal} loggedIn={props.loggedIn}/>
       <Switch>
         <Route exact path="/" component={QueBrowser} />
-        <Route path="/queue/:queueId" component={QueuePage}/>
+        <Route path="/queues/:queueId" component={QueuePage}/>
         <Route path="/home" component={QueBrowser} />
         <Route path="/captcha" component={ReCaptcha}/>
         <Route path="/signup" component={Signup} />
