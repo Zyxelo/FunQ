@@ -69,6 +69,5 @@ export default connect(mapStateToProps)(QueNavbar);
 
 QueNavbar.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
-  displayModal: PropTypes.func.isRequired
+  isAuthenticated: PropTypes.bool.isRequired
 }

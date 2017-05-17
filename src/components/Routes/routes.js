@@ -16,7 +16,7 @@ import ReCaptcha from '../ReCaptcha/ReCaptcha';
 import CreateQueue from '../CreateQueue/CreateQueue';
 import MyQueuesPage from '../MyQueuesPage/MyQueuesPage';
 import EnterQueuePopup from '../EnterQueuePopup/EnterQueuePopup';
-import Signup from '../Signup/Signup';
+import SignUp from '../Signup/Signup';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
@@ -40,7 +40,7 @@ const Routes = (props) => (
         <Route path="/queues/:queueId" component={QueuePage}/>
         <Route path="/home" component={QueBrowser} />
         <Route path="/captcha" component={ReCaptcha}/>
-        <Route path="/signup" component={Signup} />
+        <Route path="/signup" component={SignUp} />
         <PrivateRoute path="/mypage" component={MyQueuesPage}/>
         <PrivateRoute path="/create" component={CreateQueue}/>
         <Route component={NotFound} />

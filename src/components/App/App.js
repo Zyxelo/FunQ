@@ -3,29 +3,20 @@ import { connect } from 'react-redux';
 import './App.css';
 import Routes from '../Routes/routes';
 import ModalConductor from '../ModalConductor/ModalConductor';
-import { switchModal, MODAL_HIDE } from '../../actions';
-import auth from '../../auth';
+import { switchModal, MODAL_HIDE, MODAL_QUEUE_PIN } from '../../actions';
 import io from 'socket.io-client';
 
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showModal: (!window.sessionStorage.getItem('visitedBefore'))
-    };
-  }
-
   closeModal = () => {
     this.props.dispatch(switchModal(MODAL_HIDE));
   };
 
-  showModal = (type) => {
-    this.props.dispatch(switchModal(type));
-  };
-
   componentWillMount() {
-    window.sessionStorage.setItem('visitedBefore', true);
+    if(window.sessionStorage.getItem('visitedBefore') != 'true') {
+      this.props.dispatch(switchModal(MODAL_QUEUE_PIN));
+      window.sessionStorage.setItem('visitedBefore', true);
+    }
   }
 
 
@@ -35,7 +26,6 @@ class App extends Component {
     return (
       <div className="App">
         <Routes
-          displayModal={this.showModal}
           isAuthenticated={isAuthenticated}
           errorMessage={errorMessage}
           dispatch={dispatch}
