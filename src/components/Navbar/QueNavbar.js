@@ -4,25 +4,11 @@ import logo from '../QuePage/logo.png';
 import {Navbar, FormGroup, FormControl} from 'react-bootstrap';
 import './QueNavbar.css';
 import {Link} from 'react-router-dom';
-import auth from '../../auth';
-import { logoutUser } from '../../actions';
+import { logoutUser, switchModal, MODAL_SIGN_IN } from '../../actions';
 import LoginButton from './LoginButton';
 
 
 class QueNavbar extends Component {
-
-  signInSignOut = (props) => {
-    console.log(this.props);
-    if(auth.isUserAuthenticated()) {
-      auth.deauthenticateUser();
-      this.props.loggedIn = false;
-      this.setState({buttonText: 'Sign In'});
-      alert('You logged out');
-    } else {
-      this.props.displayModal('SIGN_IN');
-    }
-  }
-
   render() {
     const { dispatch, isAuthenticated } = this.props;
     return (
@@ -37,7 +23,7 @@ class QueNavbar extends Component {
 
           {!isAuthenticated &&
             <LoginButton
-              onButtonClick={() => {this.props.displayModal('SIGN_IN');}}
+              onButtonClick={() => {dispatch(switchModal(MODAL_SIGN_IN))}}
               buttonText="Log in"
             />
           }
@@ -68,11 +54,21 @@ class QueNavbar extends Component {
 }
 
 
-export default connect()(QueNavbar);
+function mapStateToProps(state) {
+  const {auth} = state
+  const {isAuthenticated, errorMessage} = auth
+
+  return {
+    isAuthenticated,
+    errorMessage,
+  }
+}
+
+export default connect(mapStateToProps)(QueNavbar);
 
 
 QueNavbar.propTypes = {
   dispatch: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-  displayModal: PropTypes.string
+  displayModal: PropTypes.func.isRequired
 }

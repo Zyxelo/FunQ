@@ -4,7 +4,7 @@
 
 import { combineReducers } from 'redux';
 import {
-  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS
+  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, MODAL_QUEUE_PIN, MODAL_SIGN_IN, MODAL_HIDE
 } from './actions';
 
 // The auth reducer. The starting state sets authentication
@@ -43,6 +43,31 @@ function auth(state = {
   }
 }
 
+function modal(state = {
+                 modalType: '',
+                 modalDisplay: false
+               }, action) {
+  switch (action.type) {
+    case MODAL_SIGN_IN:
+      return Object.assign({}, state, {
+        modalType: MODAL_SIGN_IN,
+        modalDisplay: true
+      })
+    case MODAL_QUEUE_PIN:
+      return Object.assign({}, state, {
+        modalType: MODAL_QUEUE_PIN,
+        modalDisplay: true
+      })
+    case MODAL_HIDE:
+      return Object.assign({}, state, {
+        modalType: '',
+        modalDisplay: false
+      })
+    default:
+      return state
+  }
+}
+
 // The queues reducer
 // Gör ingenting i nuläget, bara för att
 function queues(state = {}, action) {
@@ -57,7 +82,8 @@ function queues(state = {}, action) {
 // can be left split apart above
 const queuesApp = combineReducers({
   auth,
-  queues
+  queues,
+  modal
 })
 
 export default queuesApp;

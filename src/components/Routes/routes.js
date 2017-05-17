@@ -34,18 +34,18 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 const Routes = (props) => (
   <Router>
     <div>
-      <Navbar {...props} displayModal={props.displayModal} loggedIn={props.loggedIn}/>
+      <Navbar/>
       <Switch>
         <Route exact path="/" component={QueBrowser} />
         <Route path="/queues/:queueId" component={QueuePage}/>
         <Route path="/home" component={QueBrowser} />
         <Route path="/captcha" component={ReCaptcha}/>
         <Route path="/signup" component={Signup} />
-        <PrivateRoute path="/mypage" component={MyQueuesPage} />
+        <PrivateRoute path="/mypage" component={MyQueuesPage}/>
         <PrivateRoute path="/create" component={CreateQueue}/>
         <Route component={NotFound} />
       </Switch>
-      <EnterQueuePopup displayModal={props.displayModal} {...props}/>
+      <EnterQueuePopup/>
     </div>
   </Router>
 );

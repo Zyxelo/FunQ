@@ -6,6 +6,7 @@ import auth from './auth';
 import { CALL_API } from './middleware/api';
 
 //TODO: Lägg in register action
+//TODO: Fixa Modal Dispatcher
 
 // There are three possible states for our login
 // process and we need actions for each of them
@@ -84,12 +85,10 @@ export function loginUser(creds) {
         //this.props.close();
         auth.authenticateUser(response.data.token, response.data.user.id);
         const user = response.data;
-        console.log('loggar in');
         axios.defaults.headers.common['Authorization'] = 'JWT ' + response.data.token; //vet inte om det fungerar
         dispatch(receiveLogin(user));
       })
       .catch((error) => {
-        console.log('kunde inte logga in')
         console.log(error);
         dispatch(loginError(error.message))
       });
@@ -103,7 +102,6 @@ export function loginUser(creds) {
           return Promise.reject(user);
         } else {
           // If login was successful, set the token in local storage
-          auth.
           localStorage.setItem('id_token', user.id_token)
           localStorage.setItem('id_token', user.access_token)
           // Dispatch the success action
@@ -121,3 +119,15 @@ export function logoutUser() {
     dispatch(receiveLogout())
   }
 }
+
+export const MODAL_SIGN_IN = 'SIGN_IN'
+export const MODAL_QUEUE_PIN = 'QUEUE_PIN'
+export const MODAL_HIDE = 'MODAL_HIDE'
+
+export function switchModal(modal) {
+  return {
+    type: modal,
+    modalType: modal
+  }
+}
+

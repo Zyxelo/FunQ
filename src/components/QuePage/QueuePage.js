@@ -1,10 +1,12 @@
 /**
  * Created by victorode on 2017-05-11.
  */
-import React from 'react';
+import React, {PropTypes} from 'react';
 import CarouselConductor from '../CarouselConductor/CarouselConductor';
 import {TimeLeft} from '../TimeLeft/TimeLeft';
 import Chat from '../Chat/Chat';
+import { switchModal, MODAL_SIGN_IN } from '../../actions';
+import { connect } from 'react-redux';
 import axios from 'axios';
 
 class QueuePage extends React.Component {
@@ -36,8 +38,17 @@ class QueuePage extends React.Component {
     }
   }
 
+  enterQueueButton = () => {
+    if(this.props.isAuthenticated) {
+      alert('You entered the queue');
+    } else {
+      this.props.dispatch(switchModal(MODAL_SIGN_IN));
+    }
+  }
+
 
   render() {
+    const { dispatch, isAuthenticated, displayModal } = this.props
     return(
       <div>
         <div className="container">
@@ -50,7 +61,7 @@ class QueuePage extends React.Component {
                 <h3>{this.state.queueInfo.queueTitle}</h3>
                 <h5>{'By ' + this.state.queueInfo.queueCompany}</h5>
                 <div><TimeLeft timeLeft={[12,12,12,12]}/></div>
-                <button className="btn btn-primary enter-que">Enter queue</button>
+                <button className="btn btn-primary enter-que" onClick={() => this.enterQueueButton()}>Enter queue</button>
               </div>
             </div>
           </div>
@@ -92,4 +103,20 @@ class QueuePage extends React.Component {
   }
 }
 
-export default QueuePage;
+function mapStateToProps(state) {
+  const {auth} = state
+  const {isAuthenticated, errorMessage} = auth
+
+  return {
+    isAuthenticated,
+    errorMessage
+  }
+}
+
+export default connect(mapStateToProps)(QueuePage);
+
+QueuePage.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  displayModal: PropTypes.func.isRequired
+}

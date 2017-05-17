@@ -11,7 +11,7 @@ class SignIn extends Component {
     const password = this.refs.password;
     const creds = { email: email.value.trim(), password: password.value.trim() };
     this.props.dispatch(loginUser(creds))
-      .then(this.props.close);
+      .then(this.props.close)
   }
 
 
@@ -52,7 +52,17 @@ class SignIn extends Component {
   }
 
 }
-export default connect()(SignIn);
+
+function mapStateToProps(state) {
+  const {auth} = state
+  const {isAuthenticated, errorMessage} = auth
+
+  return {
+    isAuthenticated,
+    errorMessage,
+  }
+}
+export default connect(mapStateToProps)(SignIn);
 
 SignIn.propTypes = {
   dispatch: PropTypes.func.isRequired,
