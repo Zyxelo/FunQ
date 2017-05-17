@@ -9,9 +9,20 @@ class Messages extends React.Component {
 
     return(
     <div className="message-bubble">
-      <p className="text-muted">{this.props.message.name}</p>
-      <span className="timestamp">{strftime('%H:%M:%S %P', new Date(this.props.message.time))}</span>
-      <span>{this.props.message.text}</span>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <p className="text-muted">{this.props.message.name}</p>
+              <span className="timestamp">{strftime('%H:%M:%S', new Date(this.props.message.time))}</span>
+            </td>
+            <td>
+              <span>{this.props.message.text}</span>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
     </div>
 
 

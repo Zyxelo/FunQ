@@ -5,6 +5,7 @@ import React from 'react';
 import CarouselConductor from '../CarouselConductor/CarouselConductor';
 import {TimeLeft} from '../TimeLeft/TimeLeft';
 import Chat from '../Chat/Chat';
+import axios from 'axios';
 
 class QueuePage extends React.Component {
   constructor(props) {
@@ -23,6 +24,16 @@ class QueuePage extends React.Component {
         queueLongDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id consectetur purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi egestas sapien eleifend, lacinia velit in, elementum urna. Nulla mattis maximus libero, vel molestie tortor tempus id. Nunc laoreet posuere eros, et faucibus magna. Phasellus quis urna varius, venenatis sapien lobortis, facilisis dui. Nullam ultrices justo et volutpat semper.Duis blandit porta gravida. Donec tincidunt tellus a dui commodo ullamcorper. Nullam metus felis, porta id iaculis nec, fermentum at velit. Pellentesque dapibus pharetra dui, ut scelerisque urna dapibus vel. Nunc a vehicula nulla, ut suscipit velit. Proin quis finibus felis. Donec vestibulum dapibus lacinia.Pellentesque diam diam, accumsan et augue et, blandit efficitur augue. Nullam quis volutpat ante. Aliquam nec varius enim. Nunc eget nibh congue, consequat purus non, sagittis nisl. Praesent a mollis eros. Maecenas maximus erat volutpat purus dictum, vel lobortis felis fringilla. Proin risus quam, porta ut sagittis eget, iaculis a ligula. Vivamus et sollicitudin est, ut posuere urna',
         queueID: 'lkadjskkk'}
     };
+  }
+
+
+  componentWillMount() {
+    if (this.props.location.state) {
+      this.setState({queueInfo : this.props.location.state});
+    } else {
+      axios.get('http://localhost:8080'+this.props.location.pathname)
+        .then((response) => this.setState({queueInfo: response})).catch((err) => console.log(err));
+    }
   }
 
 
@@ -55,7 +66,7 @@ class QueuePage extends React.Component {
               </div>
             </div>
             <div className="col-sm-4">
-              <Chat/>
+              <Chat queueID={this.state.queueInfo.queueID}/>
             </div>
           </div>
 
