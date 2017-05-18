@@ -1,55 +1,69 @@
-import React, { Component } from 'react';
-
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
 import Routes from '../Routes/routes';
 import ModalConductor from '../ModalConductor/ModalConductor';
+import { switchModal, MODAL_HIDE, MODAL_QUEUE_PIN } from '../../actions';
 import io from 'socket.io-client';
 
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    console.log(window.sessionStorage);
-    this.state = {
-      showModal: (!window.sessionStorage.getItem('visitedBefore')),
-      modalType: 'QUEUE_PIN',
-      loggedIn : true
-    };
-  }
-
   closeModal = () => {
-    this.setState({showModal: false});
-  };
-
-  showModal = (type) => {
-    this.setState({showModal: true, modalType: type});
+    this.props.dispatch(switchModal(MODAL_HIDE));
   };
 
   componentWillMount() {
-    window.sessionStorage.setItem('visitedBefore', true);
-  }
-
-  componentDidUpdate() {
-    if (this.state.loggedIn === true) {
-      const socket = io.connect('http://localhost:8080');
+    if(window.sessionStorage.getItem('visitedBefore') != 'true') {
+      this.props.dispatch(switchModal(MODAL_QUEUE_PIN));
+      window.sessionStorage.setItem('visitedBefore', true);
     }
   }
 
 
+
   render() {
+    const { dispatch, isAuthenticated, errorMessage, modalType, modalDisplay } = this.props; //Redux
     return (
       <div className="App">
-          <Routes displayModal={this.showModal}/>
-          {(this.state.showModal) ? <ModalConductor
-            currentModal={this.state.modalType}
-            close={this.closeModal}
-          /> : null}
+        <Routes
+          isAuthenticated={isAuthenticated}
+          errorMessage={errorMessage}
+          dispatch={dispatch}
+        />
 
 
+        {(modalDisplay) ? <ModalConductor
+          currentModal={modalType}
+          close={this.closeModal}
+        /> : null}
 
       </div>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string,
+  modalType: PropTypes.string,
+  modalDisplay: PropTypes.bool
+}
+
+// These props come from the application's
+// state when it is started
+// På svenska: den tar state från store och matar in som props till sin component
+function mapStateToProps(state) {
+  // 'quotes' not needed, taken from tutorial at https://auth0.com/blog/secure-your-react-and-redux-app-with-jwt-authentication/
+  const {auth, modal} = state
+  const {isAuthenticated, errorMessage} = auth
+  const {modalType, modalDisplay} = modal
+
+  return {
+    isAuthenticated,
+    errorMessage,
+    modalType, modalDisplay
+  }
+}
+
+export default connect(mapStateToProps)(App);

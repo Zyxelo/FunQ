@@ -1,11 +1,13 @@
-import React from 'react';
-
+import React, {PropTypes} from 'react';
+import { connect } from 'react-redux';
+import { switchModal, MODAL_QUEUE_PIN } from '../../actions';
 import './EnterQueuePopup.css';
 
-export default class EnterQueuePopup extends React.Component {
+class EnterQueuePopup extends React.Component {
   render() {
+    const { dispatch } = this.props;
     return (
-      <div className="queue-popup" onClick={() => {this.props.displayModal('QUEUE_PIN')}}>
+      <div className="queue-popup" onClick={() => dispatch(switchModal(MODAL_QUEUE_PIN))}>
         <h2>
           QUICK ENTRY
         </h2>
@@ -13,3 +15,9 @@ export default class EnterQueuePopup extends React.Component {
     );
   }
 }
+
+EnterQueuePopup.PropTypes = {
+  dispatch: PropTypes.func
+}
+
+export default connect()(EnterQueuePopup);
