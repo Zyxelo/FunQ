@@ -11,6 +11,7 @@ import localLoginStrategy from './passport/local-login';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import socket from 'socket.io';
+import socketHandler from './socket/socket';
 
 //const passport = require('passport');
 const app = express();
@@ -62,17 +63,7 @@ const server = app.listen(config.port, () => {
 const io = socket(server);
 
 // set up socket.io
-io.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.on('room-connect', (roomId) =>{
-    console.log('joined room: ', roomId);
-    socket.join(roomId);
-  });
-  socket.on('chat message', (message, fn) => {
-    socket.broadcast.to(message.queueID).emit('chat message', message.message);
-    console.log(message);
-  });
-});
+io.on('connection', socketHandler);
 
 // fn is a callback function sent by the client
 

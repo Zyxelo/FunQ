@@ -13,7 +13,7 @@ class Messages extends React.Component {
         <tbody>
           <tr>
             <td>
-              <p className="text-muted">{this.props.message.name}</p>
+              <p className="text-muted">{this.props.message.sender}</p>
               <span className="timestamp">{strftime('%H:%M:%S', new Date(this.props.message.time))}</span>
             </td>
             <td>
