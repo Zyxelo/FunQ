@@ -9,19 +9,10 @@ class Chat extends React.Component {
     super(props);
     this.state = {
       socket: {},
+      name: 'testUser',
       messages: [
         {
-          name: 'pusher',
-          time: new Date(),
-          text: 'Hi there'
-        },
-        {
-          name: 'pusher',
-          time: new Date(),
-          text: 'Hi there'
-        },
-        {
-          name: 'pusher',
+          sender: 'pusher',
           time: new Date(),
           text: 'Hi there'
         }
@@ -42,7 +33,13 @@ class Chat extends React.Component {
 
   componentDidMount() {
     this._handleMessageEvent();
-    this.state.socket.emit('room-connect', this.props.queueID);
+    this.state.socket.emit('room-connect', this.props.queueID, (response) => {
+      console.log(response.messages);
+
+      this.setState({
+        messages: [ ...this.state.messages, ...response.messages]
+      });
+    });
   }
 
   componentDidUpdate() {
@@ -56,14 +53,14 @@ class Chat extends React.Component {
     let newMessage = document.getElementById('msg-input').value;
     this.setState({
       messages: [ ...this.state.messages, {
-        name: 'pusher',
+        sender: this.state.name,
         time:  new Date(),
         text:  newMessage
       }]});
 
 
     document.getElementById('msg-input').value = '';
-    this.state.socket.emit('chat message', {message: newMessage, queueID: this.props.queueID});
+    this.state.socket.emit('chat message', {message: newMessage, queueID: this.props.queueID, sender: this.state.name, time: new Date()});
 
   };
 
@@ -72,9 +69,9 @@ class Chat extends React.Component {
       console.log(inboundMessage);
       this.setState({
         messages: [ ...this.state.messages, {
-          name: 'pusher',
-          time:  new Date(),
-          text:  inboundMessage
+          name: inboundMessage.sender,
+          time:  inboundMessage.time,
+          text:  inboundMessage.message
         }]
       });
     });

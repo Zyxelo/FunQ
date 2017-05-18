@@ -44,6 +44,8 @@ class CreateQueue extends React.Component {
         this.setState({[event.target.name]: event.target.value});
     }
 
+
+    // Är submit nån sorts hobby JSON?
     handleSubmit(event) {
         event.preventDefault();
         const submit = {
