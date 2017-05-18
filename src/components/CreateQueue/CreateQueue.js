@@ -1,7 +1,6 @@
 import React from 'react';
 import {Radio, Button, Col, FormGroup, FormControl, ControlLabel, Form} from 'react-bootstrap';
 import axios from 'axios';
-import Auth from '../../auth';
 
 import './CreateQueue.css';
 
@@ -50,7 +49,7 @@ class CreateQueue extends React.Component {
         const submit = {
             "thumbnail": this.state.thumbnail,
             "queueTitle": this.state.title,
-            "queueCompany": Auth.getUser(),
+            "queueCompany": localStorage.getItem('userID'),
             "queueEventDate": this.state.eventDate,
             "queEndDate": this.state.endDate,
             "location": this.state.location,
@@ -63,7 +62,7 @@ class CreateQueue extends React.Component {
         console.log(submit);
 
         const { history } = this.props;
-
+        console.log(window.localStorage)
         axios.post('http://localhost:8080/queues', submit, {headers: {'authorization' :'jwt ' + window.localStorage.token}})
             .then((response) => {
                 console.log(response);

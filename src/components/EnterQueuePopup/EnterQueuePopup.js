@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { switchModal, MODAL_QUEUE_PIN } from '../../actions';
 import './EnterQueuePopup.css';
@@ -16,8 +17,9 @@ class EnterQueuePopup extends React.Component {
   }
 }
 
-EnterQueuePopup.PropTypes = {
-  dispatch: PropTypes.func
-}
-
 export default connect()(EnterQueuePopup);
+
+
+EnterQueuePopup.propTypes = {
+  dispatch: PropTypes.func.isRequired
+}

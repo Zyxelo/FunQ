@@ -3,7 +3,6 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import auth from '../../auth';
 
 
 export default class LoginButton extends Component {

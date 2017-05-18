@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import Auth from '../../auth';
 import {Link} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 
@@ -16,7 +15,7 @@ class MyQueuesPage extends React.Component {
   }
 
   componentDidMount() {
-    const userID = Auth.getUser();
+    const userID = localStorage.getItem('userID');
     axios.get('http://localhost:8080/queues?user='+userID)
       .then( (res) => {
         this.setState({queueItems: res.data});

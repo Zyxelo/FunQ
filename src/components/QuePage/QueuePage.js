@@ -32,10 +32,14 @@ class QueuePage extends React.Component {
   componentWillMount() {
     if (this.props.location.state) {
       this.setState({queueInfo : this.props.location.state});
+
     } else {
       axios.get('http://localhost:8080'+this.props.location.pathname)
         .then((response) => this.setState({queueInfo: response})).catch((err) => console.log(err));
     }
+  }
+  componentDidMount() {
+    console.log(this.state.queueInfo);
   }
 
   enterQueueButton = () => {
@@ -118,5 +122,4 @@ export default connect(mapStateToProps)(QueuePage);
 QueuePage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-  displayModal: PropTypes.func.isRequired
 }

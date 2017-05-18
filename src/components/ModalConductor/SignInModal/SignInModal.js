@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Modal} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import './SignInModal.css';
-import {loginUser} from '../../../actions';
+import {loginUser, switchModal, MODAL_HIDE} from '../../../actions';
 
 class SignIn extends Component {
   handleClick(event) {
@@ -11,9 +11,13 @@ class SignIn extends Component {
     const password = this.refs.password;
     const creds = { email: email.value.trim(), password: password.value.trim() };
     this.props.dispatch(loginUser(creds))
-      .then(this.props.close)
-  }
+      .then(() => {
+        if(this.props.isAuthenticated == true) {
+          this.props.dispatch(switchModal(MODAL_HIDE));
+        }
+    });
 
+  }
 
   render () {
     const { errorMessage } = this.props
@@ -67,5 +71,6 @@ export default connect(mapStateToProps)(SignIn);
 SignIn.propTypes = {
   dispatch: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
+  isAuthenticated: PropTypes.bool,
   close: PropTypes.func.isRequired
 }
