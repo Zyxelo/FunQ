@@ -15,8 +15,7 @@ class SignIn extends Component {
         if(this.props.isAuthenticated) {
           this.props.dispatch(switchModal(MODAL_HIDE));
         }
-    });
-
+      })
   }
 
   render () {
