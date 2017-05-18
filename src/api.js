@@ -2,31 +2,31 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:8080/';
 
-export default (endpoint, config, req, authenticate) => {
+export default (endpoint, data, req, authenticate) => {
 
   let token = localStorage.getItem('token') || null;
+  let header = {};
 
   if(authenticate) {
     if(token) {
-      config.headers.Authorization = 'JWT'+token;
+      header = {Authorization: 'JWT '+token};
     }
     else return new Promise((resolve,reject) => {
       reject(Error('Token not valid!'))
     })
   }
 
-  switch (req) {
-    case 'get':
-      return axios.get(BASE_URL + endpoint, config);
-    case 'post':
-      return axios.post(BASE_URL + endpoint, config);
-    case 'delete':
-      return axios.delete(BASE_URL + endpoint, config);
-    case 'update':
-      return axios.put(BASE_URL + endpoint, config);
-    default:
-      return new Promise((resolve,reject) => {
-        reject(Error('Not a valid API request!'))
-      })
+  if (!(req === 'post' || req === 'get' || req === 'put' || req === 'delete')) {
+    return new Promise((resolve,reject) => {
+      reject(Error('Not a valid API request!'))
+    })
   }
+
+  return axios({
+    method: req,
+    url: BASE_URL + endpoint,
+    data: data,
+    headers: header
+  })
+
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Radio, Button, Col, FormGroup, FormControl, ControlLabel, Form} from 'react-bootstrap';
+import callApi from '../../api';
 import axios from 'axios';
 
 import './CreateQueue.css';
@@ -44,37 +45,31 @@ class CreateQueue extends React.Component {
         this.setState({[event.target.name]: event.target.value});
     }
 
-
-    // Är submit nån sorts hobby JSON?
     handleSubmit(event) {
         event.preventDefault();
         const submit = {
-            "thumbnail": this.state.thumbnail,
-            "queueTitle": this.state.title,
-            "queueCompany": localStorage.getItem('userID'),
-            "queueEventDate": this.state.eventDate,
-            "queEndDate": this.state.endDate,
-            "location": this.state.location,
-            "queueShortDescription": this.state.description,
-            "queueCategory": this.state.category,
-            "numberOfQueuers": parseInt(this.state.nrOfQueuers),
-            "queueID": this.state.queueID
+            thumbnail: this.state.thumbnail,
+            queueTitle: this.state.title,
+            queueCompany: localStorage.getItem('userID'),
+            queueEventDate: this.state.eventDate,
+            queEndDate: this.state.endDate,
+            location: this.state.location,
+            queueShortDescription: this.state.description,
+            queueCategory: this.state.category,
+            numberOfQueuers: parseInt(this.state.nrOfQueuers),
+            queueID: this.state.queueID
         };
 
-        console.log(submit);
-
         const { history } = this.props;
-        console.log(window.localStorage)
-        axios.post('http://localhost:8080/queues', submit, {headers: {'authorization' :'jwt ' + window.localStorage.token}})
-            .then((response) => {
-                console.log(response);
-                alert('You have created a new queue!');
-                history.push('/mypage/'+submit.queueID);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
 
+        callApi('queues/', submit, 'post', true)
+          .then( (res) => {
+              alert('You have created a new queue!');
+              history.push('/mypage')+submit.queueID
+          })
+          .catch((err) => {
+            console.log(err);
+          })
     }
 
     render() {
