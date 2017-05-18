@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 class MyQueuesPage extends React.Component {
 
@@ -23,6 +24,7 @@ class MyQueuesPage extends React.Component {
       .catch((err) => {
         console.log(err);
       });
+
   }
 
   deleteQueueItem(event, queueID, listItem) {
@@ -56,4 +58,4 @@ class MyQueuesPage extends React.Component {
   };
 }
 
-export default MyQueuesPage;
+export default connect()(MyQueuesPage);

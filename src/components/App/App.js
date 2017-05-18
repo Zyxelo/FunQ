@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import './App.css';
 import Routes from '../Routes/routes';
 import ModalConductor from '../ModalConductor/ModalConductor';
-import { switchModal, MODAL_HIDE, MODAL_QUEUE_PIN } from '../../actions';
+import { switchModal, setTime, MODAL_HIDE, MODAL_QUEUE_PIN } from '../../actions';
 import io from 'socket.io-client';
 
 
@@ -19,7 +19,19 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    this.timer = setInterval(() => this.tick(), 1000);
 
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.timer);
+  }
+
+  tick() {
+    let time = new Date().getTime();
+    this.props.dispatch(setTime(time));
+  }
 
   render() {
     const { dispatch, isAuthenticated, errorMessage, modalType, modalDisplay } = this.props; //Redux
@@ -55,14 +67,16 @@ App.propTypes = {
 // På svenska: den tar state från store och matar in som props till sin component
 function mapStateToProps(state) {
   // 'quotes' not needed, taken from tutorial at https://auth0.com/blog/secure-your-react-and-redux-app-with-jwt-authentication/
-  const {auth, modal} = state
+  const {auth, modal, timeReducer} = state
   const {isAuthenticated, errorMessage} = auth
   const {modalType, modalDisplay} = modal
+  const {currentTime} = timeReducer
 
   return {
     isAuthenticated,
     errorMessage,
-    modalType, modalDisplay
+    modalType, modalDisplay,
+    currentTime
   }
 }
 
