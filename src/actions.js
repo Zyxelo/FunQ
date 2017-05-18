@@ -1,8 +1,4 @@
-/**
- * Created by antonlindell on 2017-05-17.
- */
-import axios from 'axios';
-import { CALL_API } from './middleware/api';
+import callApi from './api';
 
 //TODO: Lägg in register action
 
@@ -45,15 +41,15 @@ export function loginUser(creds) {
   };
 
   return (dispatch) => {
-    return axios.post('http://localhost:8080/auth/login', config)
-      .then((response) => {
+    return callApi('auth/login', config,'post')
+      .then( (res) => {
         dispatch(receiveLogin());
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('userID', response.data.user.id);
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('userID', res.data.user.id);
       })
-      .catch((error) => {
-        console.log(error);
-        dispatch(loginError(error.message))
+      .catch( (err) => {
+        console.log(err);
+        dispatch(loginError(err.message))
       });
   }
 }

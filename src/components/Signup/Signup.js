@@ -28,6 +28,8 @@ class Signup extends React.Component {
 
         const { history } = this.props;
 
+
+
         axios.post('http://localhost:8080/auth/signup', {
             email: this.state.email,
             password: this.state.password,
