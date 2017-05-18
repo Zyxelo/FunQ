@@ -4,7 +4,7 @@ import './TimeLeft.css';
 export const TimeLeft = ({timeLeft}) => {
 
   return (
-    <div className="countdown col-sm-12">
+    <div className="countdown row">
       <div className="col-sm-3">
         {timeLeft[0]}
         <span>days</span>

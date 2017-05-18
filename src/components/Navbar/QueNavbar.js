@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import logo from '../QuePage/logo.png';
+import logo from '../QueuePage/logo.png';
 import {Navbar, FormGroup, FormControl} from 'react-bootstrap';
 import './QueNavbar.css';
 import {Link} from 'react-router-dom';

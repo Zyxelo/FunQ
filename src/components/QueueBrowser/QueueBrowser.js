@@ -1,5 +1,5 @@
 import React from 'react';
-import QueTopElement from './QueTopElement/QueTopElement';
+import QueTopElement from './QueueTopElement/QueTopElement';
 import QueueElement from './QueueElement/QueueElement';
 import axios from 'axios';
 

@@ -1,7 +1,7 @@
 import Mongoose from 'mongoose';
 
 
-//Define queue model
+//Define messages model
 const messageSchema = new Mongoose.Schema({
   queueID: String,
   text: String,

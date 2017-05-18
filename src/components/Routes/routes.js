@@ -7,10 +7,10 @@ import {
 } from 'react-router-dom';
 
 
-import QueuePage from '../QuePage/QueuePage';
+import QueuePage from '../QueuePage/QueuePage';
 import Navbar from '../Navbar/QueNavbar';
 import NotFound from '../NotFound/NotFound';
-import QueBrowser from '../QueBrowser/QueBrowser';
+import QueBrowser from '../QueueBrowser/QueueBrowser';
 import ReCaptcha from '../ReCaptcha/ReCaptcha';
 import CreateQueue from '../CreateQueue/CreateQueue';
 import MyQueuesPage from '../MyQueuesPage/MyQueuesPage';

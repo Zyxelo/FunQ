@@ -8,41 +8,55 @@ import Chat from '../Chat/Chat';
 import { switchModal, MODAL_SIGN_IN } from '../../actions';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import './QueuePage.css';
+import ReCaptcha from 'react-recaptcha';
 
 class QueuePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      queueInfo: {
-        thumbnail: '/static/media/hakan_ullevi.680eabff.jpg',
-        queueTitle: 'Håkan Hellström',
-        queueCompany: 'Tickster',
-        queueEventDate:  '2017-06-12T11:22:22.824Z',
-        queEndDate: '2017-05-20T11:22:22.824Z',
-        location: 'Bråvalla',
-        queueShortDescription: 'Håkan uppträder för 10 gången på bråvalla blir jättekul kom kom',
-        queueCategory: 'Music',
-        numberOfQueuers: 2000,
-        queueLongDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id consectetur purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi egestas sapien eleifend, lacinia velit in, elementum urna. Nulla mattis maximus libero, vel molestie tortor tempus id. Nunc laoreet posuere eros, et faucibus magna. Phasellus quis urna varius, venenatis sapien lobortis, facilisis dui. Nullam ultrices justo et volutpat semper.Duis blandit porta gravida. Donec tincidunt tellus a dui commodo ullamcorper. Nullam metus felis, porta id iaculis nec, fermentum at velit. Pellentesque dapibus pharetra dui, ut scelerisque urna dapibus vel. Nunc a vehicula nulla, ut suscipit velit. Proin quis finibus felis. Donec vestibulum dapibus lacinia.Pellentesque diam diam, accumsan et augue et, blandit efficitur augue. Nullam quis volutpat ante. Aliquam nec varius enim. Nunc eget nibh congue, consequat purus non, sagittis nisl. Praesent a mollis eros. Maecenas maximus erat volutpat purus dictum, vel lobortis felis fringilla. Proin risus quam, porta ut sagittis eget, iaculis a ligula. Vivamus et sollicitudin est, ut posuere urna',
-        queueID: 'lkadjskkk'}
-    };
+      queueInfo:'',
+      inQueue: false
+    }
   }
-
 
   componentWillMount() {
     if (this.props.location.state) {
-      this.setState({queueInfo : this.props.location.state});
+      this.setState({queueInfo : this.props.location.state}, () => {this.isInQueue();})
     } else {
       axios.get('http://localhost:8080'+this.props.location.pathname)
-        .then((response) => this.setState({queueInfo: response})).catch((err) => console.log(err));
+        .then((response) => {
+          this.setState({queueInfo: response.data}, () => {this.isInQueue()});
+        })
+        .catch((err) => console.log(err));
     }
   }
-  componentDidMount() {
+
+  isInQueue = () => {
+    const query = 'q_id=' + this.state.queueInfo._id + '&u_id=' + localStorage.getItem('userID');
+    console.log(query);
+    axios.get('http://localhost:8080/queueList?' + query)
+      .then((response) => {
+        console.log(response);
+        if(response.data.expired === false) {
+          this.setState({inQueue:true})
+        }
+      })
+      .catch((err) => {console.log(err)})
   }
 
   enterQueueButton = () => {
     if(this.props.isAuthenticated) {
-      alert('You entered the queue');
+      const data = {
+        u_id: localStorage.getItem('userID'),
+        q_id: this.state.queueInfo._id
+      };
+      axios.post('http://localhost:8080/queueList/', data)
+        .then((response) => {
+          console.log(response.data.message);
+          this.setState({inQueue:true})
+        })
+        .catch((err) => console.log(err))
     } else {
       this.props.dispatch(switchModal(MODAL_SIGN_IN));
     }
@@ -60,10 +74,32 @@ class QueuePage extends React.Component {
             </div>
             <div className="col-sm-4">
               <div className="panel panel-default">
-                <h3>{this.state.queueInfo.queueTitle}</h3>
-                <h5>{'By ' + this.state.queueInfo.queueCompany}</h5>
-                <div><TimeLeft timeLeft={[12,12,12,12]}/></div>
-                <button className="btn btn-primary enter-que" onClick={() => this.enterQueueButton()}>Enter queue</button>
+                <div className="panel-body">
+                  <h3>{this.state.queueInfo.queueTitle}</h3>
+                  <h5>{'By ' + this.state.queueInfo.queueCompany}</h5>
+                  <TimeLeft timeLeft={[12,12,12,12]}/>
+                  <div className="row">
+                    <div className="col-sm-12">
+                      {!this.state.inQueue &&
+                        <button className="btn btn-primary enter-que" onClick={() => this.enterQueueButton()}>Enter
+                        queue</button>
+                      }
+                      {this.state.inQueue &&
+                        <p className="in-queue-text">You are in this queue</p>
+                      }
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-sm-12 captcha">
+                      <p>Timer to enter captcha</p>
+                      <ReCaptcha render="explicit"
+                                 sitekey="6LdOKx8UAAAAAH93hUwxSlTqGF8Ef6a69KMbAdRs"
+                                 onloadCallback={console.log.bind(this, 'recaptcha loaded')}
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

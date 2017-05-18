@@ -4,6 +4,7 @@ import queuesRoutes from './routes/queues.routes';
 import authRoutes from './routes/auth';
 import userRoutes from './routes/user.routes';
 import hiddenRoutes from './routes/secretPage.routes';
+import queueListRoutes from './routes/queueList.routes';
 import bodyParser from 'body-parser';
 import authCheckMiddleware from './middleware/authenticate';
 import localSignupStrategy from './passport/local-signup';
@@ -52,6 +53,7 @@ app.use('/user', authCheckMiddleware);
 
 //Middleware specified for specific routes
 app.use('/queues', queuesRoutes);
+app.use('/queueList', queueListRoutes);
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/hidden', hiddenRoutes);
