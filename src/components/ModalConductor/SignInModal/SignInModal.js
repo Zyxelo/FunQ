@@ -12,7 +12,7 @@ class SignIn extends Component {
     const creds = { email: email.value.trim(), password: password.value.trim() };
     this.props.dispatch(loginUser(creds))
       .then(() => {
-        if(this.props.isAuthenticated == true) {
+        if(this.props.isAuthenticated) {
           this.props.dispatch(switchModal(MODAL_HIDE));
         }
     });

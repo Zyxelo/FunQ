@@ -1,24 +1,15 @@
-// Handles all api calls to server
-// To handle authenticated calls, just add "true" as second parameter
-
-// INTE AKTIV ÄNNU
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8080/'
+const BASE_URL = 'http://localhost:8080/';
 
-function callApi(endpoint, authenticated) {
+function callApi(endpoint, config) {
 
-  let token = localStorage.getItem('token') || null
-  let config = {}
+  let token = localStorage.getItem('token') || null;
 
-  if(authenticated) {
-    if(token) {
-      config = {
-        headers: { 'Authorization': `JWT ${token}` }
-      }
-    }
-    else {
-      throw 'No token saved!'
+  if(token) {
+    config = {
+      ... config,
+      headers: { 'Authorization': `JWT ${token}` }
     }
   }
 
@@ -34,7 +25,7 @@ function callApi(endpoint, authenticated) {
     }).catch(err => console.log(err))
 }
 
-export const CALL_API = Symbol('Call API')
+export const CALL_API = Symbol('Call API');
 
 export default store => next => action => {
 
