@@ -16,28 +16,35 @@ class QueuePage extends React.Component {
     super(props);
     this.state = {
       queueInfo:'',
-      inQueue: false
+      inQueue: false,
+      queueLength: 0
     }
   }
 
   componentWillMount() {
     if (this.props.location.state) {
-      this.setState({queueInfo : this.props.location.state}, () => {this.isInQueue();})
+      this.setState({queueInfo : this.props.location.state}, () => {
+        this.isInQueue();
+        this.setQueueLength();
+      })
     } else {
       axios.get('http://localhost:8080'+this.props.location.pathname)
         .then((response) => {
-          this.setState({queueInfo: response.data}, () => {this.isInQueue()});
+          this.setState({queueInfo: response.data}, () => {
+            this.isInQueue();
+            this.setQueueLength();
+          });
         })
         .catch((err) => console.log(err));
     }
   }
 
+  // This function determines if the user already is in this queue
   isInQueue = () => {
     const query = 'q_id=' + this.state.queueInfo._id + '&u_id=' + localStorage.getItem('userID');
-    console.log(query);
+
     axios.get('http://localhost:8080/queueList?' + query)
       .then((response) => {
-        console.log(response);
         if(response.data.expired === false) {
           this.setState({inQueue:true})
         }
@@ -45,6 +52,7 @@ class QueuePage extends React.Component {
       .catch((err) => {console.log(err)})
   }
 
+  // REFACTOR: Make reusable component of this button?
   enterQueueButton = () => {
     if(this.props.isAuthenticated) {
       const data = {
@@ -54,7 +62,8 @@ class QueuePage extends React.Component {
       axios.post('http://localhost:8080/queueList/enterQueue', data)
         .then((response) => {
           console.log(response.data.message);
-          this.setState({inQueue:true})
+          this.setState({inQueue:true});
+          this.setQueueLength();
         })
         .catch((err) => console.log(err))
     } else {
@@ -62,9 +71,31 @@ class QueuePage extends React.Component {
     }
   }
 
+  leaveQueueButton = () => {
+    axios.delete('http://localhost:8080/queueList/leaveQueue', {
+      data: {
+        u_id: localStorage.getItem('userID'),
+        q_id: this.state.queueInfo._id
+      }})
+      .then((response) => {
+        console.log(response.data.message);
+        this.setState({inQueue:false});
+        this.setQueueLength();
+      })
+      .catch((err) => console.log(err))
+  }
+
+  setQueueLength = () => {
+    let q_id = this.state.queueInfo._id;
+    axios.get('http://localhost:8080/queueList/queueLength?q_id=' + q_id)
+      .then((response) => {
+        this.setState({queueLength: response.data.queueLength});
+      })
+  }
+
 
   render() {
-    const { dispatch, isAuthenticated, displayModal } = this.props
+    const { dispatch, isAuthenticated } = this.props
     return(
       <div>
         <div className="container">
@@ -87,16 +118,15 @@ class QueuePage extends React.Component {
                       {this.state.inQueue &&
                         <p className="in-queue-text">You are in this queue</p>
                       }
+                      <p>{this.state.queueLength} people are in this queue</p>
                     </div>
                   </div>
 
                   <div className="row">
                     <div className="col-sm-12 captcha">
-                      <p>Timer to enter captcha</p>
-                      <ReCaptcha render="explicit"
-                                 sitekey="6LdOKx8UAAAAAH93hUwxSlTqGF8Ef6a69KMbAdRs"
-                                 onloadCallback={console.log.bind(this, 'recaptcha loaded')}
-                      />
+                      {this.state.inQueue &&
+                        <button className="btn btn-primary enter-que" onClick={() => this.leaveQueueButton()}>Leave queue</button>
+                      }
                     </div>
                   </div>
                 </div>

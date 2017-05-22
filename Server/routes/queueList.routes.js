@@ -28,7 +28,7 @@ router.post('/enterQueue', (req,res) => {
     enterTime: time,
     expired: false
   }
-
+  console.log(req.body.q_id);
   const queueListDoc = new QueueList(queueListData);
 
   queueListDoc.save((err) => {
@@ -46,7 +46,31 @@ router.put('/updateQueue/:u_id/:q_id/:expired', (req,res) => {
 });
 
 
+router.get('/queueLength/', (req, res) => {
+  QueueList.find({
+    'q_id': req.query.q_id,
+    'expired': false
+  }, (err, queueList) => {
+    if (err) {
+      return res.send(err);
+    }
+    return res.json({ queueLength: queueList.length});
+  });
+})
 
+// Need user authentication (u_id must be same as logged in user)
+router.delete('/leaveQueue', (req,res) => {
+  QueueList.findOneAndRemove({
+    'q_id': req.body.q_id,
+    'u_id': req.body.u_id
+  }, (err, offer) => {
+    if(err) {
+      return res.send(err);
+    }
+    return res.json({ message: 'User left queue' });
+  })
+
+})
 
 
 export default router;
