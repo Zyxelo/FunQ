@@ -14,14 +14,13 @@ router.get('/', (req,res) => {
     if (err) {
       return res.send(err);
     }
-    console.log(queueListDoc)
     return res.json(queueListDoc);
   });
 })
 
 
 // The route for adding user to queue
-router.post('/', (req,res) => {
+router.post('/enterQueue', (req,res) => {
   const time = new Date().getTime();
   const queueListData = {
     q_id: req.body.q_id,
@@ -29,7 +28,7 @@ router.post('/', (req,res) => {
     enterTime: time,
     expired: false
   }
-  console.log(queueListData)
+
   const queueListDoc = new QueueList(queueListData);
 
   queueListDoc.save((err) => {
@@ -41,10 +40,12 @@ router.post('/', (req,res) => {
   });
 });
 
-// Set expired = true
-router.put('/:u_id/:q_id', (req,res) => {
+// Set expired = true or false
+router.put('/updateQueue/:u_id/:q_id/:expired', (req,res) => {
 
 });
+
+
 
 
 

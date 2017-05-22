@@ -51,7 +51,7 @@ class QueuePage extends React.Component {
         u_id: localStorage.getItem('userID'),
         q_id: this.state.queueInfo._id
       };
-      axios.post('http://localhost:8080/queueList/', data)
+      axios.post('http://localhost:8080/queueList/enterQueue', data)
         .then((response) => {
           console.log(response.data.message);
           this.setState({inQueue:true})
