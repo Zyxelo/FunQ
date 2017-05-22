@@ -3,13 +3,12 @@
  */
 import React, {PropTypes} from 'react';
 import CarouselConductor from '../CarouselConductor/CarouselConductor';
-import {TimeLeft} from '../TimeLeft/TimeLeft';
+import TimeLeft from '../TimeLeft/TimeLeft';
 import Chat from '../Chat/Chat';
 import { switchModal, MODAL_SIGN_IN } from '../../actions';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import './QueuePage.css';
-import ReCaptcha from 'react-recaptcha';
 
 class QueuePage extends React.Component {
   constructor(props) {
@@ -108,9 +107,14 @@ class QueuePage extends React.Component {
                 <div className="panel-body">
                   <h3>{this.state.queueInfo.queueTitle}</h3>
                   <h5>{'By ' + this.state.queueInfo.queueCompany}</h5>
-                  <TimeLeft timeLeft={[12,12,12,12]}/>
+                  <TimeLeft endTime={this.state.queueInfo.queEndDate}/>
                   <div className="row">
                     <div className="col-sm-12">
+                      <div className="queue-length">
+                        <h4>{this.state.queueLength}</h4>
+                        <p>persons are in this queue</p>
+                      </div>
+
                       {!this.state.inQueue &&
                         <button className="btn btn-primary enter-que" onClick={() => this.enterQueueButton()}>Enter
                         queue</button>
@@ -118,7 +122,7 @@ class QueuePage extends React.Component {
                       {this.state.inQueue &&
                         <p className="in-queue-text">You are in this queue</p>
                       }
-                      <p>{this.state.queueLength} people are in this queue</p>
+
                     </div>
                   </div>
 

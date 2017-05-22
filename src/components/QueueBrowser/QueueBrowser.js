@@ -9,7 +9,7 @@ import hakan from '../../../public/images/hakan_ullevi.jpg';
 import '../../../public/images/middag.jpg';
 import '../../../public/images/sof.jpg';
 
-class QueBrowser extends React.Component {
+class QueueBrowser extends React.Component {
 
   constructor(props) {
     super(props);
@@ -60,7 +60,7 @@ class QueBrowser extends React.Component {
         <div className="que-element-wrapper">
           {this.state.chunkedArray.map((queueChunk , i) =>
             <div key={i} className="row">
-              {queueChunk.map((queue, i) => <QueueElement currentTime={this.state.time} key={queue.queueID} {...queue}/>)}
+              {queueChunk.map((queue, i) => <QueueElement key={queue.queueID} {...queue}/>)}
 
             </div>)}
         </div>
@@ -69,5 +69,5 @@ class QueBrowser extends React.Component {
   }
 }
 
-export default QueBrowser;
+export default QueueBrowser;
 

@@ -115,19 +115,19 @@ router.post('/',(req,res) => {
 
 // route for getting queues with a certain queue id, no Auth required
 router.get('/:id', (req,res) => {
-  /*Queues.findById(req._id, (err, queue) => {
+  Queues.findById(req.params.id, (err, queue) => {
     if (err) {
       return res.send(err);
     }
 
     return res.json(queue);
-  });*/
+  });/*
   Queues.findOne({'queueID':req.params.id}, (err, queue) => {
     if (err) {
       return res.send(err);
     }
     return res.json(queue);
-  });
+  });*/
 });
 
 

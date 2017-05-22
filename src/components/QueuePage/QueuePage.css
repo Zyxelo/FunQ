@@ -7,3 +7,11 @@
 .captcha {
     text-align:center;
 }
+
+.queue-length {
+    background:#E08F86;
+    color:#fff;
+    width:80%;
+    padding:10px;
+    margin:25px auto;
+}
