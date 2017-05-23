@@ -33,7 +33,7 @@ class Chat extends React.Component {
 
   componentDidMount() {
     this._handleMessageEvent();
-    this.state.socket.emit('room-connect', this.props.queueID, (response) => {
+    this.state.socket.emit('room-connect', this.props.q_id, (response) => {
       console.log(response.messages);
 
       this.setState({
@@ -60,7 +60,7 @@ class Chat extends React.Component {
 
 
     document.getElementById('msg-input').value = '';
-    this.state.socket.emit('chat message', {message: newMessage, queueID: this.props.queueID, sender: this.state.name, time: new Date()});
+    this.state.socket.emit('chat message', {message: newMessage, q_id: this.props.q_id, sender: this.state.name, time: new Date()});
 
   };
 

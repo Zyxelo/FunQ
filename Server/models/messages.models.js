@@ -3,7 +3,7 @@ import Mongoose from 'mongoose';
 
 //Define messages model
 const messageSchema = new Mongoose.Schema({
-  queueID: String,
+  q_id: String,
   text: String,
   sender: String,
   time: Date

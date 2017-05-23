@@ -6,7 +6,6 @@ import userRoutes from './routes/user.routes';
 import hiddenRoutes from './routes/secretPage.routes';
 import queueListRoutes from './routes/queueList.routes';
 import bodyParser from 'body-parser';
-import authCheckMiddleware from './middleware/authenticate';
 import localSignupStrategy from './passport/local-signup';
 import localLoginStrategy from './passport/local-login';
 import mongoose from 'mongoose';
@@ -46,10 +45,6 @@ mongoose.connect(config.mongodbUri, (error) => {
 //Declare strategies to be used in passport.authenticate()
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
-
-//middleware
-app.use('/hidden', authCheckMiddleware);
-app.use('/user', authCheckMiddleware);
 
 //Middleware specified for specific routes
 app.use('/queues', queuesRoutes);

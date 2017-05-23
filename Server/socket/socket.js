@@ -7,7 +7,7 @@ export default (socket) => {
   socket.on('room-connect', (roomId, fn) =>{
     console.log('joined room: ', roomId);
     socket.join(roomId);
-    Messages.find({queueID: roomId},'name text sender time', (err, messages) => {
+    Messages.find({q_id: roomId},'name text sender time', (err, messages) => {
 
       if (err) throw err;
       fn({messages});
@@ -15,9 +15,9 @@ export default (socket) => {
     });
   });
   socket.on('chat message', (message, fn) => {
-    socket.broadcast.to(message.queueID).emit('chat message', message);
+    socket.broadcast.to(message.q_id).emit('chat message', message);
     let newMessage = {
-      queueID: message.queueID,
+      q_id: message.q_id,
       text: message.message,
       sender: message.sender,
       time: message.time

@@ -12,7 +12,6 @@ queueList: [
     queueShortDescription: 'Håkan uppträder för 10 gången på bråvalla blir jättekul kom kom',
     queueCategory: 'Music',
     numberOfQueuers: 2000,
-    queueID: 'lkadjskkk'
   },
   {
     thumbnail: '/static/media/middag.4944950f.jpg',
@@ -24,7 +23,6 @@ queueList: [
     queueShortDescription: 'C-klassen har för blabla asdasdasda misc jsjjsjjsjs dkdkdkd sjsjsj',
     queueCategory: 'Party',
     numberOfQueuers: 2000,
-    queueID: 'lkasjd22jskkk'
   },
   {
     thumbnail: '/static/media/middag.4944950f.jpg',
@@ -36,7 +34,6 @@ queueList: [
     queueShortDescription: 'SOF kommer till stan de vill du inte missa typ',
     queueCategory: 'Music',
     numberOfQueuers: 2000,
-    queueID: 'lkasjssaqdjskkk'
   },
   {
     thumbnail: '/static/media/middag.4944950f.jpg',
@@ -48,7 +45,6 @@ queueList: [
     queueShortDescription: 'SOF kommer till stan de vill du inte missa typ',
     queueCategory: 'Music',
     numberOfQueuers: 2000,
-    queueID: 'lkasjssaqdjskkk'
   },
   {
     thumbnail: '/static/media/middag.4944950f.jpg',
@@ -60,7 +56,6 @@ queueList: [
     queueShortDescription: 'SOF kommer till stan de vill du inte missa typ',
     queueCategory: 'Music',
     numberOfQueuers: 2000,
-    queueID: 'lkasjssaqdjskkk'
   },
   {
     thumbnail: '/static/media/middag.4944950f.jpg',
@@ -72,7 +67,6 @@ queueList: [
     queueShortDescription: 'SOF kommer till stan de vill du inte missa typ',
     queueCategory: 'Music',
     numberOfQueuers: 2000,
-    queueID: 'lkasjssaqdjskkk'
   }
 ]
 

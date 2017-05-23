@@ -67,6 +67,7 @@ class QueuePage extends React.Component {
 
   // REFACTOR: Make reusable component of this button?
   enterQueueButton = () => {
+
     if(this.props.isAuthenticated) {
       const data = {
         q_id: this.state.queueInfo._id

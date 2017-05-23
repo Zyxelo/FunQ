@@ -6,7 +6,6 @@ export default (endpoint, req, data, authenticate) => {
   if (endpoint.substr(0,1) === '/') {
     endpoint = endpoint.substr(1);
   }
-
   let token = localStorage.getItem('token') || null;
   let header = {};
 
@@ -15,14 +14,14 @@ export default (endpoint, req, data, authenticate) => {
       header = {Authorization: 'JWT '+token};
     }
     else return new Promise((resolve,reject) => {
-      reject(Error('Token not valid!'))
+      reject(Error('Token not valid!'));
     })
   }
 
   if (!(req === 'post' || req === 'get' || req === 'put' || req === 'delete')) {
     return new Promise((resolve,reject) => {
-      reject(Error('Not a valid API request!'))
-    })
+      reject(Error('Not a valid API request!'));
+    });
   }
 
   return axios({

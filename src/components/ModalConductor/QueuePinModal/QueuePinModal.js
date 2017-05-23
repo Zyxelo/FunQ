@@ -37,25 +37,25 @@ class QueuePin extends Component {
 
   render () {
     if(this.state.redirect) {
-        return (
-          <Redirect to={'/queues/' + this.state.pin}/>
-        )
+      return (
+        <Redirect to={'/queues/' + this.state.pin}/>
+      )
     }
     return (
       <div>
-          <Modal.Body className="pin-modal">
-              <h1>HAVE A QUEUE CODE?</h1>
+        <Modal.Body className="pin-modal">
+          <h1>HAVE A QUEUE CODE?</h1>
 
-              <form onSubmit={this.handleSubmit}>
-                  <div className="form-group">
-                      <input type="text" placeholder="QUE PIN" maxLength={20} className="pin-input" ref="pin" />
-                  </div>
-                  <div className="form-group">
-                      <button className="pin-button">ENTER QUEUE</button>
-                  </div>
-              </form>
-              <p className="close-modal">No pin? <a href="#" onClick={this.props.close}>Enter site</a></p>
-          </Modal.Body>
+          <form onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <input type="text" placeholder="QUE PIN" maxLength={20} className="pin-input" ref="pin" />
+            </div>
+            <div className="form-group">
+              <button className="pin-button">ENTER QUEUE</button>
+            </div>
+          </form>
+          <p className="close-modal">No pin? <a href="#" onClick={this.props.close}>Enter site</a></p>
+        </Modal.Body>
       </div>
     );
   }
