@@ -28,7 +28,6 @@ router.post('/enterQueue', (req,res) => {
     enterTime: time,
     expired: false
   }
-  console.log(req.body.q_id);
   const queueListDoc = new QueueList(queueListData);
 
   queueListDoc.save((err) => {
