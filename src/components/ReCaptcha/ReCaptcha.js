@@ -4,6 +4,10 @@ import Recaptcha from 'react-recaptcha';
 
 class ReCaptcha extends React.Component {
 
+  verifyCallback = (response) => {
+    console.log(response);
+  };
+
 
   render() {
     return (
@@ -12,10 +16,13 @@ class ReCaptcha extends React.Component {
         <Recaptcha render="explicit"
                    sitekey="6LdOKx8UAAAAAH93hUwxSlTqGF8Ef6a69KMbAdRs"
                    onloadCallback={console.log.bind(this, 'recaptcha loaded')}
+                   verifyCallback={console.log('hej')}
         />
       </div>
 
-    );
+
+
+  );
   }
 }
 

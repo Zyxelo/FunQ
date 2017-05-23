@@ -65,6 +65,7 @@ export function logoutUser() {
 
 export const MODAL_SIGN_IN = 'SIGN_IN';
 export const MODAL_QUEUE_PIN = 'QUEUE_PIN';
+export const MODAL_CAPTCHA = 'CAPTCHA';
 export const MODAL_HIDE = 'MODAL_HIDE';
 
 export function switchModal(modal) {
@@ -75,11 +76,21 @@ export function switchModal(modal) {
   }
 }
 
-export const SET_TIME = 'SET_TIME'
+export const SET_TIME = 'SET_TIME';
 
 export function setTime(time) {
   return {
     type: SET_TIME,
     currentTime: time
-  }
+  };
+}
+
+export const QUEUE_CANCEL_TIME = 'QUEUE_CANCEL_TIME';
+
+export function setCancelTime(time) {
+  return {
+    type: QUEUE_CANCEL_TIME,
+    cancelTime: time
+  };
+
 }

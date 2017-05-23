@@ -17,7 +17,7 @@ class QueuePage extends React.Component {
       inQueue: false,
       queueLength: 0,
       position: 0
-    }
+    };
   }
 
   componentWillMount() {
@@ -38,6 +38,9 @@ class QueuePage extends React.Component {
         .catch((err) => console.log(err));
     }
   }
+
+x
+
 
   // This function determines if the user already is in this queue
   isInQueue = () => {
