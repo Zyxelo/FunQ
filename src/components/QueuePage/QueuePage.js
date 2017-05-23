@@ -21,6 +21,7 @@ class QueuePage extends React.Component {
   }
 
   componentWillMount() {
+
     if (this.props.location.state) {
       this.setState({queueInfo : this.props.location.state}, () => {
         this.isInQueue();
@@ -49,7 +50,7 @@ class QueuePage extends React.Component {
     callApi('queueList/isInQueue?' + query, 'get','', true)
       .then((response) => {
         if(response.data !== null && response.data.expired === false) {
-          this.setState({inQueue:true})
+          this.setState({inQueue:true});
           //Position in queue
           callApi('queueList/position?' + query, 'get', '', true)
             .then((response) => {
@@ -121,7 +122,7 @@ class QueuePage extends React.Component {
                 <div className="panel-body">
                   <h3>{this.state.queueInfo.queueTitle}</h3>
                   <h5>{'By ' + this.state.queueInfo.queueCompany}</h5>
-                  <TimeLeft endTime={this.state.queueInfo.queEndDate}/>
+                  <TimeLeft endTime={this.state.queueInfo.queueEndDate}/>
                   <div className="row">
                     <div className="col-sm-12">
                       <div className="queue-length">

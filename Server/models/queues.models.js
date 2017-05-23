@@ -12,11 +12,13 @@ const queueSchema = new Mongoose.Schema({
   queueCompany: String,
   queueCompanyID: String,
   queueEventDate:  Date,
-  queEndDate: Date, //Refactor to "queueEndDate"
+  queueEndDate: Date,
   location: String,
   queueShortDescription: String,
+  queueLongDescription: String,
   queueCategory: String,
-  numberOfQueuers: Number
+  numberOfQueuers: Number,
+  privacy: String,
 });
 
 export default Mongoose.model('Queue', queueSchema);

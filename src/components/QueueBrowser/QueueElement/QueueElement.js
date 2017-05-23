@@ -22,7 +22,7 @@ class QueueElement extends React.Component {
             <p>{this.props.queueShortDescription}</p>
           </div>
           <div className="queue-card-footer">
-            <TimeLeft endTime={this.props.queEndDate}/>
+            <TimeLeft endTime={this.props.queueEndDate}/>
           </div>
         </div>
       </div>

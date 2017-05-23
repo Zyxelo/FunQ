@@ -24,7 +24,11 @@ function validateQueueForm(payload) {
   }
   if (!payload || typeof payload.queueShortDescription !== 'string' || payload.queueShortDescription.trim().length === 0) {
     isFormValid = false;
-    errors.queueShortDescription = 'Please provide a description.';
+    errors.queueShortDescription = 'Please provide a short description.';
+  }
+  if (!payload || typeof payload.queueLongDescription !== 'string' || payload.queueLongDescription.trim().length === 0) {
+    isFormValid = false;
+    errors.queueLongDescription = 'Please provide a long description.';
   }
   if (!payload || typeof payload.queueCategory !== 'string' || payload.queueCategory.trim().length === 0) {
     isFormValid = false;
@@ -33,6 +37,10 @@ function validateQueueForm(payload) {
   if (!payload || typeof payload.numberOfQueuers !== 'number' || payload.numberOfQueuers === 0) {
     isFormValid = false;
     errors.numberOfQueuers = 'Please provide total number of queuers.';
+  }
+  if (!payload || typeof payload.privacy !== 'string' || !(payload.privacy === 'private' || payload.privacy === 'public')) {
+    isFormValid = false;
+    errors.numberOfQueuers = 'A queue must be either private or public.';
   }
 
   if (!isFormValid) {
@@ -59,7 +67,7 @@ router.get('/', (req,res) => {
     });
   }
   else {
-    Queues.find((err, queues) => {
+    Queues.find({'privacy': 'public'}, (err, queues) => {
       if (err) {
         return res.send(err);
       }
@@ -73,7 +81,9 @@ router.post('/', authCheckMiddleware);
 // Auth required
 router.post('/',(req,res) => {
   const validationResult = validateQueueForm(req.body);
+
   if (!validationResult.success) {
+    console.log(typeof req.body.privacy);
     return res.status(400).json({
       success: false,
       message: validationResult.message,
@@ -87,11 +97,13 @@ router.post('/',(req,res) => {
     queueCompany: req.user.name, //Set the company to the user name
     queueCompanyID: req.user._id, //Set the ID of the user
     queueEventDate:  req.body.queueEventDate.trim(),
-    queEndDate: req.body.queEndDate.trim(),
+    queueEndDate: req.body.queueEndDate.trim(),
     location: req.body.location.trim(),
     queueShortDescription: req.body.queueShortDescription.trim(),
+    queueLongDescription: req.body.queueLongDescription.trim(),
     queueCategory: req.body.queueCategory.trim(),
     numberOfQueuers: req.body.numberOfQueuers,
+    privacy: req.body.privacy,
   };
 
   const newQueue = new Queues(queueData);
@@ -106,7 +118,6 @@ router.post('/',(req,res) => {
 
 });
 
-
 // route for getting queues with a certain queue id, no Auth required
 router.get('/:id', (req,res) => {
   Queues.findById(req.params.id, (err, queue) => {
@@ -117,7 +128,6 @@ router.get('/:id', (req,res) => {
     return res.json(queue);
   });
 });
-
 
 // Only allow if user is signed in (a valid token is sent)
 router.put('/:id', authCheckMiddleware);
@@ -138,6 +148,7 @@ router.put('/:id', (req,res) => {
     const validationResult = validateQueueForm(req.body);
 
     if (!validationResult.success) {
+      console.info(validationResult);
       return res.status(400).json({
         success: false,
         message: validationResult.message,
@@ -148,23 +159,22 @@ router.put('/:id', (req,res) => {
     //Change everything except queueCompany and _id
     queue.queueTitle = req.body.queueTitle.trim();
     queue.queueShortDescription = req.body.queueShortDescription.trim();
+    queue.queueLongDescription = req.body.queueLongDescription.trim();
     queue.numberOfQueuers = req.body.numberOfQueuers;
     queue.thumbnail = req.body.thumbnail.trim();
     queue.queueEventDate = req.body.queueEventDate.trim();
-    queue.queEndDate = req.body.queEndDate.trim();
+    queue.queueEndDate = req.body.queueEndDate.trim();
     queue.location = req.body.location.trim();
     queue.queueCategory = req.body.queueCategory.trim();
+    queue.privacy = req.body.privacy;
 
     queue.save((err) => {
       if (err) {
         return res.send(err);
       }
-
       return res.json({ message: 'Queue updated!' })
     });
-
   });
-
 });
 
 // Only allow if user is signed in (a valid token is sent)
