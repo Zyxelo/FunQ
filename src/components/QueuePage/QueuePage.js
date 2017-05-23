@@ -18,7 +18,8 @@ class QueuePage extends React.Component {
     this.state = {
       queueInfo:'',
       inQueue: false,
-      queueLength: 0
+      queueLength: 0,
+      position: 0
     }
   }
 
@@ -46,10 +47,18 @@ class QueuePage extends React.Component {
 
     const query = 'q_id=' + this.state.queueInfo._id + '&u_id=' + localStorage.getItem('userID');
 
-    callApi('queueList?'+query, 'get')
+    callApi('queueList?' + query, 'get')
       .then((response) => {
-        if(response.data.expired === false) {
+      console.log(response);
+        if(response.data !== null && response.data.expired === false) {
           this.setState({inQueue:true})
+          //Position in queue
+          callApi('queueList/position?' + query, 'get')
+            .then((response) => {
+              this.setState({position: response.data.position});
+            })
+        } else {
+          this.setState({inQueue:false});
         }
       })
       .catch((err) => {console.log(err)})
@@ -68,7 +77,7 @@ class QueuePage extends React.Component {
       callApi('queueList/enterQueue','post', data)
         .then((response) => {
           console.log(response.data.message);
-          this.setState({inQueue:true});
+          this.isInQueue();
           this.setQueueLength();
         })
         .catch((err) => console.log(err))
@@ -87,7 +96,7 @@ class QueuePage extends React.Component {
     callApi('queueList/leaveQueue', 'delete', data)
       .then((response) => {
         console.log(response.data.message);
-        this.setState({inQueue:false});
+        this.isInQueue();
         this.setQueueLength();
       })
       .catch((err) => console.log(err))
@@ -129,7 +138,7 @@ class QueuePage extends React.Component {
                         queue</button>
                       }
                       {this.state.inQueue &&
-                        <p className="in-queue-text">You are in this queue</p>
+                        <p className="in-queue-text">You are in this queue (position {this.state.position})</p>
                       }
 
                     </div>
