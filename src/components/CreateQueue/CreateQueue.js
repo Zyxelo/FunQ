@@ -33,7 +33,6 @@ class CreateQueue extends React.Component {
             location: '',
             category: '',
             nrOfQueuers: 0,
-            queueID: '',
         };
 
         this.handleChange = this.handleChange.bind(this);

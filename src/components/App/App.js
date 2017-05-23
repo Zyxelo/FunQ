@@ -3,14 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './App.css';
 import Routes from '../Routes/routes';
-import ModalConductor from '../ModalConductor/ModalConductor';
-import { switchModal, setTime, MODAL_HIDE, MODAL_QUEUE_PIN } from '../../actions';
+import { switchModal, setTime, MODAL_QUEUE_PIN } from '../../actions';
 
 class App extends Component {
-  closeModal = () => {
-    this.props.dispatch(switchModal(MODAL_HIDE));
-  };
-
   componentWillMount() {
     if(window.sessionStorage.getItem('visitedBefore') !== 'true') {
       this.props.dispatch(switchModal(MODAL_QUEUE_PIN));
@@ -20,7 +15,6 @@ class App extends Component {
 
   componentDidMount() {
     this.timer = setInterval(() => this.tick(), 1000);
-
   }
 
   componentWillUnmount(){
@@ -40,14 +34,9 @@ class App extends Component {
           isAuthenticated={isAuthenticated}
           errorMessage={errorMessage}
           dispatch={dispatch}
+          modalType={modalType}
+          modalDisplay={modalDisplay}
         />
-
-
-        {(modalDisplay) ? <ModalConductor
-          currentModal={modalType}
-          close={this.closeModal}
-        /> : null}
-
       </div>
     );
   }
