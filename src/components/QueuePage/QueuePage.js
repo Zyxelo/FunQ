@@ -16,8 +16,9 @@ class QueuePage extends React.Component {
     this.state = {
       queueInfo:'',
       inQueue: false,
-      queueLength: 0
-    }
+      queueLength: 0,
+      nextQueuePrompt: new Date('2015-05-25').getTime()
+    };
   }
 
   componentWillMount() {
@@ -37,6 +38,9 @@ class QueuePage extends React.Component {
         .catch((err) => console.log(err));
     }
   }
+
+x
+
 
   // This function determines if the user already is in this queue
   isInQueue = () => {

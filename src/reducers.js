@@ -4,7 +4,7 @@
 
 import { combineReducers } from 'redux';
 import {
-  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, MODAL_QUEUE_PIN, MODAL_SIGN_IN, MODAL_HIDE,
+  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, MODAL_QUEUE_PIN, MODAL_SIGN_IN, MODAL_CAPTCHA, MODAL_HIDE,
   SET_TIME
 } from './actions';
 
@@ -43,11 +43,16 @@ function modal(state = {
     case MODAL_SIGN_IN:
       return Object.assign({}, state, {
         modalType: MODAL_SIGN_IN,
-        modalDisplay: true,
+        modalDisplay: true
       })
     case MODAL_QUEUE_PIN:
       return Object.assign({}, state, {
         modalType: MODAL_QUEUE_PIN,
+        modalDisplay: true
+      })
+    case MODAL_CAPTCHA:
+      return Object.assign({}, state, {
+        modalType: MODAL_CAPTCHA,
         modalDisplay: true
       })
     case MODAL_HIDE:
@@ -56,7 +61,7 @@ function modal(state = {
         modalDisplay: false
       })
     default:
-      return state
+      return state;
   }
 }
 

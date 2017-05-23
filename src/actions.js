@@ -65,6 +65,7 @@ export function logoutUser() {
 
 export const MODAL_SIGN_IN = 'SIGN_IN';
 export const MODAL_QUEUE_PIN = 'QUEUE_PIN';
+export const MODAL_CAPTCHA = 'CAPTCHA';
 export const MODAL_HIDE = 'MODAL_HIDE';
 
 export function switchModal(modal) {
