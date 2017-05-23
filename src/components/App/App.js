@@ -8,10 +8,6 @@ import io from 'socket.io-client';
 
 
 class App extends Component {
-  closeModal = () => {
-    this.props.dispatch(switchModal(MODAL_HIDE));
-  };
-
   componentWillMount() {
     if(window.sessionStorage.getItem('visitedBefore') != 'true') {
       this.props.dispatch(switchModal(MODAL_QUEUE_PIN));
@@ -21,7 +17,6 @@ class App extends Component {
 
   componentDidMount() {
     this.timer = setInterval(() => this.tick(), 1000);
-
   }
 
   componentWillUnmount(){
@@ -41,14 +36,9 @@ class App extends Component {
           isAuthenticated={isAuthenticated}
           errorMessage={errorMessage}
           dispatch={dispatch}
+          modalType={modalType}
+          modalDisplay={modalDisplay}
         />
-
-
-        {(modalDisplay) ? <ModalConductor
-          currentModal={modalType}
-          close={this.closeModal}
-        /> : null}
-
       </div>
     );
   }

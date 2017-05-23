@@ -13,8 +13,6 @@ let createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 
 let store = createStoreWithMiddleware(queuesApp);
 
-console.log(store.state);
-
 let rootElement = document.getElementById('root');
 
 ReactDOM.render(
