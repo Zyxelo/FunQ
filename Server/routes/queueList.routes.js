@@ -1,15 +1,17 @@
 import express from 'express';
 import QueueList from '../models/queueList.models';
+import authCheckMiddleware from '../middleware/authenticate';
 
 const router = new express.Router();
 
 // Returns if user is in the queue or not
 // q_id = id for queue, u_id = user id to query for
 // api call should look like (BASE_URL + '?q_id=QID&u_id=UID')
-router.get('/', (req,res) => {
+router.get('/isInQueue', authCheckMiddleware)
+router.get('/isInQueue', (req,res) => {
   QueueList.findOne({
     'q_id': req.query.q_id,
-    'u_id': req.query.u_id
+    'u_id': req.user._id
   }, (err, queueListDoc) => {
     if (err) {
       return res.send(err);
@@ -20,15 +22,15 @@ router.get('/', (req,res) => {
 
 
 // The route for adding user to queue
+router.post('/enterQueue', authCheckMiddleware)
 router.post('/enterQueue', (req,res) => {
   const time = new Date().getTime();
   const queueListData = {
     q_id: req.body.q_id,
-    u_id: req.body.u_id,
+    u_id: req.user._id,
     enterTime: time,
     expired: false
   }
-  console.log(req.body.q_id);
   const queueListDoc = new QueueList(queueListData);
 
   queueListDoc.save((err) => {
@@ -40,8 +42,8 @@ router.post('/enterQueue', (req,res) => {
   });
 });
 
-// Set expired = true or false
-router.put('/updateQueue/:u_id/:q_id/:expired', (req,res) => {
+// Set expired = true or false for user id
+router.put('/updateQueue/:q_id/:expired', (req,res) => {
 
 });
 
@@ -59,10 +61,11 @@ router.get('/queueLength/', (req, res) => {
 })
 
 // Need user authentication (u_id must be same as logged in user)
+router.delete('/leaveQueue', authCheckMiddleware)
 router.delete('/leaveQueue', (req,res) => {
   QueueList.findOneAndRemove({
     'q_id': req.body.q_id,
-    'u_id': req.body.u_id
+    'u_id': req.user._id
   }, (err, offer) => {
     if(err) {
       return res.send(err);
@@ -71,6 +74,7 @@ router.delete('/leaveQueue', (req,res) => {
   })
 })
 
+router.get('/position', authCheckMiddleware)
 router.get('/position', (req,res) => {
   QueueList.find({
     'q_id': req.query.q_id,
@@ -82,7 +86,7 @@ router.get('/position', (req,res) => {
         return res.send(err);
       }
 
-      let index = queueList.findIndex(x => x.u_id == req.query.u_id) + 1;
+      let index = queueList.findIndex(x => x.u_id == req.user._id) + 1;
       return res.json({position: index});
 
     })

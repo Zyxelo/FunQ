@@ -3,6 +3,7 @@ import { Modal} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import QueuePinModal from './QueuePinModal/QueuePinModal';
 import SignInModal from './SignInModal/SignInModal';
+import CaptchaModal from './CaptchaModal/CaptchaModal';
 import Switch, {Case, Default} from 'react-switch-case';
 import { switchModal, MODAL_HIDE } from '../../actions';
 
@@ -21,6 +22,9 @@ class ModalConductor extends Component {
                   </Case>
                   <Case value="SIGN_IN">
                       <SignInModal close={this.close}/>
+                  </Case>
+                  <Case value="CAPTCHA">
+                    <CaptchaModal/>
                   </Case>
                   <Default>
                   </Default>

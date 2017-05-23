@@ -4,8 +4,9 @@
 
 import { combineReducers } from 'redux';
 import {
-  LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, MODAL_QUEUE_PIN, MODAL_SIGN_IN, MODAL_HIDE,
-  SET_TIME
+
+  LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, MODAL_QUEUE_PIN, MODAL_SIGN_IN, MODAL_HIDE, MODAL_CAPTCHA,
+  SET_TIME, QUEUE_CANCEL_TIME
 } from './actions';
 
 // The auth reducer. The starting state sets authentication
@@ -43,11 +44,16 @@ function modal(state = {
     case MODAL_SIGN_IN:
       return Object.assign({}, state, {
         modalType: MODAL_SIGN_IN,
-        modalDisplay: true,
+        modalDisplay: true
       })
     case MODAL_QUEUE_PIN:
       return Object.assign({}, state, {
         modalType: MODAL_QUEUE_PIN,
+        modalDisplay: true
+      })
+    case MODAL_CAPTCHA:
+      return Object.assign({}, state, {
+        modalType: MODAL_CAPTCHA,
         modalDisplay: true
       })
     case MODAL_HIDE:
@@ -56,7 +62,7 @@ function modal(state = {
         modalDisplay: false
       })
     default:
-      return state
+      return state;
   }
 }
 
@@ -67,6 +73,19 @@ function timeReducer(state = {
     case SET_TIME:
       return Object.assign({}, state, {
         currentTime: action.currentTime
+      })
+    default:
+      return state
+  }
+}
+
+function cancelTimeReducer(state = {
+  cancelTime: 0
+}, action) {
+  switch (action.type) {
+    case QUEUE_CANCEL_TIME:
+      return Object.assign({}, state, {
+        cancelTime: action.cancelTime
       })
     default:
       return state
@@ -89,7 +108,8 @@ const queuesApp = combineReducers({
   auth,
   queues,
   modal,
-  timeReducer
+  timeReducer,
+  cancelTimeReducer
 })
 
 export default queuesApp;
