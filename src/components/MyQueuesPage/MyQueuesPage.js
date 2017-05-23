@@ -28,8 +28,8 @@ class MyQueuesPage extends React.Component {
 
   }
 
-  deleteQueueItem(event, queueID, listItem) {
-    callApi('queues/'+queueID,'delete')
+  deleteQueueItem(event, id, listItem) {
+    callApi('queues/'+id,'delete','',true)
       .then( (res) => {
         this.setState((prevState) => {
           let queueList = prevState.queueItems;
@@ -49,8 +49,8 @@ class MyQueuesPage extends React.Component {
           <ul>
             {Object.keys(this.state.queueItems).map((item, i) => {
               return <li key={i}>
-                  <Link to={'/queues/'+this.state.queueItems[item].queueID} >{this.state.queueItems[item].queueTitle}</Link>
-                  <Button onClick={(event) => this.deleteQueueItem(event,this.state.queueItems[item].queueID,item)}>remove</Button>
+                  <Link to={'/queues/'+this.state.queueItems[item]._id} >{this.state.queueItems[item].queueTitle}</Link>
+                  <Button onClick={(event) => this.deleteQueueItem(event,this.state.queueItems[item]._id,item)}>Remove</Button>
               </li>
             })}
           </ul>

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import logo from '../QueuePage/logo.png';
 import {Navbar, FormGroup, FormControl} from 'react-bootstrap';
@@ -53,7 +54,6 @@ class QueNavbar extends Component {
   }
 }
 
-
 function mapStateToProps(state) {
   const {auth} = state
   const {isAuthenticated, errorMessage} = auth
@@ -65,7 +65,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(QueNavbar);
-
 
 QueNavbar.propTypes = {
   dispatch: PropTypes.func.isRequired,

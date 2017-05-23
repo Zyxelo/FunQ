@@ -1,8 +1,5 @@
-/**
- * Created by victorode on 2017-05-11.
- */
-
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import CarouselConductor from '../CarouselConductor/CarouselConductor';
 import TimeLeft from '../TimeLeft/TimeLeft';
 import Chat from '../Chat/Chat';
@@ -103,7 +100,6 @@ class QueuePage extends React.Component {
 
 
   render() {
-    const { dispatch, isAuthenticated } = this.props
     return(
       <div>
         <div className="container">

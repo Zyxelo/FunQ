@@ -36,7 +36,7 @@ class Signup extends React.Component {
 
         callApi('auth/signup','post', config)
             .then((response) => {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     history.push('/home');
                 }
             })

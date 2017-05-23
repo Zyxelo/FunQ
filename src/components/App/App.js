@@ -1,11 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './App.css';
 import Routes from '../Routes/routes';
 import ModalConductor from '../ModalConductor/ModalConductor';
 import { switchModal, setTime, MODAL_HIDE, MODAL_QUEUE_PIN } from '../../actions';
-import io from 'socket.io-client';
-
 
 class App extends Component {
   closeModal = () => {
@@ -13,7 +12,7 @@ class App extends Component {
   };
 
   componentWillMount() {
-    if(window.sessionStorage.getItem('visitedBefore') != 'true') {
+    if(window.sessionStorage.getItem('visitedBefore') !== 'true') {
       this.props.dispatch(switchModal(MODAL_QUEUE_PIN));
       window.sessionStorage.setItem('visitedBefore', true);
     }

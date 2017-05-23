@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Route,
   Switch,
   Redirect
@@ -16,7 +16,6 @@ import CreateQueue from '../CreateQueue/CreateQueue';
 import MyQueuesPage from '../MyQueuesPage/MyQueuesPage';
 import EnterQueuePopup from '../EnterQueuePopup/EnterQueuePopup';
 import SignUp from '../Signup/Signup';
-import { switchModal, MODAL_SIGN_IN } from '../../actions';
 import { connect } from 'react-redux';
 
 
@@ -32,11 +31,11 @@ const PrivateRoute = ({ component: Component, ...rest }, isAuthenticated) => (
 
     )
   )}/>
-)
+);
 
 
 const Routes = (props) => (
-  <Router>
+  <BrowserRouter>
     <div>
       <Navbar/>
       <Switch>
@@ -51,7 +50,7 @@ const Routes = (props) => (
       </Switch>
       <EnterQueuePopup/>
     </div>
-  </Router>
+  </BrowserRouter>
 );
 
 export default connect()(Routes);

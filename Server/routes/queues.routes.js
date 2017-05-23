@@ -18,7 +18,6 @@ function validateQueueForm(payload) {
     isFormValid = false;
     errors.queueTitle = 'Please provide a title.';
   }
-
   if (!payload || typeof payload.location !== 'string' || payload.location.trim().length === 0) {
     isFormValid = false;
     errors.location = 'Please provide a location.';
@@ -34,10 +33,6 @@ function validateQueueForm(payload) {
   if (!payload || typeof payload.numberOfQueuers !== 'number' || payload.numberOfQueuers === 0) {
     isFormValid = false;
     errors.numberOfQueuers = 'Please provide total number of queuers.';
-  }
-  if (!payload || typeof payload.queueID !== 'string' || payload.queueShortDescription.trim().length === 0) {
-    isFormValid = false;
-    errors.queueID = 'Please provide a queue ID.';
   }
 
   if (!isFormValid) {
@@ -97,7 +92,6 @@ router.post('/',(req,res) => {
     queueShortDescription: req.body.queueShortDescription.trim(),
     queueCategory: req.body.queueCategory.trim(),
     numberOfQueuers: req.body.numberOfQueuers,
-    queueID: req.body.queueID.trim()
   };
 
   const newQueue = new Queues(queueData);
@@ -121,13 +115,7 @@ router.get('/:id', (req,res) => {
     }
 
     return res.json(queue);
-  });/*
-  Queues.findOne({'queueID':req.params.id}, (err, queue) => {
-    if (err) {
-      return res.send(err);
-    }
-    return res.json(queue);
-  });*/
+  });
 });
 
 
@@ -137,13 +125,13 @@ router.put('/:id', authCheckMiddleware);
 // route for updating a queue with a certain queue id, auth required (only the user that created it should be able to delete it)
 router.put('/:id', (req,res) => {
 
-  Queues.findOne({'queueID':req.params.id}, (err, queue) => {
+  Queues.findById(req.params.id, (err, queue) => {
     if (err) {
       return res.send(err);
     }
 
     // Check if the user is the same as the user who created the queue
-    if (req.user._id != queue.queueCompanyID) {
+    if (req.user._id.toString() !== queue.queueCompanyID) {
       return res.status(401).end();
     }
 
@@ -157,7 +145,7 @@ router.put('/:id', (req,res) => {
       });
     }
 
-    //Change everything except queueCompany and queueID
+    //Change everything except queueCompany and _id
     queue.queueTitle = req.body.queueTitle.trim();
     queue.queueShortDescription = req.body.queueShortDescription.trim();
     queue.numberOfQueuers = req.body.numberOfQueuers;
@@ -174,6 +162,7 @@ router.put('/:id', (req,res) => {
 
       return res.json({ message: 'Queue updated!' })
     });
+
   });
 
 });
@@ -184,17 +173,26 @@ router.delete('/:id', authCheckMiddleware);
 // Route for deleting a queue,
 router.delete('/:id', (req,res) => {
 
-  // Check if the user is the same as the user who created the queue
-  if (req.user._id != queue.queueCompanyID) {
-    return res.status(401).end();
-  }
+  Queues.findById(req.params.id, (err, queue) => {
 
-  Queues.remove({'queueID':req.params.id}, (err, queue) => {
-    if (err) {
-      return res.send(err);
+    // Check if the user is the same as the user who created the queue
+    if (req.user._id.toString() !== queue.queueCompanyID) {
+      return res.status(401).end();
     }
-    return res.json({message: 'Queue deleted'})
+
+    else {
+
+      Queues.findByIdAndRemove(req.params.id, (err, queue) => {
+        if (err) {
+          return res.send(err);
+        }
+
+        return res.json({message: 'Queue deleted'})
+      })
+    }
+
   });
+
 });
 
 
