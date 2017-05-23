@@ -9,7 +9,7 @@ const UserSchema = new Mongoose.Schema({
   },
   password: String,
   name: String,
-  lastCaptcha: Date
+  nextCaptcha: Date
 });
 
 // Compare user password

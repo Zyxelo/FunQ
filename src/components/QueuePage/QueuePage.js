@@ -39,21 +39,19 @@ class QueuePage extends React.Component {
     }
   }
 
-x
+  x
 
 
   // This function determines if the user already is in this queue
   isInQueue = () => {
+    const query = 'q_id=' + this.state.queueInfo._id;
 
-    const query = 'q_id=' + this.state.queueInfo._id + '&u_id=' + localStorage.getItem('userID');
-
-    callApi('queueList?' + query, 'get')
+    callApi('queueList/isInQueue?' + query, 'get','', true)
       .then((response) => {
-      console.log(response);
         if(response.data !== null && response.data.expired === false) {
           this.setState({inQueue:true})
           //Position in queue
-          callApi('queueList/position?' + query, 'get')
+          callApi('queueList/position?' + query, 'get', '', true)
             .then((response) => {
               this.setState({position: response.data.position});
             })
@@ -61,27 +59,26 @@ x
           this.setState({inQueue:false});
         }
       })
-      .catch((err) => {console.log(err)})
-
+      .catch((err) => {
+        console.log(err);
+        this.setState({inQueue:false});
+      })
   };
 
   // REFACTOR: Make reusable component of this button?
   enterQueueButton = () => {
     if(this.props.isAuthenticated) {
-
       const data = {
-        u_id: localStorage.getItem('userID'),
         q_id: this.state.queueInfo._id
       };
 
-      callApi('queueList/enterQueue','post', data)
+      callApi('queueList/enterQueue','post', data, true)
         .then((response) => {
           console.log(response.data.message);
           this.isInQueue();
           this.setQueueLength();
         })
         .catch((err) => console.log(err))
-
     } else {
       this.props.dispatch(switchModal(MODAL_SIGN_IN));
     }
@@ -89,11 +86,10 @@ x
 
   leaveQueueButton = () => {
     let data = {
-      u_id: localStorage.getItem('userID'),
       q_id: this.state.queueInfo._id
     };
 
-    callApi('queueList/leaveQueue', 'delete', data)
+    callApi('queueList/leaveQueue', 'delete', data, true)
       .then((response) => {
         console.log(response.data.message);
         this.isInQueue();
@@ -133,11 +129,11 @@ x
                       </div>
 
                       {!this.state.inQueue &&
-                        <button className="btn btn-primary enter-que" onClick={() => this.enterQueueButton()}>Enter
+                      <button className="btn btn-primary enter-que" onClick={() => this.enterQueueButton()}>Enter
                         queue</button>
                       }
                       {this.state.inQueue &&
-                        <p className="in-queue-text">You are in this queue (position {this.state.position})</p>
+                      <p className="in-queue-text">You are in this queue (position {this.state.position})</p>
                       }
 
                     </div>
@@ -146,7 +142,7 @@ x
                   <div className="row">
                     <div className="col-sm-12 captcha">
                       {this.state.inQueue &&
-                        <button className="btn btn-primary enter-que" onClick={() => this.leaveQueueButton()}>Leave queue</button>
+                      <button className="btn btn-primary enter-que" onClick={() => this.leaveQueueButton()}>Leave queue</button>
                       }
                     </div>
                   </div>

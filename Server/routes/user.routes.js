@@ -1,5 +1,6 @@
 const express = require('express');
 import User from '../models/user.models';
+const STANDARD_DELAY = 30;
 
 const router = new express.Router();
 
@@ -9,38 +10,40 @@ router.get('/', (req, res) => {
   });
 });
 
-// Boolean req.body.update determines if the captcha time should update or not
 // Integer req.body.delay (optional) sets how much the delay until next captcha should be. 30 minutes standard
 router.put('/updateCaptcha', (req,res) => {
-  let delay = 30;
+  let delay = STANDARD_DELAY;
   if (req.body.delay !== undefined) {
     delay = req.body.delay;
   }
-  console.log(delay);
   let time = new Date().getTime() + delay*60*1000;
-  console.log(time);
 
-  if (req.body.update === true) {
-    User.findOneAndUpdate(
-      { email: req.body.email },
-      { $set: { lastCaptcha: time } }
-    ).then((response) => {
-      return res.json({ lastCaptcha: time});
-    })
-      .catch((err) => {
-        return res.send(err);
-      })
-  } else {
-    User.findOne(
-      { email: req.body.email }
-    ).then((response) => {
-      time = new Date(response.lastCaptcha).getTime() + delay*60*1000;
-      return res.json({ lastCaptcha: time});
-    })
-      .catch((err) => {
-        return res.send(err);
-      })
+  User.findOneAndUpdate(
+    { _id: req.user._id },
+    { $set: { nextCaptcha: time } }
+  ).then(() => {
+    return res.json({ nextCaptcha: time});
+  })
+    .catch((err) => {
+      return res.send(err);
+    });
+})
+
+// Integer req.query.delay (optional) sets how much the delay until next captcha should be. 30 minutes standard
+router.get('/nextCaptcha', (req,res) => {
+  let delay = STANDARD_DELAY;
+  if (req.query.delay !== undefined) {
+    delay = req.body.delay;
   }
+  console.log('hej');
+  User.findById(req.user._id)
+    .then((response) => {
+      let time = new Date(response.nextCaptcha).getTime() + delay*60*1000;
+      return res.json({ nextCaptcha: time});
+    })
+    .catch((err) => {
+      return res.send(err);
+    });
 })
 
 export default router;
