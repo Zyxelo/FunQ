@@ -6,7 +6,7 @@ import { combineReducers } from 'redux';
 import {
 
   LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, MODAL_QUEUE_PIN, MODAL_SIGN_IN, MODAL_HIDE, MODAL_CAPTCHA,
-  SET_TIME
+  SET_TIME, QUEUE_CANCEL_TIME
 } from './actions';
 
 // The auth reducer. The starting state sets authentication
@@ -79,6 +79,19 @@ function timeReducer(state = {
   }
 }
 
+function cancelTimeReducer(state = {
+  cancelTime: 0
+}, action) {
+  switch (action.type) {
+    case QUEUE_CANCEL_TIME:
+      return Object.assign({}, state, {
+        cancelTime: action.cancelTime
+      })
+    default:
+      return state
+  }
+}
+
 // The queues reducer
 // Gör ingenting i nuläget, bara för att
 function queues(state = {}, action) {
@@ -95,7 +108,8 @@ const queuesApp = combineReducers({
   auth,
   queues,
   modal,
-  timeReducer
+  timeReducer,
+  cancelTimeReducer
 })
 
 export default queuesApp;
