@@ -1,7 +1,6 @@
 import React from 'react';
 import {Radio, Button, Col, FormGroup, FormControl, ControlLabel, Form} from 'react-bootstrap';
 import callApi from '../../api';
-import axios from 'axios';
 
 import './CreateQueue.css';
 
@@ -62,7 +61,7 @@ class CreateQueue extends React.Component {
 
         const { history } = this.props;
 
-        callApi('queues/', submit, 'post', true)
+        callApi('queues/', 'post', submit, true)
           .then( (res) => {
               alert('You have created a new queue!');
               history.push('/mypage')+submit.queueID

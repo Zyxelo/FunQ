@@ -41,7 +41,7 @@ export function loginUser(creds) {
   };
 
   return (dispatch) => {
-    return callApi('auth/login', config,'post')
+    return callApi('auth/login', 'post', config)
       .then( (res) => {
         dispatch(receiveLogin());
         localStorage.setItem('token', res.data.token);

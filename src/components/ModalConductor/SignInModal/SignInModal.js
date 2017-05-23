@@ -19,7 +19,7 @@ class SignIn extends Component {
   }
 
   render () {
-    const { errorMessage } = this.props
+    const { errorMessage } = this.props;
     return (
       <div>
         <Modal.Body className="signin-modal">

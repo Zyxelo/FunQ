@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:8080/';
 
-export default (endpoint, data, req, authenticate) => {
+export default (endpoint, req, data, authenticate) => {
 
   let token = localStorage.getItem('token') || null;
   let header = {};

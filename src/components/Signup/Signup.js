@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import {Form, FormGroup, FormControl, Button} from 'react-bootstrap';
-import axios from 'axios';
+import callApi from '../../api';
 
 class Signup extends React.Component {
 
@@ -13,7 +13,7 @@ class Signup extends React.Component {
             email: '',
             password: '',
             name: '',
-        }
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.formSubmit = this.formSubmit.bind(this);
@@ -28,17 +28,15 @@ class Signup extends React.Component {
 
         const { history } = this.props;
 
+        let config = {
+          email: this.state.email,
+          password: this.state.password,
+          name: this.state.name
+        };
 
-
-        axios.post('http://localhost:8080/auth/signup', {
-            email: this.state.email,
-            password: this.state.password,
-            name: this.state.name
-        })
+        callApi('auth/signup','post', config)
             .then((response) => {
-                console.log(response);
                 if (response.status == 200) {
-                    //Redirect to some page after succesfull signup :)
                     history.push('/home');
                 }
             })

@@ -1,8 +1,8 @@
 import React from 'react';
-import axios from 'axios';
 import {Link} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 import { connect } from 'react-redux';
+import callApi from '../../api';
 
 class MyQueuesPage extends React.Component {
 
@@ -17,7 +17,8 @@ class MyQueuesPage extends React.Component {
 
   componentDidMount() {
     const userID = localStorage.getItem('userID');
-    axios.get('http://localhost:8080/queues?user='+userID)
+
+    callApi('queues?user='+userID, 'get')
       .then( (res) => {
         this.setState({queueItems: res.data});
       })
@@ -28,7 +29,7 @@ class MyQueuesPage extends React.Component {
   }
 
   deleteQueueItem(event, queueID, listItem) {
-    axios.delete('http://localhost:8080/queues/'+queueID)
+    callApi('queues/'+queueID,'delete')
       .then( (res) => {
         this.setState((prevState) => {
           let queueList = prevState.queueItems;

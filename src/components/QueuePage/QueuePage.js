@@ -1,16 +1,18 @@
 /**
  * Created by victorode on 2017-05-11.
  */
+
 import React, {PropTypes} from 'react';
 import CarouselConductor from '../CarouselConductor/CarouselConductor';
 import TimeLeft from '../TimeLeft/TimeLeft';
 import Chat from '../Chat/Chat';
 import { switchModal, MODAL_SIGN_IN } from '../../actions';
 import { connect } from 'react-redux';
-import axios from 'axios';
+import callApi from '../../api';
 import './QueuePage.css';
 
 class QueuePage extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -27,7 +29,8 @@ class QueuePage extends React.Component {
         this.setQueueLength();
       })
     } else {
-      axios.get('http://localhost:8080'+this.props.location.pathname)
+
+      callApi(this.props.location.pathname,'get')
         .then((response) => {
           this.setState({queueInfo: response.data}, () => {
             this.isInQueue();
@@ -40,57 +43,63 @@ class QueuePage extends React.Component {
 
   // This function determines if the user already is in this queue
   isInQueue = () => {
+
     const query = 'q_id=' + this.state.queueInfo._id + '&u_id=' + localStorage.getItem('userID');
 
-    axios.get('http://localhost:8080/queueList?' + query)
+    callApi('queueList?'+query, 'get')
       .then((response) => {
         if(response.data.expired === false) {
           this.setState({inQueue:true})
         }
       })
       .catch((err) => {console.log(err)})
-  }
+
+  };
 
   // REFACTOR: Make reusable component of this button?
   enterQueueButton = () => {
     if(this.props.isAuthenticated) {
+
       const data = {
         u_id: localStorage.getItem('userID'),
         q_id: this.state.queueInfo._id
       };
-      axios.post('http://localhost:8080/queueList/enterQueue', data)
+
+      callApi('queueList/enterQueue','post', data)
         .then((response) => {
           console.log(response.data.message);
           this.setState({inQueue:true});
           this.setQueueLength();
         })
         .catch((err) => console.log(err))
+
     } else {
       this.props.dispatch(switchModal(MODAL_SIGN_IN));
     }
-  }
+  };
 
   leaveQueueButton = () => {
-    axios.delete('http://localhost:8080/queueList/leaveQueue', {
-      data: {
-        u_id: localStorage.getItem('userID'),
-        q_id: this.state.queueInfo._id
-      }})
+    let data = {
+      u_id: localStorage.getItem('userID'),
+      q_id: this.state.queueInfo._id
+    };
+
+    callApi('queueList/leaveQueue', 'delete', data)
       .then((response) => {
         console.log(response.data.message);
         this.setState({inQueue:false});
         this.setQueueLength();
       })
       .catch((err) => console.log(err))
-  }
+  };
 
   setQueueLength = () => {
     let q_id = this.state.queueInfo._id;
-    axios.get('http://localhost:8080/queueList/queueLength?q_id=' + q_id)
+    callApi('queueList/queueLength?q_id='+q_id, 'get')
       .then((response) => {
         this.setState({queueLength: response.data.queueLength});
       })
-  }
+  };
 
 
   render() {
@@ -162,7 +171,6 @@ class QueuePage extends React.Component {
               <h5>Queue Playlist</h5>
               <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3Aspotify%3Aplaylist%3A37i9dQZF1DX8VEqSz1UvdJ"
                       width="300" height="380" frameBorder="0" allowTransparency="true"></iframe>
-
             </div>
           </div>
 
@@ -176,8 +184,8 @@ class QueuePage extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const {auth} = state
-  const {isAuthenticated, errorMessage} = auth
+  const {auth} = state;
+  const {isAuthenticated, errorMessage} = auth;
 
   return {
     isAuthenticated,
@@ -190,4 +198,4 @@ export default connect(mapStateToProps)(QueuePage);
 QueuePage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-}
+};

@@ -26,11 +26,11 @@ class TimeLeft extends React.Component {
       minutes: minutes,
       seconds: seconds
     }})
-  }
+  };
 
   componentWillReceiveProps() {
     this.getTimeRemaining((new Date(this.props.endTime).getTime() - this.props.currentTime))
-  }
+  };
 
 
   render() {
@@ -58,8 +58,8 @@ class TimeLeft extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const {timeReducer} = state
-  const {currentTime} = timeReducer
+  const {timeReducer} = state;
+  const {currentTime} = timeReducer;
 
   return {
     currentTime
