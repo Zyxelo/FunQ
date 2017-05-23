@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import callApi from '../../api';
+import {Form, FormGroup, FormControl } from 'react-bootstrap';
 import './MyQueuesPage.css';
 
 class MyQueuesPage extends React.Component {
@@ -11,6 +12,9 @@ class MyQueuesPage extends React.Component {
     super(props);
     this.state = {
       myQueues: [],
+      currentQueues: [],
+      position: [],
+      user: []
     };
 
     this.deleteQueueItem = this.deleteQueueItem.bind(this);
@@ -19,11 +23,22 @@ class MyQueuesPage extends React.Component {
   componentDidMount() {
     const userID = localStorage.getItem('userID');
 
+    //get user data
+    //set state and fix update
+
     callApi('queues?user='+userID, 'get')
       .then( (res) => {
         this.setState({myQueues: res.data});
       })
       .catch((err) => {
+        console.log(err);
+      });
+
+    callApi('queueList/all','get','',true)
+      .then( (res) => {
+        this.setState({currentQueues: res.data});
+      })
+      .catch( (err) => {
         console.log(err);
       });
 
@@ -74,11 +89,29 @@ class MyQueuesPage extends React.Component {
           <tbody>
           <tr>
             <th>Link to queue</th>
-            <th>Time left</th>
-            <th>Position</th>
           </tr>
+          {Object.keys(this.state.currentQueues).map((item, i) => {
+            return <tr key={i}>
+              <td><Link to={'/queues/'+this.state.currentQueues[item].q_id}>{this.state.currentQueues[item].q_id}</Link></td>
+            </tr>
+          })}
           </tbody>
         </table>
+        <h3>Your profile info</h3>
+        <div className="row">
+          <Form inline onSubmit={this.formSubmit}>
+            <FormGroup controlId="username">
+              <FormControl type="text" placeholder="Email" name="email" onChange={this.handleChange} value={this.state.email} />
+            </FormGroup>
+            <FormGroup controlId="password">
+              <FormControl type="password" placeholder="Password" name="password" onChange={this.handleChange}  value={this.state.password} />
+            </FormGroup>
+            <FormGroup controlId="name">
+              <FormControl type="text" placeholder="Name" name="name" onChange={this.handleChange} value={this.state.name} />
+            </FormGroup>
+            <Button type="submit">Signup</Button>
+          </Form>
+        </div>
       </div>
     );
   };

@@ -7,6 +7,18 @@ const router = new express.Router();
 // Returns if user is in the queue or not
 // q_id = id for queue, u_id = user id to query for
 // api call should look like (BASE_URL + '?q_id=QID&u_id=UID')
+
+router.get('/all', authCheckMiddleware);
+router.get('/all', (req, res) => {
+  QueueList.find({'u_id': req.user._id}, (err, queueListDoc) => {
+    if (err) {
+      return res.send(err);
+    }
+    // Return queueTitle, q_id, endDate, position
+    return res.json(queueListDoc);
+  })
+})
+
 router.get('/isInQueue', authCheckMiddleware)
 router.get('/isInQueue', (req,res) => {
   QueueList.findOne({
@@ -18,8 +30,7 @@ router.get('/isInQueue', (req,res) => {
     }
     return res.json(queueListDoc);
   });
-})
-
+});
 
 // The route for adding user to queue
 router.post('/enterQueue', authCheckMiddleware)
