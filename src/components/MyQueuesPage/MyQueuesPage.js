@@ -10,7 +10,7 @@ class MyQueuesPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      queueItems: [],
+      myQueues: [],
     };
 
     this.deleteQueueItem = this.deleteQueueItem.bind(this);
@@ -21,7 +21,7 @@ class MyQueuesPage extends React.Component {
 
     callApi('queues?user='+userID, 'get')
       .then( (res) => {
-        this.setState({queueItems: res.data});
+        this.setState({myQueues: res.data});
       })
       .catch((err) => {
         console.log(err);
@@ -29,38 +29,54 @@ class MyQueuesPage extends React.Component {
 
   }
 
-  deleteQueueItem(event, id, listItem) {
-    callApi('queues/'+id,'delete','',true)
-      .then( (res) => {
-        this.setState((prevState) => {
-          let queueList = prevState.queueItems;
-          delete queueList[listItem];
-          return {queueItems: queueList};
+  deleteQueueItem(event, id, listItem, title) {
+
+    if (confirm('Do you really want to delete the queue "'+title+'"')) {
+      callApi('queues/'+id,'delete','',true)
+        .then( (res) => {
+          this.setState((prevState) => {
+            let queueList = prevState.myQueues;
+            delete queueList[listItem];
+            return {myQueues: queueList};
+          });
+        })
+        .catch( (err) => {
+          console.log(err);
         });
-      })
-      .catch( (err) => {
-        console.log(err);
-      });
+    }
   }
 
   render() {
     return(
       <div className="container wrapper">
         <Link to="/create">Create new queue</Link>
+        <h3>Your queues</h3>
         <table className="my-queues">
           <tbody>
           <tr>
             <th>Link to queue</th>
             <th>Queue pin</th>
+            <th>Update queue</th>
             <th>Remove queue</th>
           </tr>
-          {Object.keys(this.state.queueItems).map((item, i) => {
+          {Object.keys(this.state.myQueues).map((item, i) => {
             return <tr key={i}>
-              <td><Link to={'/queues/'+this.state.queueItems[item]._id} >{this.state.queueItems[item].queueTitle}</Link></td>
-              <td>{this.state.queueItems[item]._id}</td>
-              <td><Button onClick={(event) => this.deleteQueueItem(event,this.state.queueItems[item]._id,item)}>Remove</Button></td>
+              <td><Link to={'/queues/'+this.state.myQueues[item]._id} >{this.state.myQueues[item].queueTitle}</Link></td>
+              <td>{this.state.myQueues[item]._id}</td>
+              <td><Link className="btn btn-default" role="button" to={'/update/'+this.state.myQueues[item]._id} ><span className="glyphicon glyphicon-edit" aria-hidden="true" /></Link></td>
+              <td><Button onClick={(event) => this.deleteQueueItem(event,this.state.myQueues[item]._id,item, this.state.myQueues[item].queueTitle)}><span className="glyphicon glyphicon-remove" aria-hidden="true" /></Button></td>
             </tr>
           })}
+          </tbody>
+        </table>
+        <h3>Current queues</h3>
+        <table className="current-queues">
+          <tbody>
+          <tr>
+            <th>Link to queue</th>
+            <th>Time left</th>
+            <th>Position</th>
+          </tr>
           </tbody>
         </table>
       </div>

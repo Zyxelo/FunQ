@@ -36,12 +36,9 @@ app.use(function (req, res, next) {
 mongoose.Promise = global.Promise;
 mongoose.connect(config.mongodbUri, (error) => {
   if (error) {
-    console.error('Please ....');
     throw error;
   }
 });
-
-
 
 //Declare strategies to be used in passport.authenticate()
 passport.use('local-signup', localSignupStrategy);
