@@ -81,7 +81,7 @@ router.get('/position', (req,res) => {
       if (err) {
         return res.send(err);
       }
-      
+
       let index = queueList.findIndex(x => x.u_id == req.query.u_id) + 1;
       return res.json({position: index});
 

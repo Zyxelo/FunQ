@@ -33,7 +33,6 @@ class CreateQueue extends React.Component {
             location: '',
             category: '',
             nrOfQueuers: 0,
-            queueID: '',
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -56,7 +55,6 @@ class CreateQueue extends React.Component {
             queueShortDescription: this.state.description,
             queueCategory: this.state.category,
             numberOfQueuers: parseInt(this.state.nrOfQueuers),
-            queueID: this.state.queueID
         };
 
         const { history } = this.props;
@@ -164,15 +162,6 @@ class CreateQueue extends React.Component {
                                 </Col>
                                 <Col sm={9}>
                                     <FormControl name="nrOfQueuers" type="number" value={this.state.nrOfQueuers} onChange={this.handleChange} />
-                                </Col>
-                            </FormGroup>
-
-                            <FormGroup>
-                                <Col componentClass={ControlLabel} sm={3}>
-                                    Queue ID (Must be unique)
-                                </Col>
-                                <Col sm={9}>
-                                    <FormControl name="queueID" type="text" value={this.state.queueID} onChange={this.handleChange} />
                                 </Col>
                             </FormGroup>
 
