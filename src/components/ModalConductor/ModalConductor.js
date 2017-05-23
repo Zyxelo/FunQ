@@ -5,19 +5,23 @@ import QueuePinModal from './QueuePinModal/QueuePinModal';
 import SignInModal from './SignInModal/SignInModal';
 import CaptchaModal from './CaptchaModal/CaptchaModal';
 import Switch, {Case, Default} from 'react-switch-case';
+import { switchModal, MODAL_HIDE } from '../../actions';
 
 class ModalConductor extends Component {
+  close = () => {
+    this.props.dispatch(switchModal(MODAL_HIDE));
+  }
 
   render() {
     return (
       <div>
-          <Modal show={true} onHide={this.props.close}>
+          <Modal show={true} onHide={this.close}>
               <Switch condition={this.props.currentModal} >
                   <Case value="QUEUE_PIN">
-                      <QueuePinModal close={this.props.close}/>
+                      <QueuePinModal close={this.close}/>
                   </Case>
                   <Case value="SIGN_IN">
-                      <SignInModal close={this.props.close}/>
+                      <SignInModal close={this.close}/>
                   </Case>
                   <Case value="CAPTCHA">
                     <CaptchaModal/>

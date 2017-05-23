@@ -1,7 +1,7 @@
 import React from 'react';
 import QueTopElement from './QueueTopElement/QueTopElement';
 import QueueElement from './QueueElement/QueueElement';
-import axios from 'axios';
+import callApi from '../../api';
 
 // Have to import all images sso they end up getting served by the server to the client.. stupid workaround
 // should be fixed
@@ -27,7 +27,13 @@ class QueueBrowser extends React.Component {
   }
 
   componentWillMount() {
-    axios.get('http://localhost:8080/queues').then((response) => this.setState({chunkedArray: this.createGroupedArray(response.data,3)})).catch((err) => console.log(err));
+    callApi('queues', 'get')
+    .then((response) => {
+      this.setState({chunkedArray: this.createGroupedArray(response.data,3)})
+    })
+    .catch((err) => {
+      console.log(err)
+    });
 
   }
 

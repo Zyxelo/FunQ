@@ -1,7 +1,6 @@
 import React from 'react';
 import {Radio, Button, Col, FormGroup, FormControl, ControlLabel, Form} from 'react-bootstrap';
 import callApi from '../../api';
-import axios from 'axios';
 
 import './CreateQueue.css';
 
@@ -34,7 +33,6 @@ class CreateQueue extends React.Component {
             location: '',
             category: '',
             nrOfQueuers: 0,
-            queueID: '',
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -56,16 +54,15 @@ class CreateQueue extends React.Component {
             location: this.state.location,
             queueShortDescription: this.state.description,
             queueCategory: this.state.category,
-            numberOfQueuers: parseInt(this.state.nrOfQueuers),
-            queueID: this.state.queueID
+            numberOfQueuers: parseInt(this.state.nrOfQueuers,0)
         };
 
         const { history } = this.props;
 
-        callApi('queues/', submit, 'post', true)
+        callApi('queues/', 'post', submit, true)
           .then( (res) => {
               alert('You have created a new queue!');
-              history.push('/mypage')+submit.queueID
+              history.push('/mypage');
           })
           .catch((err) => {
             console.log(err);
@@ -76,8 +73,7 @@ class CreateQueue extends React.Component {
         return (
             <div className="container wrapper">
                 <div className="row">
-                    <div className="col-md-2"></div>
-                    <div className="col-md-8">
+                    <div className="col-md-8 col-md-offset-2">
                         <Form horizontal onSubmit={this.handleSubmit}>
 
                             <FormGroup controlId="createQueueTitle">
@@ -169,15 +165,6 @@ class CreateQueue extends React.Component {
                             </FormGroup>
 
                             <FormGroup>
-                                <Col componentClass={ControlLabel} sm={3}>
-                                    Queue ID (Must be unique)
-                                </Col>
-                                <Col sm={9}>
-                                    <FormControl name="queueID" type="text" value={this.state.queueID} onChange={this.handleChange} />
-                                </Col>
-                            </FormGroup>
-
-                            <FormGroup>
                                 <Col smOffset={3} sm={9}>
                                     <Button type="submit">
                                         Create event
@@ -186,7 +173,6 @@ class CreateQueue extends React.Component {
                             </FormGroup>
                         </Form>
                     </div>
-                    <div className="col-md-3"></div>
                 </div>
             </div>
         );

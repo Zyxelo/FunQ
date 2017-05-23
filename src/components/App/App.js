@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './App.css';
 import Routes from '../Routes/routes';
-import ModalConductor from '../ModalConductor/ModalConductor';
-import { switchModal, setTime, MODAL_HIDE, MODAL_QUEUE_PIN, MODAL_CAPTCHA } from '../../actions';
+import { switchModal, setTime, MODAL_QUEUE_PIN, MODAL_CAPTCHA } from '../../actions';
 import io from 'socket.io-client';
 
 
@@ -18,12 +18,8 @@ class App extends Component {
     };
   }
 
-  closeModal = () => {
-    this.props.dispatch(switchModal(MODAL_HIDE));
-  };
-
   componentWillMount() {
-    if(window.sessionStorage.getItem('visitedBefore') != 'true') {
+    if(window.sessionStorage.getItem('visitedBefore') !== 'true') {
       this.props.dispatch(switchModal(MODAL_QUEUE_PIN));
       window.sessionStorage.setItem('visitedBefore', true);
     }
@@ -32,7 +28,6 @@ class App extends Component {
   componentDidMount() {
     this.timer = setInterval(() => this.tick(), 1000);
     this.prompter = setInterval(() => this.promptTick(), 5000);
-    console.log(new Date(this.state.nextQueuePrompt));
   }
 
   componentWillUnmount(){
@@ -69,13 +64,9 @@ class App extends Component {
           isAuthenticated={isAuthenticated}
           errorMessage={errorMessage}
           dispatch={dispatch}
+          modalType={modalType}
+          modalDisplay={modalDisplay}
         />
-
-        {(modalDisplay) ? <ModalConductor
-          currentModal={modalType}
-          close={this.closeModal}
-        /> : null}
-
       </div>
     );
   }

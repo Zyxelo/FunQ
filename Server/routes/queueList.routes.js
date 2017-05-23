@@ -69,7 +69,23 @@ router.delete('/leaveQueue', (req,res) => {
     }
     return res.json({ message: 'User left queue' });
   })
+})
 
+router.get('/position', (req,res) => {
+  QueueList.find({
+    'q_id': req.query.q_id,
+    'expired': false
+  })
+    .sort({enterTime: 'ascending'})
+    .exec((err, queueList) => {
+      if (err) {
+        return res.send(err);
+      }
+
+      let index = queueList.findIndex(x => x.u_id == req.query.u_id) + 1;
+      return res.json({position: index});
+
+    })
 })
 
 

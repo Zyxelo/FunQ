@@ -1,23 +1,24 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Route,
   Switch,
   Redirect
 } from 'react-router-dom';
+//TODO: react-router-redux
 
 
 import QueuePage from '../QueuePage/QueuePage';
 import Navbar from '../Navbar/QueNavbar';
 import NotFound from '../NotFound/NotFound';
-import QueBrowser from '../QueueBrowser/QueueBrowser';
+import QueueBrowser from '../QueueBrowser/QueueBrowser';
 import ReCaptcha from '../ReCaptcha/ReCaptcha';
 import CreateQueue from '../CreateQueue/CreateQueue';
 import MyQueuesPage from '../MyQueuesPage/MyQueuesPage';
 import EnterQueuePopup from '../EnterQueuePopup/EnterQueuePopup';
 import SignUp from '../Signup/Signup';
-import { switchModal, MODAL_SIGN_IN } from '../../actions';
 import { connect } from 'react-redux';
+import ModalConductor from '../ModalConductor/ModalConductor';
 
 
 const PrivateRoute = ({ component: Component, ...rest }, isAuthenticated) => (
@@ -32,17 +33,17 @@ const PrivateRoute = ({ component: Component, ...rest }, isAuthenticated) => (
 
     )
   )}/>
-)
+);
 
 
 const Routes = (props) => (
-  <Router>
+  <BrowserRouter>
     <div>
       <Navbar/>
       <Switch>
-        <Route exact path="/" component={QueBrowser} />
+        <Route exact path="/" component={QueueBrowser} />
         <Route path="/queues/:queueId" component={QueuePage}/>
-        <Route path="/home" component={QueBrowser} />
+        <Route path="/home" component={QueueBrowser} />
         <Route path="/captcha" component={ReCaptcha}/>
         <Route path="/signup" component={SignUp} />
         <PrivateRoute path="/mypage" component={MyQueuesPage} isAuthenticated={props.isAuthenticated}/>
@@ -50,8 +51,11 @@ const Routes = (props) => (
         <Route component={NotFound} />
       </Switch>
       <EnterQueuePopup/>
+      {(props.modalDisplay) ? <ModalConductor
+        currentModal={props.modalType}
+      /> : null}
     </div>
-  </Router>
+  </BrowserRouter>
 );
 
 export default connect()(Routes);

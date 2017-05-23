@@ -16,11 +16,7 @@ const queueSchema = new Mongoose.Schema({
   location: String,
   queueShortDescription: String,
   queueCategory: String,
-  numberOfQueuers: Number,
-  queueID: {
-  type: String,
-    index: { unique: true }
-}
+  numberOfQueuers: Number
 });
 
 export default Mongoose.model('Queue', queueSchema);
