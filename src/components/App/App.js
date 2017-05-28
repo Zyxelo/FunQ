@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 import './App.css';
 import Routes from '../Routes/routes';
 import { switchModal, setTime, setCancelTime, MODAL_QUEUE_PIN, MODAL_CAPTCHA } from '../../actions';
-import io from 'socket.io-client';
 import callApi from '../../api';
 
 
 class App extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       shouldPrompt: false
@@ -30,8 +29,8 @@ class App extends Component {
         .then((response) => {
           nextCaptcha = response.data.nextCaptcha;
           this.props.dispatch(setCancelTime(nextCaptcha));
-          console.log(nextCaptcha)
-          console.log(nextCaptcha - new Date().getTime())
+          console.log(nextCaptcha);
+          console.log(new Date(nextCaptcha));
         })
         .catch((err) => {
           console.log(err);
@@ -45,7 +44,7 @@ class App extends Component {
 
   componentDidMount() {
     this.timer = setInterval(() => this.tick(), 1000);
-    this.prompter = setInterval(() => this.promptTick(), 5000); // 60*1000
+    this.prompter = setInterval(() => this.promptTick(), 60000); // 60*1000
   }
 
   componentWillUnmount(){
@@ -55,7 +54,9 @@ class App extends Component {
 
   promptTick() {
     if (this.state.shouldPrompt) {
-      (!this.props.modalDisplay) ? this.props.dispatch(switchModal(MODAL_CAPTCHA)): null;
+      if (!this.props.modalDisplay) {
+        this.props.dispatch(switchModal(MODAL_CAPTCHA));
+      }
     }
   }
 
@@ -64,10 +65,16 @@ class App extends Component {
     this.props.dispatch(setTime(time));
 
     if ((this.props.cancelTime - time) < 5*1000*60) {
-      if (!this.state.shouldPrompt) {
-        console.log(this.props.cancelTime)
-        this.setState({shouldPrompt:true});
-        this.props.dispatch(switchModal(MODAL_CAPTCHA));
+      if((this.props.cancelTime-time > 0)) {
+        if (!this.state.shouldPrompt) {
+          console.log(this.props.cancelTime)
+          this.setState({shouldPrompt:true});
+          this.props.dispatch(switchModal(MODAL_CAPTCHA));
+        }
+      }
+    } else {
+      if (this.state.shouldPrompt) {
+        this.setState({shouldPrompt: false});
       }
     }
   }
