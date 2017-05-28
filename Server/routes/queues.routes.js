@@ -185,6 +185,10 @@ router.delete('/:id', (req,res) => {
 
   Queues.findById(req.params.id, (err, queue) => {
 
+    if (err) {
+      return res.send(err);
+    }
+
     // Check if the user is the same as the user who created the queue
     if (req.user._id.toString() !== queue.queueCompanyID) {
       return res.status(401).end();
@@ -192,7 +196,7 @@ router.delete('/:id', (req,res) => {
 
     else {
 
-      Queues.findByIdAndRemove(req.params.id, (err, queue) => {
+      Queues.findByIdAndRemove(req.params.id, (err) => {
         if (err) {
           return res.send(err);
         }

@@ -17,9 +17,24 @@ router.get('/all', (req, res) => {
     // Return queueTitle, q_id, endDate, position
     return res.json(queueListDoc);
   })
-})
+});
 
-router.get('/isInQueue', authCheckMiddleware)
+router.get('/currentQueues', authCheckMiddleware);
+router.get('/currentQueues', (req, res) => {
+  QueueList
+    .find({'u_id':req.user._id})
+    .populate('q_id')
+    .exec( (err, queueList) => {
+
+      if (err) {
+        return res.send(err);
+      }
+
+      return res.json(queueList)
+    });
+});
+
+router.get('/isInQueue', authCheckMiddleware);
 router.get('/isInQueue', (req,res) => {
   QueueList.findOne({
     'q_id': req.query.q_id,
@@ -33,7 +48,7 @@ router.get('/isInQueue', (req,res) => {
 });
 
 // The route for adding user to queue
-router.post('/enterQueue', authCheckMiddleware)
+router.post('/enterQueue', authCheckMiddleware);
 router.post('/enterQueue', (req,res) => {
   const time = new Date().getTime();
   const queueListData = {
@@ -41,7 +56,7 @@ router.post('/enterQueue', (req,res) => {
     u_id: req.user._id,
     enterTime: time,
     expired: false
-  }
+  };
   const queueListDoc = new QueueList(queueListData);
 
   queueListDoc.save((err) => {
@@ -69,23 +84,23 @@ router.get('/queueLength/', (req, res) => {
     }
     return res.json({ queueLength: queueList.length});
   });
-})
+});
 
 // Need user authentication (u_id must be same as logged in user)
-router.delete('/leaveQueue', authCheckMiddleware)
+router.delete('/leaveQueue', authCheckMiddleware);
 router.delete('/leaveQueue', (req,res) => {
   QueueList.findOneAndRemove({
     'q_id': req.body.q_id,
     'u_id': req.user._id
-  }, (err, offer) => {
+  }, (err) => {
     if(err) {
       return res.send(err);
     }
     return res.json({ message: 'User left queue' });
   })
-})
+});
 
-router.get('/position', authCheckMiddleware)
+router.get('/position', authCheckMiddleware);
 router.get('/position', (req,res) => {
   QueueList.find({
     'q_id': req.query.q_id,
@@ -97,11 +112,11 @@ router.get('/position', (req,res) => {
         return res.send(err);
       }
 
-      let index = queueList.findIndex(x => x.u_id == req.user._id) + 1;
+      let index = queueList.findIndex(x => x.u_id === req.user._id) + 1;
       return res.json({position: index});
 
     })
-})
+});
 
 
 export default router;

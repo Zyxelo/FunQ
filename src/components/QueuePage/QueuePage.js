@@ -40,9 +40,6 @@ class QueuePage extends React.Component {
     }
   }
 
-  x
-
-
   // This function determines if the user already is in this queue
   isInQueue = () => {
     const query = 'q_id=' + this.state.queueInfo._id;

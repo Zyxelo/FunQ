@@ -3,8 +3,8 @@ import Mongoose from 'mongoose';
 
 //Define queueList model
 const queueListSchema = new Mongoose.Schema({
-  q_id: String,
-  u_id: String,
+  q_id: {type: String, ref: 'Queue'},
+  u_id: {type: String, ref: 'User'},
   enterTime: Date,
   expired: Boolean
 });
