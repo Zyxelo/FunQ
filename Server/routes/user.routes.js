@@ -24,7 +24,7 @@ router.put('/updateCaptcha', (req,res) => {
     .catch((err) => {
       return res.send(err);
     });
-})
+});
 
 // Integer req.query.delay (optional) sets how much the delay until next captcha should be. 30 minutes standard
 // REFACTOR: Delay should be queue specific parameter, not in api call. NOT ACTIVE RIGHT NOW! (2017-05-23)
@@ -42,6 +42,43 @@ router.get('/nextCaptcha', (req,res) => {
     .catch((err) => {
       return res.send(err);
     });
-})
+});
 
+
+router.get('/info', authCheckMiddleware);
+router.get('/info', (req,res) => {
+  User.findById(req.user._id)
+    .then( (user) => {
+      delete user.password;
+      delete user.nextCaptcha;
+      return res.json(user);
+    })
+    .catch( (err) => {
+      return res.send(err);
+    })
+
+});
+
+router.put('/changePassword', authCheckMiddleware);
+router.put('/changePassword', (req, res) => {
+  if (req.body.password !== req.body.ctrlPassword) {
+    return res.status(400).json({
+      success: false,
+      message: 'Check form for errors',
+      errors: 'Password does not match'
+    });
+  }
+
+  User.findById(req.user._id)
+    .then( (user) => {
+      user.password = req.body.password;
+      user.save((err) => {
+        if (err) {
+          return res.send(err);
+        }
+        return res.json({ message: 'Password changed!' })
+      });
+    })
+    .catch()
+});
 export default router;
