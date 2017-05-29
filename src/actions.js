@@ -46,6 +46,7 @@ export function loginUser(creds) {
         dispatch(receiveLogin());
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('userID', res.data.user.id);
+        localStorage.setItem('userName', res.data.user.name);
       })
       .catch( (err) => {
         console.log(err);
@@ -59,6 +60,7 @@ export function logoutUser() {
   return (dispatch) => {
     localStorage.removeItem('token');
     localStorage.removeItem('userID');
+    localStorage.removeItem('userName');
     dispatch(receiveLogout());
   }
 }
