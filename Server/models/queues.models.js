@@ -19,6 +19,8 @@ const queueSchema = new Mongoose.Schema({
   queueCategory: String,
   numberOfQueuers: Number,
   privacy: String,
+  carousel: Array,
+  spotifyUrl: String
 });
 
 export default Mongoose.model('Queue', queueSchema);

@@ -106,8 +106,12 @@ router.post('/',(req,res) => {
     queueCategory: req.body.queueCategory.trim(),
     numberOfQueuers: req.body.numberOfQueuers,
     privacy: req.body.privacy,
+    carousel: req.body.carousel,
+    spotifyUrl: req.body.spotifyUrl,
   };
 
+  console.log(req.body);
+  console.log(queueData);
   // Create a queue object
   const newQueue = new Queues(queueData);
 
