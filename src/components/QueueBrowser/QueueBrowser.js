@@ -29,6 +29,7 @@ class QueueBrowser extends React.Component {
   componentWillMount() {
     callApi('queues', 'get')
     .then((response) => {
+      console.log(this.response);
       this.setState({chunkedArray: this.createGroupedArray(response.data,3)})
     })
     .catch((err) => {
@@ -66,7 +67,7 @@ class QueueBrowser extends React.Component {
         <div className="que-element-wrapper">
           {this.state.chunkedArray.map((queueChunk , i) =>
             <div key={i} className="row">
-              {queueChunk.map((queue, i) => <QueueElement key={queue.queueID} {...queue}/>)}
+              {queueChunk.map((queue, i) => <QueueElement key={queue._id} {...queue}/>)}
 
             </div>)}
         </div>
