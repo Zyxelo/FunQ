@@ -57,7 +57,7 @@ function validateQueueForm(payload) {
 // The route for getting all queues, no auth required
 router.get('/', (req,res) => {
 
-  // If user filtering is needed
+  // If a user query is sent, only the queues that is created by the specific user is sent in the response
   if(req.query.user) {
     Queues.find({'queueCompanyID': req.query.user }, (err,queues) => {
       if (err) {
@@ -67,6 +67,7 @@ router.get('/', (req,res) => {
     });
   }
   else {
+    // Send all queues that are public
     Queues.find({'privacy': 'public'}, (err, queues) => {
       if (err) {
         return res.send(err);
@@ -76,12 +77,12 @@ router.get('/', (req,res) => {
   }
 });
 
+// Route for creating a new queue, user must be logged in
 router.post('/', authCheckMiddleware);
-
-// Auth required
 router.post('/',(req,res) => {
-  const validationResult = validateQueueForm(req.body);
 
+  // Validate the form
+  const validationResult = validateQueueForm(req.body);
   if (!validationResult.success) {
     console.log(typeof req.body.privacy);
     return res.status(400).json({
@@ -91,6 +92,7 @@ router.post('/',(req,res) => {
     });
   }
 
+  // Retrieve the info needed to create the object
   const queueData = {
     thumbnail: req.body.thumbnail.trim(),
     queueTitle: req.body.queueTitle.trim(),
@@ -106,8 +108,10 @@ router.post('/',(req,res) => {
     privacy: req.body.privacy,
   };
 
+  // Create a queue object
   const newQueue = new Queues(queueData);
 
+  // Save
   newQueue.save((err) => {
     if (err) {
       return res.send(err);
@@ -118,7 +122,7 @@ router.post('/',(req,res) => {
 
 });
 
-// route for getting queues with a certain queue id, no Auth required
+// route for getting queues with a certain queue id
 router.get('/:id', (req,res) => {
   Queues.findById(req.params.id, (err, queue) => {
     if (err) {
@@ -129,10 +133,8 @@ router.get('/:id', (req,res) => {
   });
 });
 
-// Only allow if user is signed in (a valid token is sent)
+// Route for updating a queue with a certain queue id, user must be logged in and only the user that created the queue should be able to update it
 router.put('/:id', authCheckMiddleware);
-
-// route for updating a queue with a certain queue id, auth required (only the user that created it should be able to delete it)
 router.put('/:id', (req,res) => {
 
   Queues.findById(req.params.id, (err, queue) => {
@@ -145,6 +147,7 @@ router.put('/:id', (req,res) => {
       return res.status(401).end();
     }
 
+    // Validate the form
     const validationResult = validateQueueForm(req.body);
 
     if (!validationResult.success) {
@@ -168,6 +171,7 @@ router.put('/:id', (req,res) => {
     queue.queueCategory = req.body.queueCategory.trim();
     queue.privacy = req.body.privacy;
 
+    // Save the updated queue
     queue.save((err) => {
       if (err) {
         return res.send(err);
@@ -177,10 +181,8 @@ router.put('/:id', (req,res) => {
   });
 });
 
-// Only allow if user is signed in (a valid token is sent)
+// Route for deleting a queue, user must be signed in and be the same as the queue creator
 router.delete('/:id', authCheckMiddleware);
-
-// Route for deleting a queue,
 router.delete('/:id', (req,res) => {
 
   Queues.findById(req.params.id, (err, queue) => {
