@@ -14,7 +14,7 @@ router.put('/updateCaptcha', (req,res) => {
     delay = req.body.delay;
   }
   let time = new Date().getTime() + delay*60*1000;
-
+  console.log(time);
   User.findOneAndUpdate(
     { _id: req.user._id },
     { $set: { nextCaptcha: time } }
@@ -36,7 +36,7 @@ router.get('/nextCaptcha', (req,res) => {
   }
   User.findById(req.user._id)
     .then((response) => {
-      let time = new Date(response.nextCaptcha).getTime() + delay*60*1000;
+      let time = new Date(response.nextCaptcha).getTime();
       return res.json({ nextCaptcha: time});
     })
     .catch((err) => {
