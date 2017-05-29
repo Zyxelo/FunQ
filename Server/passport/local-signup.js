@@ -1,7 +1,7 @@
 import User from '../models/user.models';
 import passportLocal from 'passport-local';
 
-// local signup
+// local signup strategy
 export default new passportLocal.Strategy({
   usernameField: 'email',
   passwordField: 'password',

@@ -3,7 +3,7 @@ import User from '../models/user.models';
 import passportLocal from 'passport-local';
 import config from '../config'
 
-//Local login
+//Local login strategy
 export default new passportLocal.Strategy({
   usernameField: 'email',
   passwordField: 'password',
@@ -46,7 +46,7 @@ export default new passportLocal.Strategy({
         sub: userData.email
       };
 
-      // create a token string
+      // create a token
       const token = jwt.sign(payload, config.jwtSecret);
       const data = {
         id:user._id

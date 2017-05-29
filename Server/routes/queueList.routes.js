@@ -4,21 +4,7 @@ import authCheckMiddleware from '../middleware/authenticate';
 
 const router = new express.Router();
 
-// Returns if user is in the queue or not
-// q_id = id for queue, u_id = user id to query for
-// api call should look like (BASE_URL + '?q_id=QID&u_id=UID')
-
-router.get('/all', authCheckMiddleware);
-router.get('/all', (req, res) => {
-  QueueList.find({'u_id': req.user._id}, (err, queueListDoc) => {
-    if (err) {
-      return res.send(err);
-    }
-    // Return queueTitle, q_id, endDate, position
-    return res.json(queueListDoc);
-  })
-});
-
+// Sends an array with all the queues a user is currently in, requires the user to be logged in
 router.get('/currentQueues', authCheckMiddleware);
 router.get('/currentQueues', (req, res) => {
   QueueList
@@ -34,6 +20,7 @@ router.get('/currentQueues', (req, res) => {
     });
 });
 
+// Check if the user is in a specific queue, requires the user to be logged in
 router.get('/isInQueue', authCheckMiddleware);
 router.get('/isInQueue', (req,res) => {
   QueueList.findOne({
@@ -47,7 +34,7 @@ router.get('/isInQueue', (req,res) => {
   });
 });
 
-// The route for adding user to queue
+// The route for adding user to queue, requires the user to be logged in
 router.post('/enterQueue', authCheckMiddleware);
 router.post('/enterQueue', (req,res) => {
   const time = new Date().getTime();
@@ -73,7 +60,7 @@ router.put('/updateQueue/:q_id/:expired', (req,res) => {
 
 });
 
-
+// Route for getting how many queuers a specific queue has
 router.get('/queueLength/', (req, res) => {
   QueueList.find({
     'q_id': req.query.q_id,
@@ -86,7 +73,7 @@ router.get('/queueLength/', (req, res) => {
   });
 });
 
-// Need user authentication (u_id must be same as logged in user)
+// Route for removing a user from the queue, requires the user to be logged in
 router.delete('/leaveQueue', authCheckMiddleware);
 router.delete('/leaveQueue', (req,res) => {
   QueueList.findOneAndRemove({
@@ -100,6 +87,7 @@ router.delete('/leaveQueue', (req,res) => {
   })
 });
 
+// Route for getting the current queue position for a user, requires the user to be logged in
 router.get('/position', authCheckMiddleware);
 router.get('/position', (req,res) => {
   QueueList.find({
@@ -112,7 +100,7 @@ router.get('/position', (req,res) => {
         return res.send(err);
       }
 
-      let index = queueList.findIndex(x => x.u_id === req.user._id) + 1;
+      let index = queueList.findIndex( x => x.u_id === req.user._id.toString()) + 1;
       return res.json({position: index});
 
     })

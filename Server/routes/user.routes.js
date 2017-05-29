@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 import User from '../models/user.models';
 import authCheckMiddleware from '../middleware/authenticate';
 const STANDARD_DELAY = 30;  //Minutes
@@ -44,13 +44,13 @@ router.get('/nextCaptcha', (req,res) => {
     });
 });
 
-
+// Router for retrieving the user info, user must be logged in and can only get its own info
 router.get('/info', authCheckMiddleware);
 router.get('/info', (req,res) => {
   User.findById(req.user._id)
     .then( (user) => {
-      delete user.password;
-      delete user.nextCaptcha;
+      delete user.password; // The password is removed from the response
+      delete user.nextCaptcha; // The captcha is removed from the response
       return res.json(user);
     })
     .catch( (err) => {
@@ -59,16 +59,20 @@ router.get('/info', (req,res) => {
 
 });
 
+// Router for uppdating the user password, user must be logged in
 router.put('/changePassword', authCheckMiddleware);
 router.put('/changePassword', (req, res) => {
-  if (req.body.password !== req.body.ctrlPassword) {
+
+  // Validate password, must match and be at least 6 characters long
+  if (req.body.password !== req.body.ctrlPassword || req.body.password.trim().length < 6) {
     return res.status(400).json({
       success: false,
       message: 'Check form for errors',
-      errors: 'Password does not match'
+      errors: 'Passwords must match and be at least 6 characters long'
     });
   }
 
+  // If valid, user is found in the database, password is changed and user saved
   User.findById(req.user._id)
     .then( (user) => {
       user.password = req.body.password;
