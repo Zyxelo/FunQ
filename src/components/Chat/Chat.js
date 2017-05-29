@@ -2,6 +2,8 @@ import React from 'react';
 import Messages from './Messages/Messages';
 import './Chat.css';
 import io from 'socket.io-client';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Chat extends React.Component {
 
@@ -10,6 +12,7 @@ class Chat extends React.Component {
     this.state = {
       socket: {},
       name: 'testUser',
+      message: '',
       messages: [
         {
           sender: 'pusher',
@@ -23,10 +26,10 @@ class Chat extends React.Component {
 
   componentWillMount() {
     this.setState({socket: io.connect('http://localhost:8080')});
+    this.setState({name: localStorage.getItem('userName')});
   }
 
   componentWillUnmount() {
-    // leave  the room of the socket.
     this.state.socket.close();
   }
 
@@ -46,21 +49,34 @@ class Chat extends React.Component {
     this.updateScroll();
   }
 
+  handleChange = (event) => {
+    console.log(event);
+    if (this.props.isAuthenticated) {
+      this.setState({message: event.target.value});
+    } else {
+      this.setState({message: 'Please, log in to send message'});
+    }
+
+  }
+
 
 
 
   _sendMessage = () => {
-    let newMessage = document.getElementById('msg-input').value;
-    this.setState({
-      messages: [ ...this.state.messages, {
-        sender: this.state.name,
-        time:  new Date(),
-        text:  newMessage
-      }]});
+
+    if (this.props.isAuthenticated) {
+      let newMessage = this.state.message;
+      this.setState({
+        messages: [ ...this.state.messages, {
+          sender: this.state.name,
+          time:  new Date(),
+          text:  newMessage
+        }]});
 
 
-    document.getElementById('msg-input').value = '';
-    this.state.socket.emit('chat message', {message: newMessage, q_id: this.props.q_id, sender: this.state.name, time: new Date()});
+      this.setState({message: ''});
+      this.state.socket.emit('chat message', {message: newMessage, q_id: this.props.q_id, sender: this.state.name, time: new Date()});
+    }
 
   };
 
@@ -102,7 +118,7 @@ class Chat extends React.Component {
           </div>
           <div className="panel-footer">
             <div className="input-group">
-              <input type="text" id="msg-input" className="form-control"/>
+              <input type="text" id="msg-input" value={this.state.message} onChange={this.handleChange} className="form-control"/>
                   <span className="input-group-btn">
                     <button className="btn btn-default" type="button" onClick={this._sendMessage}>Send</button>
                   </span>
@@ -117,5 +133,24 @@ class Chat extends React.Component {
   }
 }
 
-export default Chat;
+function mapStateToProps(state) {
+  const {auth} = state;
+  const {isAuthenticated, errorMessage} = auth;
+
+  return {
+    isAuthenticated,
+    errorMessage
+  };
+}
+
+export default connect(mapStateToProps)(Chat);
+
+Chat.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+};
+
+
+
+
 

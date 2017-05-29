@@ -80,7 +80,7 @@ function timeReducer(state = {
 }
 
 function cancelTimeReducer(state = {
-  cancelTime: 0
+  cancelTime: 10000000000000000000000
 }, action) {
   switch (action.type) {
     case QUEUE_CANCEL_TIME:
