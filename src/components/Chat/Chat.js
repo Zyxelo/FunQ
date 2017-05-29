@@ -14,11 +14,7 @@ class Chat extends React.Component {
       name: 'testUser',
       message: '',
       messages: [
-        {
-          sender: 'pusher',
-          time: new Date(),
-          text: 'Hi there'
-        }
+
       ]
     };
   }

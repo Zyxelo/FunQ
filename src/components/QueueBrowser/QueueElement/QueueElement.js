@@ -15,7 +15,7 @@ class QueueElement extends React.Component {
             </Link>
           </div>
           <div className="queue-card-content">
-            <Link to={'/queues/'+this.props._id}>
+            <Link to={{pathname: '/queues/'+this.props._id, state: this.props}}>
               <h4 className="queue-title">{this.props.queueTitle}</h4>
             </Link>
             <p>{'by ' + this.props.queueCompany}</p>

@@ -5,7 +5,7 @@ import callApi from '../../api';
 
 // Have to import all images sso they end up getting served by the server to the client.. stupid workaround
 // should be fixed
-import hakan from '../../../public/images/hakan_ullevi.jpg';
+
 import '../../../public/images/middag.jpg';
 import '../../../public/images/sof.jpg';
 
@@ -61,9 +61,7 @@ class QueueBrowser extends React.Component {
 
     return (
       <div className="container wrapper">
-        <QueTopElement imageSrc={hakan} hours={this.state.hoursHH}
-                       minutes={this.state.minutes} seconds={this.state.seconds}
-                       queTitle="Håkan Hellström" queDetails="Ullevi 27/6" href="/que"/>
+        {(this.state.chunkedArray[0][0]) ? <QueTopElement {...this.state.chunkedArray[0][0]}/> : null}
         <div className="que-element-wrapper">
           {this.state.chunkedArray.map((queueChunk , i) =>
             <div key={i} className="row">

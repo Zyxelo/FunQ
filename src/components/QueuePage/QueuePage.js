@@ -161,7 +161,7 @@ class QueuePage extends React.Component {
               </div>
             </div>
             <div className="col-sm-4">
-              <Chat queueID={this.state.queueInfo.queueID}/>
+              <Chat q_id={this.state.queueInfo._id}/>
             </div>
           </div>
 

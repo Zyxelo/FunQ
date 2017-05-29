@@ -6,24 +6,12 @@
     padding: 50px 15% 0 15%;
 }
 
-.que-top-element .row {
-    padding:20px 0;
-}
-.que-top-element .clock img {
-    width: 120px;
-    max-width: 100%;
-    border: none;
-}
-
-.que-top-element .time-left {
-    color:white;
-    font-size: 72px;
-    margin-top:10px;
-}
 
 .que-top-element .que-details {
     color:white;
     font-size: 42px;
+    background-color: rgba(0, 0, 0, 0.2);;
+
 }
 
 .que-top-element .que-enter {
