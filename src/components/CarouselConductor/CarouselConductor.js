@@ -25,11 +25,19 @@ import CarouselMedia from './CarouselMedia/CarouselMedia';
  </Carousel.Caption>
  </Carousel.item>
 
+
+ [{
+ type: 'video',
+ src: 'Upx_t4YR3X8'
+ },{
+ type: 'img',
+ src: '/static/media/hakan_ullevi.680eabff.jpg'
+ },{
+ type: 'img',
+ src: '/static/media/middag.4944950f.jpg'
+ }]
+
  */
-
-
-
-
 
 class CarouselConductor extends React.Component {
 
@@ -39,17 +47,12 @@ class CarouselConductor extends React.Component {
       players:[],
       index: 0,
       direction: null,
-      contentArray: [{
-        type: 'video',
-        src: 'Upx_t4YR3X8'
-      },{
-        type: 'img',
-        src: '/static/media/hakan_ullevi.680eabff.jpg'
-      },{
-        type: 'img',
-        src: '/static/media/middag.4944950f.jpg'
-      }]
+      contentArray:[],
     };
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({'contentArray': props.content});
   }
 
   componentWillUnmount(){
@@ -63,7 +66,7 @@ class CarouselConductor extends React.Component {
     this.setState({
       players: players,
     });
-  }
+  };
 
   pauseAllPlayers = () => {
     if (this.state.players.length !== 0) {
@@ -73,8 +76,7 @@ class CarouselConductor extends React.Component {
       });
     }
 
-  }
-
+  };
 
   handleSelect = (selectedIndex, e) =>{
     console.log('handle');
@@ -86,15 +88,7 @@ class CarouselConductor extends React.Component {
     });
   };
 
-
-
-
-
-
   render() {
-
-
-
     return(
       <Carousel activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}>
         {this.state.contentArray.map((content,i) => <CarouselMedia {...content} setYoutubePlayers={this.setYoutubePlayers} key={i} />)}

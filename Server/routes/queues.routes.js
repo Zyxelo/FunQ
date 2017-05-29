@@ -101,8 +101,8 @@ router.post('/',(req,res) => {
     queueEventDate:  req.body.queueEventDate.trim(),
     queueEndDate: req.body.queueEndDate.trim(),
     location: req.body.location.trim(),
-    queueShortDescription: req.body.queueShortDescription.trim(),
-    queueLongDescription: req.body.queueLongDescription.trim(),
+    queueShortDescription: req.body.queueShortDescription,
+    queueLongDescription: req.body.queueLongDescription,
     queueCategory: req.body.queueCategory.trim(),
     numberOfQueuers: req.body.numberOfQueuers,
     privacy: req.body.privacy,
@@ -110,8 +110,6 @@ router.post('/',(req,res) => {
     spotifyUrl: req.body.spotifyUrl,
   };
 
-  console.log(req.body);
-  console.log(queueData);
   // Create a queue object
   const newQueue = new Queues(queueData);
 
@@ -174,6 +172,8 @@ router.put('/:id', (req,res) => {
     queue.location = req.body.location.trim();
     queue.queueCategory = req.body.queueCategory.trim();
     queue.privacy = req.body.privacy;
+    queue.carousel = req.body.carousel;
+    queue.potifyUrl = req.body.spotifyUrl;
 
     // Save the updated queue
     queue.save((err) => {

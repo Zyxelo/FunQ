@@ -105,14 +105,13 @@ class QueuePage extends React.Component {
       })
   };
 
-
   render() {
     return(
       <div>
         <div className="container">
           <div className="row">
             <div className="col-sm-8">
-              <CarouselConductor/>
+              <CarouselConductor content={this.state.queueInfo.carousel} />
             </div>
             <div className="col-sm-4">
               <div className="panel panel-default">

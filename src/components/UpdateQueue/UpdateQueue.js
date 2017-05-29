@@ -22,10 +22,10 @@ class UpdateQueue extends React.Component {
       location: '',
       category: '',
       nrOfQueuers: 0,
+      youTube: '',
+      spotifyUrl: '',
+      imageUrl: ''
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillMount() {
@@ -37,6 +37,24 @@ class UpdateQueue extends React.Component {
         let eventD = response.data.queueEventDate;
         eventD = eventD.substr(0,eventD.length - 1);
 
+        let carousel = response.data.carousel;
+        let youTube = '';
+        let imageUrl = '';
+        if (carousel[0]) {
+          if(carousel[0].type === 'video') {
+            youTube = carousel[0].src;
+
+            if (carousel[2]) {
+              imageUrl = carousel[2].src;
+            }
+          }
+          else {
+            if (carousel[1]) {
+              imageUrl = carousel[1].src;
+            }
+          }
+        }
+
         this.setState({
           endDate: endD,
           privacy: response.data.privacy,
@@ -47,7 +65,10 @@ class UpdateQueue extends React.Component {
           eventDate: eventD,
           location: response.data.location,
           category: response.data.queueCategory,
-          nrOfQueuers: response.data.numberOfQueuers
+          nrOfQueuers: response.data.numberOfQueuers,
+          youTube: youTube,
+          spotifyUrl: response.data.spotifyUrl,
+          imageUrl: imageUrl,
         });
       })
       .catch( (err) => {
@@ -56,12 +77,17 @@ class UpdateQueue extends React.Component {
 
   }
 
-  handleChange(event) {
+  handleChange = (event) =>  {
     this.setState({[event.target.name]: event.target.value});
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
+
+    let carousel = [];
+    if (this.state.youTube !== '') carousel[0] = {type: 'video', src: this.state.youTube};
+    carousel[carousel.length] = {type: 'img', src: this.state.thumbnail};
+    if (this.state.imageUrl !== '') carousel[carousel.length] = {type: 'img', src: this.state.imageUrl};
 
     const submit = {
       thumbnail: this.state.thumbnail,
@@ -74,6 +100,9 @@ class UpdateQueue extends React.Component {
       queueCategory: this.state.category,
       numberOfQueuers: parseInt(this.state.nrOfQueuers,0),
       privacy: this.state.privacy,
+      carousel: carousel,
+      spotifyUrl: this.state.spotifyUrl
+
     };
 
     const { history } = this.props;
@@ -182,6 +211,33 @@ class UpdateQueue extends React.Component {
                 </Col>
                 <Col sm={9}>
                   <FormControl name="nrOfQueuers" type="number" value={this.state.nrOfQueuers} onChange={this.handleChange} />
+                </Col>
+              </FormGroup>
+
+              <FormGroup>
+                <Col componentClass={ControlLabel} sm={3}>
+                  YouTube Link
+                </Col>
+                <Col sm={9}>
+                  <FormControl name="youTube" type="string" value={this.state.youTube} onChange={this.handleChange} />
+                </Col>
+              </FormGroup>
+
+              <FormGroup>
+                <Col componentClass={ControlLabel} sm={3}>
+                  Spotify playlist Link
+                </Col>
+                <Col sm={9}>
+                  <FormControl name="spotifyUrl" type="string" value={this.state.spotifyUrl} onChange={this.handleChange} />
+                </Col>
+              </FormGroup>
+
+              <FormGroup>
+                <Col componentClass={ControlLabel} sm={3}>
+                  Additional image
+                </Col>
+                <Col sm={9}>
+                  <FormControl name="imageUrl" type="string" value={this.state.imageUrl} onChange={this.handleChange} />
                 </Col>
               </FormGroup>
 

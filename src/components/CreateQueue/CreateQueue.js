@@ -14,11 +14,11 @@ class CreateQueue extends React.Component {
       return number;
     }
 
-    var today = new Date();
-    var year = today.getFullYear();
-    var month = pad(today.getMonth()+1);
-    var day = pad(today.getDate()+2);
-    var endD = year+'-'+month+'-'+day+'T12:00';
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = pad(today.getMonth()+1);
+    let day = pad(today.getDate()+2);
+    let endD = year+'-'+month+'-'+day+'T12:00';
 
     this.state = {
       endDate: endD,
@@ -198,7 +198,7 @@ class CreateQueue extends React.Component {
                   Additional image
                 </Col>
                 <Col sm={9}>
-                  <FormControl name="additionalImage" type="string" value={this.state.imageUrl} onChange={this.handleChange} />
+                  <FormControl name="imageUrl" type="string" value={this.state.imageUrl} onChange={this.handleChange} />
                 </Col>
               </FormGroup>
 
