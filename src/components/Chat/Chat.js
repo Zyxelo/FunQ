@@ -46,7 +46,6 @@ class Chat extends React.Component {
   }
 
   handleChange = (event) => {
-    console.log(event);
     if (this.props.isAuthenticated) {
       this.setState({message: event.target.value});
     } else {
@@ -114,7 +113,8 @@ class Chat extends React.Component {
           </div>
           <div className="panel-footer">
             <div className="input-group">
-              <input type="text" id="msg-input" value={this.state.message} onChange={this.handleChange} className="form-control"/>
+              <input type="text" id="msg-input" value={this.state.message} onChange={this.handleChange}
+                     onKeyDown={(event) => (event.keyCode === 13) ? this._sendMessage() : null } className="form-control"/>
                   <span className="input-group-btn">
                     <button className="btn btn-default" type="button" onClick={this._sendMessage}>Send</button>
                   </span>

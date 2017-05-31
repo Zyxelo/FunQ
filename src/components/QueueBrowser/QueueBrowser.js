@@ -29,8 +29,10 @@ class QueueBrowser extends React.Component {
   componentWillMount() {
     callApi('queues', 'get')
     .then((response) => {
-      console.log(this.response);
-      this.setState({chunkedArray: this.createGroupedArray(response.data,3)})
+      if(response.data[0]) {
+        this.setState({chunkedArray: this.createGroupedArray(response.data,3)})
+      }
+
     })
     .catch((err) => {
       console.log(err)

@@ -171,7 +171,7 @@ class QueuePage extends React.Component {
             </div>
             <div className="col-sm-4">
               <h5>Queue Playlist</h5>
-              <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3Aspotify%3Aplaylist%3A37i9dQZF1DX8VEqSz1UvdJ"
+              <iframe src={this.state.queueInfo.spotifyUrl}
                       width="300" height="380" frameBorder="0" allowTransparency="true"></iframe>
             </div>
           </div>
