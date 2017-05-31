@@ -19,6 +19,9 @@ class CurrentQueues extends React.Component {
     callApi('queueList/currentQueues','get','',true)
       .then( (res) => {
         this.setState({currentQueues: res.data});
+        res.data.map( (item, i) => {
+          return this.getPosition(item.q_id._id, i);
+        })
       })
       .catch( (err) => {
         console.log(err);
@@ -53,13 +56,12 @@ class CurrentQueues extends React.Component {
             <th>Position</th>
             <th>Time left</th>
           </tr>
-          {Object.keys(this.state.currentQueues).map((item, i) => {
-            this.getPosition(this.state.currentQueues[item].q_id._id,item);
+          {this.state.currentQueues.map((item, i) => {
             return <tr key={i}>
-              <td><Link to={'/queues/'+this.state.currentQueues[item].q_id._id}>{this.state.currentQueues[item].q_id.queueTitle}</Link></td>
-              <td>{this.state.currentQueues[item].q_id._id}</td>
-              <td>{this.state.position[item]}</td>
-              <td><TimeLeft endTime={this.state.currentQueues[item].q_id.queueEndDate}/></td>
+              <td><Link to={'/queues/'+item.q_id._id}>{item.q_id.queueTitle} {i}</Link></td>
+              <td>{item.q_id._id}</td>
+              <td>{this.state.position[i]}</td>
+              <td><TimeLeft endTime={item.q_id.queueEndDate}/></td>
             </tr>
           })}
           </tbody>

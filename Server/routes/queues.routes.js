@@ -173,7 +173,7 @@ router.put('/:id', (req,res) => {
     queue.queueCategory = req.body.queueCategory.trim();
     queue.privacy = req.body.privacy;
     queue.carousel = req.body.carousel;
-    queue.potifyUrl = req.body.spotifyUrl;
+    queue.spotifyUrl = req.body.spotifyUrl;
 
     // Save the updated queue
     queue.save((err) => {

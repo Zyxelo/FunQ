@@ -79,7 +79,6 @@ class CarouselConductor extends React.Component {
   };
 
   handleSelect = (selectedIndex, e) =>{
-    console.log('handle');
     this.pauseAllPlayers();
     //console.log(this.state.players);
     this.setState({

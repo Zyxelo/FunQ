@@ -54,12 +54,12 @@ class MyQueues extends React.Component {
             <th>Update queue</th>
             <th>Remove queue</th>
           </tr>
-          {Object.keys(this.state.myQueues).map((item, i) => {
+          {this.state.myQueues.map((item, i) => {
             return <tr key={i}>
-              <td><Link to={'/queues/'+this.state.myQueues[item]._id} >{this.state.myQueues[item].queueTitle}</Link></td>
-              <td>{this.state.myQueues[item]._id}</td>
-              <td><Link className="btn btn-default" role="button" to={'/update/'+this.state.myQueues[item]._id} ><span className="glyphicon glyphicon-edit" aria-hidden="true" /></Link></td>
-              <td><Button onClick={() => this.deleteQueueItem(this.state.myQueues[item]._id,item, this.state.myQueues[item].queueTitle)}><span className="glyphicon glyphicon-remove" aria-hidden="true" /></Button></td>
+              <td><Link to={'/queues/'+item._id} >{item.queueTitle}</Link></td>
+              <td>{item._id}</td>
+              <td><Link className="btn btn-default" role="button" to={'/update/'+item._id} ><span className="glyphicon glyphicon-edit" aria-hidden="true" /></Link></td>
+              <td><Button onClick={() => this.deleteQueueItem(item._id,i, item.queueTitle)}><span className="glyphicon glyphicon-remove" aria-hidden="true" /></Button></td>
             </tr>
           })}
           </tbody>
