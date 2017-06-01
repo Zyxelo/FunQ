@@ -30,15 +30,33 @@ class Chat extends React.Component {
   }
 
 
-  componentDidMount() {
-    this._handleMessageEvent();
-    this.state.socket.emit('room-connect', this.props.q_id, (response) => {
-      console.log(response.messages);
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    if (nextProps.q_id !== this.props.q_id) {
+      this.state.socket.emit('room-connect', nextProps.q_id, (response) => {
+        console.log(response.messages);
 
-      this.setState({
-        messages: [ ...this.state.messages, ...response.messages]
+        this.setState({
+          messages: [ ...this.state.messages, ...response.messages]
+        });
       });
-    });
+    }
+  }
+
+  componentDidMount() {
+    console.log(this.props.q_id);
+    this._handleMessageEvent();
+
+    if (this.props.q_id) {
+      this.state.socket.emit('room-connect', this.props.q_id, (response) => {
+        console.log(response.messages);
+
+        this.setState({
+          messages: [ ...this.state.messages, ...response.messages]
+        });
+      });
+    }
+
   }
 
   componentDidUpdate() {
@@ -80,7 +98,7 @@ class Chat extends React.Component {
       console.log(inboundMessage);
       this.setState({
         messages: [ ...this.state.messages, {
-          name: inboundMessage.sender,
+          sender: inboundMessage.sender,
           time:  inboundMessage.time,
           text:  inboundMessage.message
         }]

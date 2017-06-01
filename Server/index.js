@@ -14,7 +14,6 @@ import socketHandler from './socket/socket';
 
 const app = express();
 
-// Run server to listen on port adn save server object as server
 
 // Use bodyparser to handle the parsing of JSON (for all routes)
 app.use(bodyParser.json());

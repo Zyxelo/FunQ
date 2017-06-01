@@ -31,6 +31,7 @@ class QueuePage extends React.Component {
 
       callApi(this.props.location.pathname,'get')
         .then((response) => {
+
           this.setState({queueInfo: response.data}, () => {
             this.isInQueue();
             this.setQueueLength();
