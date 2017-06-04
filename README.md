@@ -1,6 +1,6 @@
 # FunQ - The digital queue
 Screencast of the application can be found here:  
-https://www.youtube.com/watch?v=mMXcfz-zTVs&t=406s
+https://www.youtube.com/watch?v=mMXcfz-zTVs
 
 ## The App (Functional Specification)
 FunQ (FunQueue) is a digital queueing web application where visitors can queue for events and releases of different sorts.
